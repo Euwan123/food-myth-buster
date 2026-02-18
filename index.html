@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Myth Buster - Evidence-Based Food Myth Verification</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">🍎 Food Myth Buster</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="pages/browse.html">Browse Myths</a>
+                <a href="pages/community.html">Community</a>
+                <a href="pages/resources.html">Resources</a>
+                <button id="loginBtn" class="btn-secondary">Login</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Is That Food Myth True or False?</h1>
+            <p>Search for any food-related claim and get evidence-based answers</p>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder='Search for a food myth... (e.g., "Does MSG cause headaches?")'>
+                <button id="searchBtn" class="btn-primary">🔍 Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Myths -->
+    <section class="trending">
+        <div class="container">
+            <h2>🔥 Trending Myths</h2>
+            <div id="trendingGrid" class="myth-grid">
+                <!-- Will be populated by JavaScript -->
+                <div class="loading">Loading myths...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2>Browse by Category</h2>
+            <div id="categoryGrid" class="category-grid">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>🍎 Food Myth Buster</p>
+            <p>Evidence-based food myth verification</p>
+            <p>© 2025 Food Myth Buster. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/myths.js"></script>
+</body>
+</html>
