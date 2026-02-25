@@ -111,8 +111,8 @@
 
     <footer>
         <div class="container">
-            <p>🍎 Food Myth Buster &nbsp;•&nbsp; Evidence-based food science</p>
-            <p>© 2025 Food Myth Buster. All rights reserved.</p>
+            <p class="logo-footer">🍎 Food Myth Buster</p>
+            <p>© 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
         </div>
     </footer>
 
@@ -142,6 +142,7 @@
 
         async function loadProfile() {
             var name = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
+            var bio = currentUser.user_metadata?.bio || '';
             var initial = name.charAt(0).toUpperCase();
             var joinDate = new Date(currentUser.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
             var profileImage = currentUser.user_metadata?.avatar_url || null;
@@ -179,7 +180,7 @@
                         '<div>' +
                             '<div class="tab-panel active" id="tab-bookmarks">' + renderBookmarks() + '</div>' +
                             '<div class="tab-panel" id="tab-submissions">' + renderSubmissions() + '</div>' +
-                            '<div class="tab-panel" id="tab-settings">' + renderSettings(name, currentUser.email, profileImage) + '</div>' +
+                            '<div class="tab-panel" id="tab-settings">' + renderSettings(name, currentUser.email, profileImage, bio) + '</div>' +
                         '</div>' +
                     '</div>' +
                 '</div>';
@@ -222,11 +223,12 @@
             return html;
         }
 
-        function renderSettings(name, email, profileImage) {
+        function renderSettings(name, email, profileImage, bio) {
             return '<div class="panel-title">⚙️ Settings</div>' +
                 '<div class="settings-card">' +
                     '<h3>Profile Information</h3>' +
                     '<div class="form-row"><label>Full Name</label><input type="text" id="settingsName" value="' + name + '"></div>' +
+                    '<div class="form-row"><label>Bio</label><textarea id="settingsBio" placeholder="Tell us about yourself..." maxlength="500">' + (bio || '') + '</textarea></div>' +
                     '<div class="form-row"><label>Profile Picture</label><input type="file" id="profileImageInput" accept="image/*" onchange="uploadProfileImage()"></div>' +
                     (profileImage ? '<div class="form-row"><img src="' + profileImage + '" alt="Current profile" style="width:50px;height:50px;border-radius:50%;"></div>' : '') +
                     '<div class="form-row"><label>Email</label><input type="email" value="' + email + '" disabled style="opacity:0.6;cursor:not-allowed;"></div>' +
@@ -254,8 +256,9 @@
 
         async function saveSettings() {
             var name = document.getElementById('settingsName').value.trim();
+            var bio = document.getElementById('settingsBio').value.trim();
             if (!name) return;
-            await sb.auth.updateUser({ data: { full_name: name } });
+            await sb.auth.updateUser({ data: { full_name: name, bio: bio } });
             alert('Profile updated!');
         }
 

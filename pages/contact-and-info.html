@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Info - Food Myth Buster</title>
+    <meta name="description" content="Contact the Food Myth Buster team and learn about our mission, vision, and values.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #5649e0;
+            --accent: #ff6584;
+            --purple-soft: #f0eeff;
+            --text: #1a1a2e;
+            --text-muted: #6b7280;
+            --border: #e5e7f0;
+            --surface: #f8f7ff;
+        }
+
+        .dark {
+            --text: #f7fafc;
+            --text-muted: #a0aec0;
+            --border: #4a5568;
+            --surface: #1a202c;
+        }
+
+        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 16px 0;
+            position: sticky; top: 0; z-index: 200;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 20px rgba(108,99,255,0.08);
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
+        nav { display: flex; gap: 8px; align-items: center; }
+        nav a { color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s; }
+        nav a:hover { background: var(--purple-soft); color: var(--primary); }
+        .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+        .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
+
+        .contact-hero {
+            background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%);
+            padding: 80px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-inner { position: relative; }
+        .hero-inner h1 { font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 800; color: white; margin-bottom: 8px; letter-spacing: -1px; }
+        .hero-inner p { color: rgba(255,255,255,0.8); font-size: 16px; margin-bottom: 28px; }
+
+        .contact-content { padding: 60px 0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 800px; margin: 0 auto; }
+        .contact-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px; text-align: center; }
+        .contact-icon { font-size: 48px; margin-bottom: 16px; }
+        .contact-card h3 { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .contact-card p { color: var(--text-muted); margin-bottom: 16px; }
+        .contact-link { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+        footer { background: #2d3748; color: white; padding: 40px 20px; text-align: center; }
+        footer p { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">🍎 Food Myth Buster</div>
+            <nav>
+                <a href="../index.html">Home</a>
+                <a href="browse.html">Browse Myths</a>
+                <a href="community.html">Community</a>
+                <a href="resources.html">Resources</a>
+                <a href="contact-and-info.html">Contact & Info</a>
+                <button id="loginBtn" class="btn-login">Login</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="contact-hero">
+        <div class="hero-inner">
+            <h1>📞 Contact & Info</h1>
+            <p>Get in touch with the Food Myth Buster team and learn about our mission</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="contact-content">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>Send us an email for inquiries</p>
+                    <a href="mailto:contact@foodmythbuster.com" class="contact-link">contact@foodmythbuster.com</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <h3>Phone</h3>
+                    <p>Call us for support</p>
+                    <a href="tel:+1234567890" class="contact-link">+1 (234) 567-890</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section" style="margin-top: 80px;">
+            <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 1000px; margin: 0 auto;">
+                <div class="info-card" style="background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px;">
+                    <h3 style="font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 20px; color: var(--primary);">🎯 Our Mission</h3>
+                    <p style="color: var(--text-muted); line-height: 1.6;">To provide accurate, evidence-based information about food myths and nutrition claims, empowering people to make informed decisions about their health and diet.</p>
+                </div>
+                <div class="info-card" style="background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px;">
+                    <h3 style="font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 20px; color: var(--primary);">👁️ Our Vision</h3>
+                    <p style="color: var(--text-muted); line-height: 1.6;">A world where food-related decisions are made based on science rather than misinformation, leading to better health outcomes for everyone.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="values-section" style="margin-top: 60px;">
+            <h2 style="font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 800; text-align: center; margin-bottom: 40px; color: var(--text);">Our Values</h2>
+            <div class="values-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto;">
+                <div class="value-item" style="text-align: center;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">🔬</div>
+                    <h4 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 12px;">Scientific Accuracy</h4>
+                    <p style="color: var(--text-muted);">All information is backed by peer-reviewed research and expert consensus.</p>
+                </div>
+                <div class="value-item" style="text-align: center;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">🤝</div>
+                    <h4 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 12px;">Transparency</h4>
+                    <p style="color: var(--text-muted);">We clearly cite sources and explain our reasoning for every verdict.</p>
+                </div>
+                <div class="value-item" style="text-align: center;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">🌍</div>
+                    <h4 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 12px;">Accessibility</h4>
+                    <p style="color: var(--text-muted);">Science should be understandable to everyone, not just experts.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="personal-section" style="margin-top: 80px;">
+            <h2 style="font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 800; text-align: center; margin-bottom: 40px; color: var(--text);">Meet the Team</h2>
+            <div class="team-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto;">
+                <div class="team-card" style="background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px; text-align: center;">
+                    <div style="font-size: 64px; margin-bottom: 20px;">👨‍🔬</div>
+                    <h4 style="font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 8px;">Dr. Alex Rivera</h4>
+                    <p style="color: var(--text-muted); margin-bottom: 16px;">Nutrition Scientist & Founder</p>
+                    <p style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">PhD in Food Science from MIT. 10+ years researching nutritional biochemistry.</p>
+                    <div style="margin-top: 20px;">
+                        <a href="https://linkedin.com/in/alexrivera" style="color: var(--primary); text-decoration: none; margin: 0 10px;">LinkedIn</a>
+                        <a href="https://twitter.com/alexrivera" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Twitter</a>
+                    </div>
+                </div>
+                <div class="team-card" style="background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px; text-align: center;">
+                    <div style="font-size: 64px; margin-bottom: 20px;">👩‍⚕️</div>
+                    <h4 style="font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 8px;">Dr. Sarah Chen</h4>
+                    <p style="color: var(--text-muted); margin-bottom: 16px;">Registered Dietitian & Lead Researcher</p>
+                    <p style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">RD with expertise in clinical nutrition and evidence-based practice.</p>
+                    <div style="margin-top: 20px;">
+                        <a href="https://linkedin.com/in/sarahchen" style="color: var(--primary); text-decoration: none; margin: 0 10px;">LinkedIn</a>
+                        <a href="https://researchgate.net/profile/sarahchen" style="color: var(--primary); text-decoration: none; margin: 0 10px;">ResearchGate</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="legal-section" style="margin-top: 80px; padding-bottom: 60px;">
+            <h2 style="font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 800; text-align: center; margin-bottom: 40px; color: var(--text);">Legal & Policies</h2>
+            <div class="legal-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 1000px; margin: 0 auto;">
+                <div class="legal-card" style="background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px;">
+                    <h3 style="font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 20px; color: var(--primary);">📋 Terms of Service</h3>
+                    <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">By using Food Myth Buster, you agree to use the platform responsibly and respect intellectual property rights.</p>
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Read full Terms →</a>
+                </div>
+                <div class="legal-card" style="background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px;">
+                    <h3 style="font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 20px; color: var(--primary);">🔒 Privacy Policy</h3>
+                    <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">We collect minimal personal information and use it only to provide our services. Your data is never sold to third parties.</p>
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Read full Privacy Policy →</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p class="logo-footer">🍎 Food Myth Buster</p>
+            <p>© 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html></content>
+<parameter name="filePath">c:\Coding Projects\Web Prog 1\food-myth-buster\pages\contact.html

@@ -69,36 +69,6 @@
         .empty-state .emoji { font-size: 56px; margin-bottom: 16px; }
         .empty-state h3 { font-family: 'Sora', sans-serif; font-size: 20px; margin-bottom: 8px; color: var(--text); }
 
-        .dark-mode-toggle {
-            position: relative;
-            width: 50px;
-            height: 24px;
-            background: var(--border);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.3s;
-            border: none;
-            outline: none;
-        }
-        .dark-mode-toggle::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .dark-mode-toggle.active::before {
-            transform: translateX(26px);
-        }
-        .dark-mode-toggle.active {
-            background: #667eea;
-        }
-
         footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
         footer p { margin: 4px 0; }
     </style>
@@ -112,9 +82,7 @@
                 <a href="browse.html">Browse Myths</a>
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
-                <a href="profile.html" id="profileLink" style="display:none">Profile</a>
-                <a href="contact.html">Contact</a>
-                <button class="dark-mode-toggle" id="darkModeToggle"></button>
+                <a href="contact-and-info.html">Contact & Info</a>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -239,19 +207,6 @@
                 container.appendChild(card);
             });
         }
-
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const isDark = localStorage.getItem('darkMode') !== 'false';
-        if (isDark) {
-            body.classList.add('dark');
-            darkModeToggle.classList.add('active');
-        }
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            darkModeToggle.classList.toggle('active');
-            localStorage.setItem('darkMode', body.classList.contains('dark'));
-        });
 
         loadCategories();
         loadMyths();

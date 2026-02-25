@@ -196,9 +196,7 @@
                 <a href="browse.html">Browse Myths</a>
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
-                <a href="profile.html" id="profileLink" style="display:none">Profile</a>
-                <a href="contact.html">Contact</a>
-                <button class="dark-mode-toggle" id="darkModeToggle"></button>
+                <a href="contact-and-info.html">Contact & Info</a>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -259,8 +257,8 @@
 
     <footer>
         <div class="container">
-            <p>🍎 Food Myth Buster &nbsp;•&nbsp; Evidence-based food science</p>
-            <p>© 2025 Food Myth Buster. All rights reserved.</p>
+            <p class="logo-footer">🍎 Food Myth Buster</p>
+            <p>© 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
         </div>
     </footer>
 
@@ -469,19 +467,6 @@
         });
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') document.getElementById('searchBtn').click();
-        });
-
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const isDark = localStorage.getItem('darkMode') !== 'false';
-        if (isDark) {
-            body.classList.add('dark');
-            darkModeToggle.classList.add('active');
-        }
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            darkModeToggle.classList.toggle('active');
-            localStorage.setItem('darkMode', body.classList.contains('dark'));
         });
 
         loadCategories();

@@ -213,7 +213,7 @@
             letter-spacing: 0.3px;
         }
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,99,255,0.35); }
-        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+        .verdict-btn.active { background: currentColor !important; color: white !important; }
 
         .alert-box {
             padding: 12px 16px;
@@ -285,39 +285,6 @@
         footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
         footer p { margin: 4px 0; }
 
-        .dark-mode-toggle {
-            position: relative;
-            width: 50px;
-            height: 24px;
-            background: var(--border);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.3s;
-            border: none;
-            outline: none;
-        }
-
-        .dark-mode-toggle::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .dark-mode-toggle.active::before {
-            transform: translateX(26px);
-        }
-
-        .dark-mode-toggle.active {
-            background: #667eea;
-        }
-
         @media (max-width: 900px) {
             .community-layout { grid-template-columns: 1fr; }
             .sidebar { position: static; }
@@ -334,9 +301,7 @@
                 <a href="browse.html">Browse Myths</a>
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
-                <a href="profile.html" id="profileLink" style="display:none">Profile</a>
-                <a href="contact.html">Contact</a>
-                <button class="dark-mode-toggle" id="darkModeToggle"></button>
+                <a href="contact-and-info.html">Contact & Info</a>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -362,18 +327,32 @@
                     <div class="section-title">📬 Submit a Myth</div>
                     <div id="submitAlert" class="alert-box"></div>
                     <div class="form-row">
-                        <label>Myth Statement</label>
-                        <input type="text" id="mythText" placeholder="e.g., Eating celery burns more calories than it contains">
+                        <label>Myth Statement *</label>
+                        <input type="text" id="mythText" placeholder="e.g., Eating celery burns more calories than it contains" required>
                     </div>
                     <div class="form-row">
-                        <label>Category</label>
-                        <select id="mythCategory">
+                        <label>What do you think the verdict should be?</label>
+                        <div class="verdict-buttons" style="display: flex; gap: 10px; margin-top: 8px;">
+                            <button type="button" class="verdict-btn" data-verdict="true" style="padding: 8px 16px; border: 2px solid #10b981; background: white; color: #10b981; border-radius: 8px; cursor: pointer; font-weight: 600;">✅ True</button>
+                            <button type="button" class="verdict-btn" data-verdict="false" style="padding: 8px 16px; border: 2px solid #ef4444; background: white; color: #ef4444; border-radius: 8px; cursor: pointer; font-weight: 600;">❌ False</button>
+                            <button type="button" class="verdict-btn" data-verdict="partial" style="padding: 8px 16px; border: 2px solid #f59e0b; background: white; color: #f59e0b; border-radius: 8px; cursor: pointer; font-weight: 600;">🤔 Partial</button>
+                        </div>
+                        <input type="hidden" id="mythVerdict">
+                    </div>
+                    <div class="form-row">
+                        <label>Category *</label>
+                        <select id="mythCategory" required>
                             <option value="">Select a category…</option>
                         </select>
                     </div>
                     <div class="form-row">
-                        <label>Additional Details (Optional)</label>
-                        <textarea id="mythDetails" placeholder="Where did you hear this? Any sources?"></textarea>
+                        <label>Source Link *</label>
+                        <input type="url" id="mythSource" placeholder="https://example.com/article" required>
+                        <small style="color: var(--text-muted); font-size: 12px;">Required: Link to where you heard this myth</small>
+                    </div>
+                    <div class="form-row">
+                        <label>Additional Details</label>
+                        <textarea id="mythDetails" placeholder="Any additional context, personal experience, or other sources?"></textarea>
                     </div>
                     <button class="submit-btn" id="submitBtn" onclick="submitMyth()">Submit for Verification</button>
                 </div>
@@ -411,15 +390,15 @@
                 <div class="sidebar-card">
                     <div class="sidebar-title">📈 Community Stats</div>
                     <div class="stat-row">
-                        <span class="stat-number" id="totalMyths">512</span>
+                        <span class="stat-number" id="totalMyths">0</span>
                         <span class="stat-label">Total Myths Verified</span>
                     </div>
                     <div class="stat-row">
-                        <span class="stat-number">12,450</span>
+                        <span class="stat-number">0</span>
                         <span class="stat-label">Active Members</span>
                     </div>
                     <div class="stat-row">
-                        <span class="stat-number" id="pollResponses">3,456</span>
+                        <span class="stat-number" id="pollResponses">0</span>
                         <span class="stat-label">Poll Responses Today</span>
                     </div>
                 </div>
@@ -430,8 +409,8 @@
 
     <footer>
         <div class="container">
-            <p>🍎 Food Myth Buster &nbsp;•&nbsp; Evidence-based food science</p>
-            <p>© 2025 Food Myth Buster. All rights reserved.</p>
+            <p class="logo-footer">🍎 Food Myth Buster</p>
+            <p>© 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
         </div>
     </footer>
 
@@ -535,14 +514,30 @@
                 loadPolls(); // Reload
             }
         }
+
+        // Verdict button handling
+        document.querySelectorAll('.verdict-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.verdict-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('mythVerdict').value = this.dataset.verdict;
+            });
+        });
+
+        async function submitMyth() {
             var text = document.getElementById('mythText').value.trim();
+            var verdict = document.getElementById('mythVerdict').value;
             var catId = document.getElementById('mythCategory').value;
+            var source = document.getElementById('mythSource').value.trim();
             var details = document.getElementById('mythDetails').value.trim();
             var btn = document.getElementById('submitBtn');
             var alert = document.getElementById('submitAlert');
             alert.className = 'alert-box';
 
             if (!text) { alert.textContent = 'Please enter a myth statement.'; alert.className = 'alert-box alert-error'; return; }
+            if (!verdict) { alert.textContent = 'Please select what you think the verdict should be.'; alert.className = 'alert-box alert-error'; return; }
+            if (!catId) { alert.textContent = 'Please select a category.'; alert.className = 'alert-box alert-error'; return; }
+            if (!source) { alert.textContent = 'Please provide a source link.'; alert.className = 'alert-box alert-error'; return; }
 
             // Check if logged in
             var session = await sb.auth.getSession();
@@ -558,7 +553,9 @@
 
             var res = await sb.from('myth_submissions').insert({
                 myth_text: text,
-                category_id: catId || null,
+                suggested_verdict: verdict,
+                category_id: catId,
+                source_link: source,
                 additional_details: details || null,
                 user_id: session.data.session.user.id
             });
@@ -570,31 +567,22 @@
                 alert.textContent = '✅ Myth submitted! Our team will review it soon.';
                 alert.className = 'alert-box alert-success';
                 document.getElementById('mythText').value = '';
+                document.getElementById('mythVerdict').value = '';
                 document.getElementById('mythCategory').value = '';
+                document.getElementById('mythSource').value = '';
                 document.getElementById('mythDetails').value = '';
+                document.querySelectorAll('.verdict-btn').forEach(b => b.classList.remove('active'));
             }
 
             btn.disabled = false;
             btn.textContent = 'Submit for Verification';
+        }
     
 
         async function loadStats() {
             var res = await sb.from('myths').select('id', { count: 'exact', head: true });
             if (res.count) document.getElementById('totalMyths').textContent = res.count.toLocaleString();
         }
-
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const isDark = localStorage.getItem('darkMode') !== 'false';
-        if (isDark) {
-            body.classList.add('dark');
-            darkModeToggle.classList.add('active');
-        }
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            darkModeToggle.classList.toggle('active');
-            localStorage.setItem('darkMode', body.classList.contains('dark'));
-        });
 
         loadPolls();
         loadCategories();

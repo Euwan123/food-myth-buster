@@ -170,9 +170,7 @@
                 <a href="pages/browse.html">Browse Myths</a>
                 <a href="pages/community.html">Community</a>
                 <a href="pages/resources.html">Resources</a>
-                <a href="pages/profile.html" id="profileLink" style="display:none">Profile</a>
-                <a href="pages/contact.html">Contact</a>
-                <button class="dark-mode-toggle" id="darkModeToggle"></button>
+                <a href="pages/contact-and-info.html">Contact & Info</a>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -190,8 +188,8 @@
                 </div>
                 <div class="hero-stats">
                     <div class="hero-stat"><span class="hero-stat-num" id="statMyths">—</span><span class="hero-stat-label">Myths Verified</span></div>
-                    <div class="hero-stat"><span class="hero-stat-num">12,450</span><span class="hero-stat-label">Active Members</span></div>
-                    <div class="hero-stat"><span class="hero-stat-num">98%</span><span class="hero-stat-label">Science-Backed</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num">0</span><span class="hero-stat-label">Active Members</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Science-Backed</span></div>
                 </div>
             </div>
         </div>
@@ -208,6 +206,39 @@
                 <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
                 <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
                 <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-description" style="background: var(--bg); padding: 64px 0; border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <div class="description-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h2 style="font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 24px;">What is Food Myth Buster?</h2>
+                <p style="font-size: 18px; line-height: 1.6; color: var(--text-muted); margin-bottom: 32px;">
+                    Food Myth Buster is your go-to platform for separating fact from fiction in the world of nutrition and food science. 
+                    We provide evidence-based analysis of common food myths, backed by scientific research and expert opinions.
+                </p>
+                <p style="font-size: 16px; line-height: 1.6; color: var(--text-muted); margin-bottom: 32px;">
+                    Whether you're wondering if MSG causes headaches, if organic foods are healthier, or if certain "superfoods" live up to the hype, 
+                    our community of nutritionists, dietitians, and food scientists work together to provide clear, unbiased answers.
+                </p>
+                <div class="description-features" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 40px;">
+                    <div class="feature-item" style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🔬</div>
+                        <h3 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 12px;">Science-Backed</h3>
+                        <p style="font-size: 14px; color: var(--text-muted);">Every myth is verified using peer-reviewed studies and expert consensus.</p>
+                    </div>
+                    <div class="feature-item" style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">👥</div>
+                        <h3 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 12px;">Community Driven</h3>
+                        <p style="font-size: 14px; color: var(--text-muted);">Users can submit myths, vote on polls, and contribute to discussions.</p>
+                    </div>
+                    <div class="feature-item" style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📚</div>
+                        <h3 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 12px;">Educational Resources</h3>
+                        <p style="font-size: 14px; color: var(--text-muted);">Access detailed explanations, source citations, and learning materials.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -229,7 +260,7 @@
     <footer>
         <div class="container">
             <p class="logo-footer">🍎 Food Myth Buster</p>
-            <p>© 2025 Food Myth Buster. All rights reserved.</p>
+            <p>© 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
         </div>
     </footer>
 
@@ -289,19 +320,6 @@
         });
         document.getElementById('searchInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') document.getElementById('searchBtn').click();
-        });
-
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const isDark = localStorage.getItem('darkMode') !== 'false'; // default to true
-        if (isDark) {
-            body.classList.add('dark');
-            darkModeToggle.classList.add('active');
-        }
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            darkModeToggle.classList.toggle('active');
-            localStorage.setItem('darkMode', body.classList.contains('dark'));
         });
 
         loadTrendingMyths();
