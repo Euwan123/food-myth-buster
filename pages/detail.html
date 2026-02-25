@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myth Detail - Food Myth Buster</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .detail-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 20px;
+            color: white;
+        }
+        .breadcrumb {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .detail-hero h1 { font-size: 38px; margin-bottom: 20px; max-width: 800px; line-height: 1.3; }
+        .hero-meta { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+        .meta-item { font-size: 14px; opacity: 0.85; }
+
+        .detail-content { padding: 50px 20px; }
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Main column */
+        .verdict-section {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .verdict-section h2 { font-size: 22px; margin-bottom: 16px; }
+        .verdict-section .verdict-badge { font-size: 20px; padding: 12px 36px; }
+        .verdict-explanation { margin-top: 20px; color: #4a5568; font-size: 16px; line-height: 1.7; text-align: left; }
+
+        .section-block {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        .section-block h2 { font-size: 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section-block p, .section-block li { color: #4a5568; line-height: 1.7; margin-bottom: 12px; }
+        .section-block ul { padding-left: 20px; }
+
+        .evidence-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+        .evidence-item:hover { border-color: #667eea; }
+        .evidence-item h4 { font-size: 16px; margin-bottom: 8px; color: #2d3748; }
+        .evidence-item p { font-size: 14px; color: #718096; margin: 0; }
+        .evidence-source {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 12px;
+            background: #ebf4ff;
+            color: #3182ce;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        /* Sidebar */
+        .sidebar { }
+        .sidebar-card {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .sidebar-card h3 { font-size: 18px; margin-bottom: 16px; }
+
+        .quick-fact { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
+        .quick-fact .label { font-size: 12px; color: #718096; text-transform: uppercase; letter-spacing: 0.5px; }
+        .quick-fact .value { font-weight: 600; color: #2d3748; }
+
+        .share-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .share-btn:hover { border-color: #667eea; color: #667eea; }
+
+        .related-myth {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .related-myth:last-child { border-bottom: none; }
+        .related-myth:hover { opacity: 0.7; }
+        .related-myth h4 { font-size: 14px; margin-bottom: 4px; }
+
+        .loading-detail { text-align: center; padding: 100px 20px; color: #718096; font-size: 18px; }
+        .error-state { text-align: center; padding: 100px 20px; }
+        .error-state h2 { font-size: 28px; margin-bottom: 12px; }
+
+        @media (max-width: 768px) {
+            .detail-layout { grid-template-columns: 1fr; }
+            .detail-hero h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">🍎 Food Myth Buster</div>
+            <nav>
+                <a href="../index.html">Home</a>
+                <a href="browse.html">Browse Myths</a>
+                <a href="community.html">Community</a>
+                <a href="resources.html">Resources</a>
+                <button id="loginBtn" class="btn-secondary">Login</button>
+            </nav>
+        </div>
+    </header>
+
+    <div id="heroSection"></div>
+    <div id="mainContent"></div>
+
+    <footer>
+        <div class="container">
+            <p>🍎 Food Myth Buster</p>
+            <p>© 2025 Food Myth Buster. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const mythId = urlParams.get('id');
+
+        async function loadMythDetail() {
+            if (!mythId) {
+                showError('No myth ID provided.');
+                return;
+            }
+
+            const { data: myth, error } = await sb
+                .from('myths')
+                .select('*, categories(name, slug, color, icon)')
+                .eq('id', mythId)
+                .single();
+
+            if (error || !myth) {
+                showError('Myth not found.');
+                return;
+            }
+
+            // Increment views
+            await sb.from('myths').update({ views: (myth.views || 0) + 1 }).eq('id', mythId);
+
+            // Update page title
+            document.title = `${myth.title} - Food Myth Buster`;
+
+            renderHero(myth);
+            await renderContent(myth);
+        }
+
+        function renderHero(myth) {
+            document.getElementById('heroSection').innerHTML = `
+                <section class="detail-hero">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <a href="../index.html">Home</a> → 
+                            <a href="browse.html">Browse</a> → 
+                            <a href="browse.html?category=${myth.categories?.slug || ''}">${myth.categories?.name || 'General'}</a>
+                        </div>
+                        <div style="font-size:13px;opacity:0.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">${myth.categories?.icon || ''} ${myth.categories?.name || ''}</div>
+                        <h1>${myth.title}</h1>
+                        <div class="hero-meta">
+                            <span class="verdict-badge verdict-${myth.verdict}">${myth.verdict.replace('_', ' ')}</span>
+                            <span class="meta-item">👁 ${myth.views || 0} views</span>
+                            ${myth.updated_at ? `<span class="meta-item">Updated ${new Date(myth.updated_at).toLocaleDateString()}</span>` : ''}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        async function renderContent(myth) {
+            // Load related myths
+            let relatedHTML = '';
+            if (myth.categories) {
+                const { data: related } = await sb
+                    .from('myths')
+                    .select('id, title, verdict')
+                    .eq('category_id', myth.category_id)
+                    .neq('id', myth.id)
+                    .limit(3);
+
+                if (related && related.length > 0) {
+                    relatedHTML = related.map(r => `
+                        <div class="related-myth" onclick="window.location.href='detail.html?id=${r.id}'">
+                            <span class="verdict-badge verdict-${r.verdict}" style="font-size:11px;padding:4px 10px;white-space:nowrap;">${r.verdict.replace('_',' ')}</span>
+                            <h4>${r.title}</h4>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // Parse evidence if it's JSON or text
+            let evidenceHTML = '';
+            if (myth.evidence) {
+                try {
+                    const evidenceArr = typeof myth.evidence === 'string' ? JSON.parse(myth.evidence) : myth.evidence;
+                    if (Array.isArray(evidenceArr)) {
+                        evidenceHTML = evidenceArr.map(e => `
+                            <div class="evidence-item">
+                                <h4>${e.title || 'Study'}</h4>
+                                <p>${e.description || e.summary || ''}</p>
+                                ${e.source ? `<span class="evidence-source">${e.source}</span>` : ''}
+                            </div>
+                        `).join('');
+                    } else {
+                        evidenceHTML = `<p>${myth.evidence}</p>`;
+                    }
+                } catch {
+                    evidenceHTML = `<p>${myth.evidence}</p>`;
+                }
+            } else {
+                evidenceHTML = '<p style="color:#718096">No specific evidence linked yet.</p>';
+            }
+
+            document.getElementById('mainContent').innerHTML = `
+                <section class="detail-content">
+                    <div class="container">
+                        <div class="detail-layout">
+                            <!-- Main Column -->
+                            <div>
+                                <div class="verdict-section">
+                                    <h2>The Verdict</h2>
+                                    <span class="verdict-badge verdict-${myth.verdict}">${myth.verdict.replace('_', ' ')}</span>
+                                    <div class="verdict-explanation">${myth.verdict_explanation || myth.summary || 'No explanation provided yet.'}</div>
+                                </div>
+
+                                ${myth.full_explanation ? `
+                                <div class="section-block">
+                                    <h2>📖 Full Explanation</h2>
+                                    <p>${myth.full_explanation}</p>
+                                </div>` : ''}
+
+                                <div class="section-block">
+                                    <h2>🔬 Scientific Evidence</h2>
+                                    ${evidenceHTML}
+                                </div>
+
+                                ${myth.common_misconceptions ? `
+                                <div class="section-block">
+                                    <h2>⚠️ Common Misconceptions</h2>
+                                    <p>${myth.common_misconceptions}</p>
+                                </div>` : ''}
+                            </div>
+
+                            <!-- Sidebar -->
+                            <div class="sidebar">
+                                <div class="sidebar-card">
+                                    <h3>📌 Quick Facts</h3>
+                                    <div class="quick-fact">
+                                        <div>
+                                            <div class="label">Verdict</div>
+                                            <div class="value">${myth.verdict.replace('_', ' ')}</div>
+                                        </div>
+                                    </div>
+                                    <div class="quick-fact">
+                                        <div>
+                                            <div class="label">Category</div>
+                                            <div class="value">${myth.categories?.name || 'General'}</div>
+                                        </div>
+                                    </div>
+                                    <div class="quick-fact">
+                                        <div>
+                                            <div class="label">Views</div>
+                                            <div class="value">${myth.views || 0}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-card">
+                                    <h3>🔗 Share This Myth</h3>
+                                    <button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href); this.textContent='✅ Copied!'">📋 Copy Link</button>
+                                    <button class="share-btn" onclick="window.open('https://twitter.com/intent/tweet?text=${encodeURIComponent(myth.title)}&url='+encodeURIComponent(window.location.href))">🐦 Share on Twitter</button>
+                                </div>
+
+                                ${relatedHTML ? `
+                                <div class="sidebar-card">
+                                    <h3>🔁 Related Myths</h3>
+                                    ${relatedHTML}
+                                </div>` : ''}
+
+                                <a href="browse.html?category=${myth.categories?.slug || ''}" class="btn-primary" style="display:block;text-align:center;text-decoration:none;margin-top:8px;">
+                                    View More ${myth.categories?.name || ''} Myths →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function showError(msg) {
+            document.getElementById('heroSection').innerHTML = '';
+            document.getElementById('mainContent').innerHTML = `
+                <div class="error-state">
+                    <div style="font-size:64px;margin-bottom:16px;">😕</div>
+                    <h2>Oops!</h2>
+                    <p style="color:#718096;margin-bottom:24px;">${msg}</p>
+                    <a href="browse.html" class="btn-primary" style="text-decoration:none">Browse All Myths</a>
+                </div>
+            `;
+        }
+
+        loadMythDetail();
+    </script>
+</body>
+</html>
