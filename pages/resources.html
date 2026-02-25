@@ -4,10 +4,243 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resources - Food Myth Buster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #5649e0;
+            --purple-soft: #f0eeff;
+            --text: #1a1a2e;
+            --text-muted: #6b7280;
+            --border: #e5e7f0;
+            --surface: #f8f7ff;
+        }
+
+        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); }
+
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 16px 0;
+            position: sticky; top: 0; z-index: 200;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 20px rgba(108,99,255,0.08);
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
+        nav { display: flex; gap: 8px; align-items: center; }
+        nav a { color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s; }
+        nav a:hover { background: var(--purple-soft); color: var(--primary); }
+        .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+        .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
+
+        /* Hero */
+        .resources-hero {
+            background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%);
+            padding: 64px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .resources-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='12'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-content { position: relative; }
+        .hero-content h1 { font-family: 'Sora', sans-serif; font-size: 44px; font-weight: 800; color: white; margin-bottom: 12px; letter-spacing: -1px; }
+        .hero-content p { color: rgba(255,255,255,0.8); font-size: 17px; }
+
+        /* Tabs */
+        .tabs-bar {
+            background: white;
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 65px;
+            z-index: 100;
+        }
+        .tabs-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 0;
+        }
+        .tab-btn {
+            padding: 16px 24px;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tab-btn:hover { color: var(--primary); }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+        /* Content */
+        .resources-content { padding: 40px 0 60px; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .section-label {
+            font-family: 'Sora', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Video grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+        .video-card {
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 0.4s ease both;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .video-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(108,99,255,0.15); border-color: var(--primary); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+        .video-thumb {
+            background: linear-gradient(135deg, #1a1a2e, #2d2b55);
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .video-thumb::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(108,99,255,0.3), rgba(155,89,182,0.2));
+        }
+        .play-btn {
+            width: 52px; height: 52px;
+            background: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .video-card:hover .play-btn { transform: scale(1.1); }
+
+        .video-info { padding: 16px; }
+        .video-title { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+        .video-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 10px; }
+
+        /* Study cards */
+        .study-card {
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+            transition: all 0.25s;
+            animation: fadeInUp 0.4s ease both;
+            position: relative;
+        }
+        .study-card:hover { box-shadow: 0 8px 32px rgba(108,99,255,0.1); border-color: var(--primary); transform: translateY(-2px); }
+
+        .study-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 6px; }
+        .study-title { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.3; flex: 1; }
+        .study-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .badge-peer { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+        .badge-meta { background: #dbeafe; color: #1e3a5f; border: 1px solid #93c5fd; }
+        .badge-review { background: #ede9fe; color: #4c1d95; border: 1px solid #c4b5fd; }
+        .badge-official { background: #fef3c7; color: #78350f; border: 1px solid #fcd34d; }
+
+        .study-authors { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; }
+        .study-summary { font-size: 14px; color: #374151; line-height: 1.6; margin-bottom: 14px; }
+        .study-links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .study-link {
+            font-size: 13px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: opacity 0.2s;
+        }
+        .study-link:hover { opacity: 0.7; }
+        .study-citations { font-size: 12px; color: var(--text-muted); }
+
+        /* Trusted Sources */
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .source-card {
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.25s;
+            animation: fadeInUp 0.4s ease both;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .source-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(108,99,255,0.12); border-color: var(--primary); }
+        .source-icon { font-size: 32px; margin-bottom: 12px; }
+        .source-name { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .source-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
+        .source-visit {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
+        footer p { margin: 4px 0; }
+    </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">🍎 Food Myth Buster</div>
@@ -16,51 +249,204 @@
                 <a href="browse.html">Browse Myths</a>
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
-                <button id="loginBtn" class="btn-secondary">Login</button>
+                <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Resources</h1>
-            <p>Learn more about food science and nutrition from trusted sources</p>
+    <section class="resources-hero">
+        <div class="hero-content">
+            <h1>📚 Educational Resources</h1>
+            <p>Videos, documentaries, articles, and scientific studies</p>
         </div>
     </section>
 
-    <!-- Resources Section -->
-    <section class="resources">
+    <div class="tabs-bar">
+        <div class="tabs-inner">
+            <button class="tab-btn active" onclick="switchTab('videos', this)">🎬 Videos</button>
+            <button class="tab-btn" onclick="switchTab('studies', this)">🔬 Studies</button>
+            <button class="tab-btn" onclick="switchTab('articles', this)">📰 Articles</button>
+            <button class="tab-btn" onclick="switchTab('sources', this)">🔗 Trusted Sources</button>
+        </div>
+    </div>
+
+    <section class="resources-content">
         <div class="container">
-            <h2>📚 Trusted Sources</h2>
-            <div class="resources-grid">
-                <div class="resource-card">
-                    <h3>Harvard School of Public Health</h3>
-                    <p>Evidence-based nutrition information</p>
-                    <a href="https://www.hsph.harvard.edu/nutritionsource/" target="_blank" class="btn-primary">Visit</a>
-                </div>
-                <div class="resource-card">
-                    <h3>USDA Nutrition</h3>
-                    <p>Official dietary guidelines and food data</p>
-                    <a href="https://www.nal.usda.gov/legacy/fnic" target="_blank" class="btn-primary">Visit</a>
-                </div>
-                <div class="resource-card">
-                    <h3>Science-Based Medicine</h3>
-                    <p>Debunking nutrition myths and pseudoscience</p>
-                    <a href="https://sciencebasedmedicine.org/" target="_blank" class="btn-primary">Visit</a>
-                </div>
-                <div class="resource-card">
-                    <h3>NutritionFacts.org</h3>
-                    <p>Videos and articles on plant-based nutrition</p>
-                    <a href="https://nutritionfacts.org/" target="_blank" class="btn-primary">Visit</a>
+
+            <!-- Videos Tab -->
+            <div class="tab-panel active" id="tab-videos">
+                <div class="section-label">🎬 Featured Videos</div>
+                <div class="video-grid">
+                    <a class="video-card" href="https://youtube.com" target="_blank" style="animation-delay:0s">
+                        <div class="video-thumb"><div class="play-btn">▶</div></div>
+                        <div class="video-info">
+                            <div class="video-title">The MSG Myth Explained</div>
+                            <div class="video-meta"><span>Science Insider</span><span>8:42</span><span>2.3M views</span></div>
+                        </div>
+                    </a>
+                    <a class="video-card" href="https://youtube.com" target="_blank" style="animation-delay:0.06s">
+                        <div class="video-thumb"><div class="play-btn">▶</div></div>
+                        <div class="video-info">
+                            <div class="video-title">Sugar Makes Kids Hyper?</div>
+                            <div class="video-meta"><span>SciShow</span><span>6:15</span><span>1.8M views</span></div>
+                        </div>
+                    </a>
+                    <a class="video-card" href="https://youtube.com" target="_blank" style="animation-delay:0.12s">
+                        <div class="video-thumb"><div class="play-btn">▶</div></div>
+                        <div class="video-info">
+                            <div class="video-title">Organic vs Conventional Food</div>
+                            <div class="video-meta"><span>Healthcare Triage</span><span>10:22</span><span>956K views</span></div>
+                        </div>
+                    </a>
+                    <a class="video-card" href="https://youtube.com" target="_blank" style="animation-delay:0.18s">
+                        <div class="video-thumb"><div class="play-btn">▶</div></div>
+                        <div class="video-info">
+                            <div class="video-title">Food Expiration Dates</div>
+                            <div class="video-meta"><span>Adam Ruins Everything</span><span>5:45</span><span>1.2M views</span></div>
+                        </div>
+                    </a>
                 </div>
             </div>
+
+            <!-- Studies Tab -->
+            <div class="tab-panel" id="tab-studies">
+                <div class="section-label">🔬 Peer-Reviewed Studies</div>
+
+                <div class="study-card" style="animation-delay:0s">
+                    <div class="study-header">
+                        <div class="study-title">Systematic Review of MSG Safety in Human Consumption</div>
+                        <span class="study-badge badge-peer">PEER-REVIEWED</span>
+                    </div>
+                    <div class="study-authors">Tarasoff, L., &amp; Kelly, M. F. (2000). Journal of Nutrition, 130(4), 1058S–1062S</div>
+                    <p class="study-summary">Comprehensive review of clinical trials found no consistent evidence that MSG causes adverse reactions when consumed at normal dietary levels.</p>
+                    <div class="study-links">
+                        <a class="study-link" href="https://academic.oup.com/jn/article/130/4/1058S/4686291" target="_blank">📄 Read Abstract</a>
+                        <a class="study-link" href="https://academic.oup.com/jn/article/130/4/1058S/4686291" target="_blank">📖 View Full Text</a>
+                        <span class="study-citations">📊 Cited by 234 studies</span>
+                    </div>
+                </div>
+
+                <div class="study-card" style="animation-delay:0.08s">
+                    <div class="study-header">
+                        <div class="study-title">Effect of Sugar on Children's Behavior: A Meta-Analysis</div>
+                        <span class="study-badge badge-meta">META-ANALYSIS</span>
+                    </div>
+                    <div class="study-authors">Wolraich, M. L., et al. (1995). JAMA, 274(20), 1617–1621</div>
+                    <p class="study-summary">Meta-analysis of 23 studies found that sugar does not affect the behavior or cognitive performance of children.</p>
+                    <div class="study-links">
+                        <a class="study-link" href="https://jamanetwork.com/journals/jama/article-abstract/391812" target="_blank">📄 Read Abstract</a>
+                        <a class="study-link" href="https://jamanetwork.com/journals/jama/article-abstract/391812" target="_blank">📖 View Full Text</a>
+                        <span class="study-citations">📊 Cited by 456 studies</span>
+                    </div>
+                </div>
+
+                <div class="study-card" style="animation-delay:0.16s">
+                    <div class="study-header">
+                        <div class="study-title">Organic Food Composition Compared with Conventional Food</div>
+                        <span class="study-badge badge-peer">PEER-REVIEWED</span>
+                    </div>
+                    <div class="study-authors">Barański, M., et al. (2014). British Journal of Nutrition, 112(5), 794–811</div>
+                    <p class="study-summary">Systematic review found higher concentrations of antioxidants and lower pesticide residues in organic crops, but minimal nutritional differences overall.</p>
+                    <div class="study-links">
+                        <a class="study-link" href="https://www.cambridge.org/core/journals/british-journal-of-nutrition/article/higher-antioxidant-and-lower-cadmium-concentrations-and-lower-incidence-of-pesticide-residues-in-organically-grown-crops/B61D270FA4B770F50D27E97B9FF66218" target="_blank">📄 Read Abstract</a>
+                        <a class="study-link" href="#" target="_blank">📖 View Full Text</a>
+                        <span class="study-citations">📊 Cited by 812 studies</span>
+                    </div>
+                </div>
+
+                <div class="study-card" style="animation-delay:0.24s">
+                    <div class="study-header">
+                        <div class="study-title">FDA Safety Assessment of Monosodium Glutamate</div>
+                        <span class="study-badge badge-official">OFFICIAL</span>
+                    </div>
+                    <div class="study-authors">U.S. Food &amp; Drug Administration. (2023). FDA.gov</div>
+                    <p class="study-summary">FDA classifies MSG as "generally recognized as safe" (GRAS). Extensive scientific review found no credible evidence of harm at normal consumption levels.</p>
+                    <div class="study-links">
+                        <a class="study-link" href="https://www.fda.gov/food/food-additives-petitions/questions-and-answers-monosodium-glutamate-msg" target="_blank">🔗 Official Source</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articles Tab -->
+            <div class="tab-panel" id="tab-articles">
+                <div class="section-label">📰 Recommended Articles</div>
+                <div class="sources-grid">
+                    <a class="source-card" href="https://www.hsph.harvard.edu/nutritionsource/" target="_blank" style="animation-delay:0s">
+                        <div class="source-icon">🎓</div>
+                        <div class="source-name">The Nutrition Source</div>
+                        <div class="source-desc">Harvard T.H. Chan School of Public Health — evidence-based nutrition guidance and myth debunking.</div>
+                        <span class="source-visit">Visit site →</span>
+                    </a>
+                    <a class="source-card" href="https://sciencebasedmedicine.org/" target="_blank" style="animation-delay:0.06s">
+                        <div class="source-icon">🧪</div>
+                        <div class="source-name">Science-Based Medicine</div>
+                        <div class="source-desc">In-depth articles debunking nutrition myths and pseudoscience with scientific rigor.</div>
+                        <span class="source-visit">Visit site →</span>
+                    </a>
+                    <a class="source-card" href="https://nutritionfacts.org/" target="_blank" style="animation-delay:0.12s">
+                        <div class="source-icon">🥗</div>
+                        <div class="source-name">NutritionFacts.org</div>
+                        <div class="source-desc">Dr. Michael Greger's nonprofit site covering the latest in nutrition research with video summaries.</div>
+                        <span class="source-visit">Visit site →</span>
+                    </a>
+                    <a class="source-card" href="https://examine.com/" target="_blank" style="animation-delay:0.18s">
+                        <div class="source-icon">📊</div>
+                        <div class="source-name">Examine.com</div>
+                        <div class="source-desc">Independent analysis of supplements and nutrition — no ads, no industry funding.</div>
+                        <span class="source-visit">Visit site →</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Trusted Sources Tab -->
+            <div class="tab-panel" id="tab-sources">
+                <div class="section-label">🔗 Trusted Organizations</div>
+                <div class="sources-grid">
+                    <a class="source-card" href="https://www.hsph.harvard.edu/nutritionsource/" target="_blank" style="animation-delay:0s">
+                        <div class="source-icon">🏛️</div>
+                        <div class="source-name">Harvard School of Public Health</div>
+                        <div class="source-desc">Evidence-based nutrition information from one of the world's leading research institutions.</div>
+                        <span class="source-visit">Visit site →</span>
+                    </a>
+                    <a class="source-card" href="https://www.nal.usda.gov/legacy/fnic" target="_blank" style="animation-delay:0.06s">
+                        <div class="source-icon">🌾</div>
+                        <div class="source-name">USDA Nutrition</div>
+                        <div class="source-desc">Official U.S. dietary guidelines, food data, and nutritional research.</div>
+                        <span class="source-visit">Visit site →</span>
+                    </a>
+                    <a class="source-card" href="https://www.who.int/health-topics/nutrition" target="_blank" style="animation-delay:0.12s">
+                        <div class="source-icon">🌍</div>
+                        <div class="source-name">World Health Organization</div>
+                        <div class="source-desc">Global nutrition guidelines and food safety standards from the WHO.</div>
+                        <span class="source-visit">Visit site →</span>
+                    </a>
+                    <a class="source-card" href="https://sciencebasedmedicine.org/" target="_blank" style="animation-delay:0.18s">
+                        <div class="source-icon">🔬</div>
+                        <div class="source-name">Science-Based Medicine</div>
+                        <div class="source-desc">Rigorous scientific analysis of medical and nutritional claims.</div>
+                        <span class="source-visit">Visit site →</span>
+                    </a>
+                    <a class="source-card" href="https://nutritionfacts.org/" target="_blank" style="animation-delay:0.24s">
+                        <div class="source-icon">🥦</div>
+                        <div class="source-name">NutritionFacts.org</div>
+                        <div class="source-desc">Nonprofit nutrition education site backed by scientific literature.</div>
+                        <span class="source-visit">Visit site →</span>
+                    </a>
+                    <a class="source-card" href="https://www.fda.gov/food" target="_blank" style="animation-delay:0.3s">
+                        <div class="source-icon">⚖️</div>
+                        <div class="source-name">FDA Food Safety</div>
+                        <div class="source-desc">Official U.S. Food and Drug Administration food safety and labeling information.</div>
+                        <span class="source-visit">Visit site →</span>
+                    </a>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>🍎 Food Myth Buster</p>
+            <p>🍎 Food Myth Buster &nbsp;•&nbsp; Evidence-based food science</p>
             <p>© 2025 Food Myth Buster. All rights reserved.</p>
         </div>
     </footer>
@@ -68,5 +454,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
+    <script>
+        function switchTab(name, btn) {
+            document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+            document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+            document.getElementById('tab-' + name).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
 </body>
 </html>

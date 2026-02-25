@@ -4,10 +4,293 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community - Food Myth Buster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #5649e0;
+            --accent: #ff6584;
+            --purple-soft: #f0eeff;
+            --text: #1a1a2e;
+            --text-muted: #6b7280;
+            --border: #e5e7f0;
+            --surface: #f8f7ff;
+        }
+
+        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
+
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 16px 0;
+            position: sticky; top: 0; z-index: 200;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 20px rgba(108,99,255,0.08);
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
+        nav { display: flex; gap: 8px; align-items: center; }
+        nav a { color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s; }
+        nav a:hover { background: var(--purple-soft); color: var(--primary); }
+        .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+        .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
+
+        /* Hero */
+        .community-hero {
+            background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%);
+            padding: 56px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .community-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-content { position: relative; }
+        .hero-content h1 { font-family: 'Sora', sans-serif; font-size: 42px; font-weight: 800; color: white; margin-bottom: 12px; letter-spacing: -1px; }
+        .hero-content p { color: rgba(255,255,255,0.8); font-size: 17px; max-width: 500px; margin: 0 auto; }
+
+        /* Main layout */
+        .community-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 28px;
+            padding: 36px 0 60px;
+            align-items: start;
+        }
+
+        /* Section titles */
+        .section-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Poll cards */
+        .poll-card {
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(108,99,255,0.05);
+            transition: box-shadow 0.25s;
+            animation: fadeInUp 0.4s ease both;
+        }
+        .poll-card:hover { box-shadow: 0 8px 32px rgba(108,99,255,0.12); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+        .poll-question {
+            font-family: 'Sora', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .poll-option-row { margin-bottom: 14px; }
+        .option-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        .option-pct { font-weight: 700; color: var(--primary); }
+
+        .progress-track {
+            height: 10px;
+            background: var(--surface);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary), #9b59b6);
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0;
+        }
+        .option-votes { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+        .poll-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .vote-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.2s;
+        }
+        .vote-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .vote-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        /* Submit myth form */
+        .submit-section {
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            margin-top: 8px;
+            box-shadow: 0 4px 20px rgba(108,99,255,0.05);
+        }
+        .submit-section .section-title { margin-bottom: 24px; }
+
+        .form-row { margin-bottom: 20px; }
+        .form-row label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-row input, .form-row select, .form-row textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--surface);
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+            resize: vertical;
+        }
+        .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(108,99,255,0.1);
+        }
+        .form-row textarea { min-height: 100px; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), #9b59b6);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Sora', sans-serif;
+            transition: all 0.25s;
+            letter-spacing: 0.3px;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,99,255,0.35); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .alert-box {
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            display: none;
+        }
+        .alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; display: block; }
+        .alert-error { background: #fee2e2; color: #7f1d1d; border: 1px solid #fca5a5; display: block; }
+
+        /* Sidebar */
+        .sidebar { position: sticky; top: 90px; }
+        .sidebar-card {
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(108,99,255,0.05);
+            animation: slideInRight 0.4s ease both;
+        }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+        .sidebar-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contributor-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .contributor-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .avatar {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #9b59b6);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 14px; flex-shrink: 0;
+        }
+        .contributor-info { flex: 1; }
+        .contributor-name { font-weight: 600; font-size: 14px; }
+        .contributor-sub { font-size: 12px; color: var(--text-muted); }
+        .rank-badge { font-size: 18px; }
+
+        .stat-row {
+            text-align: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .stat-number {
+            font-family: 'Sora', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+        .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
+        footer p { margin: 4px 0; }
+
+        @media (max-width: 900px) {
+            .community-layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .hero-content h1 { font-size: 30px; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">🍎 Food Myth Buster</div>
@@ -16,44 +299,103 @@
                 <a href="browse.html">Browse Myths</a>
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
-                <button id="loginBtn" class="btn-secondary">Login</button>
+                <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Community Hub</h1>
-            <p>Join the discussion, vote on polls, and share your thoughts on food myths</p>
+    <section class="community-hero">
+        <div class="hero-content">
+            <h1>🗳️ Community Hub</h1>
+            <p>Join the conversation, vote on polls, and help bust food myths</p>
         </div>
     </section>
 
-    <!-- Polls Section -->
-    <section class="polls">
-        <div class="container">
-            <h2>🗳️ Active Polls</h2>
-            <div id="pollsContainer" class="polls-grid">
-                <!-- Polls will be loaded here -->
-                <div class="loading">Loading polls...</div>
-            </div>
-        </div>
-    </section>
+    <div class="container">
+        <div class="community-layout">
 
-    <!-- Discussions Section -->
-    <section class="discussions">
-        <div class="container">
-            <h2>💬 Recent Discussions</h2>
-            <div id="discussionsContainer" class="discussions-list">
-                <!-- Discussions will be loaded here -->
-                <div class="loading">Loading discussions...</div>
+            <!-- Main Column -->
+            <div>
+                <div class="section-title">📊 Active Polls</div>
+                <div id="pollsContainer">
+                    <div style="text-align:center;padding:40px;color:var(--text-muted);">Loading polls…</div>
+                </div>
+
+                <!-- Submit Myth -->
+                <div class="submit-section">
+                    <div class="section-title">📬 Submit a Myth</div>
+                    <div id="submitAlert" class="alert-box"></div>
+                    <div class="form-row">
+                        <label>Myth Statement</label>
+                        <input type="text" id="mythText" placeholder="e.g., Eating celery burns more calories than it contains">
+                    </div>
+                    <div class="form-row">
+                        <label>Category</label>
+                        <select id="mythCategory">
+                            <option value="">Select a category…</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label>Additional Details (Optional)</label>
+                        <textarea id="mythDetails" placeholder="Where did you hear this? Any sources?"></textarea>
+                    </div>
+                    <button class="submit-btn" id="submitBtn" onclick="submitMyth()">Submit for Verification</button>
+                </div>
             </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <div class="sidebar-title">🏆 Top Contributors</div>
+                    <div class="contributor-row">
+                        <span class="rank-badge">🥇</span>
+                        <div class="avatar">S</div>
+                        <div class="contributor-info">
+                            <div class="contributor-name">Sarah M.</div>
+                            <div class="contributor-sub">42 myths submitted</div>
+                        </div>
+                    </div>
+                    <div class="contributor-row">
+                        <span class="rank-badge">🥈</span>
+                        <div class="avatar">J</div>
+                        <div class="contributor-info">
+                            <div class="contributor-name">John D.</div>
+                            <div class="contributor-sub">38 myths submitted</div>
+                        </div>
+                    </div>
+                    <div class="contributor-row">
+                        <span class="rank-badge">🥉</span>
+                        <div class="avatar">M</div>
+                        <div class="contributor-info">
+                            <div class="contributor-name">Maria G.</div>
+                            <div class="contributor-sub">35 myths submitted</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-title">📈 Community Stats</div>
+                    <div class="stat-row">
+                        <span class="stat-number" id="totalMyths">512</span>
+                        <span class="stat-label">Total Myths Verified</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-number">12,450</span>
+                        <span class="stat-label">Active Members</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-number" id="pollResponses">1,234</span>
+                        <span class="stat-label">Poll Responses Today</span>
+                    </div>
+                </div>
+            </aside>
+
         </div>
-    </section>
+    </div>
 
     <footer>
         <div class="container">
-            <p>🍎 Food Myth Buster</p>
+            <p>🍎 Food Myth Buster &nbsp;•&nbsp; Evidence-based food science</p>
             <p>© 2025 Food Myth Buster. All rights reserved.</p>
         </div>
     </footer>
@@ -61,6 +403,125 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
-    <script src="../js/polls.js"></script>
+    <script>
+        async function loadPolls() {
+            var res = await sb.from('polls').select('*').eq('active', true).order('created_at', { ascending: false });
+            var container = document.getElementById('pollsContainer');
+
+            if (!res.data || res.data.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">No active polls right now. Check back soon!</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            res.data.forEach(function(poll, idx) {
+                var total = poll.total_votes || (poll.votes1 + poll.votes2 + (poll.votes3||0) + (poll.votes4||0));
+                var options = [
+                    { text: poll.option1, votes: poll.votes1 },
+                    { text: poll.option2, votes: poll.votes2 },
+                    poll.option3 ? { text: poll.option3, votes: poll.votes3 } : null,
+                    poll.option4 ? { text: poll.option4, votes: poll.votes4 } : null,
+                ].filter(Boolean);
+
+                var daysLeft = '';
+                if (poll.end_date) {
+                    var diff = Math.ceil((new Date(poll.end_date) - new Date()) / 86400000);
+                    daysLeft = diff > 0 ? diff + ' day' + (diff !== 1 ? 's' : '') + ' remaining' : 'Ended';
+                }
+
+                var optionsHTML = options.map(function(opt) {
+                    var pct = total > 0 ? ((opt.votes / total) * 100).toFixed(1) : 0;
+                    return '<div class="poll-option-row">' +
+                        '<div class="option-label"><span>' + opt.text + '</span><span class="option-pct">' + pct + '%</span></div>' +
+                        '<div class="progress-track"><div class="progress-fill" data-width="' + pct + '"></div></div>' +
+                        '<div class="option-votes">' + opt.votes.toLocaleString() + ' votes</div>' +
+                    '</div>';
+                }).join('');
+
+                var card = document.createElement('div');
+                card.className = 'poll-card';
+                card.style.animationDelay = (idx * 0.1) + 's';
+                card.innerHTML =
+                    '<div class="poll-question">' + poll.question + '</div>' +
+                    optionsHTML +
+                    '<div class="poll-footer">' +
+                        '<span>' + total.toLocaleString() + ' votes' + (daysLeft ? ' &bull; ' + daysLeft : '') + '</span>' +
+                    '</div>';
+                container.appendChild(card);
+            });
+
+            // Animate progress bars after render
+            setTimeout(function() {
+                document.querySelectorAll('.progress-fill[data-width]').forEach(function(bar) {
+                    bar.style.width = bar.dataset.width + '%';
+                });
+            }, 100);
+        }
+
+        async function loadCategories() {
+            var res = await sb.from('categories').select('*').order('name');
+            if (!res.data) return;
+            var sel = document.getElementById('mythCategory');
+            res.data.forEach(function(cat) {
+                var opt = document.createElement('option');
+                opt.value = cat.id;
+                opt.textContent = (cat.icon || '') + ' ' + cat.name;
+                sel.appendChild(opt);
+            });
+        }
+
+        async function submitMyth() {
+            var text = document.getElementById('mythText').value.trim();
+            var catId = document.getElementById('mythCategory').value;
+            var details = document.getElementById('mythDetails').value.trim();
+            var btn = document.getElementById('submitBtn');
+            var alert = document.getElementById('submitAlert');
+            alert.className = 'alert-box';
+
+            if (!text) { alert.textContent = 'Please enter a myth statement.'; alert.className = 'alert-box alert-error'; return; }
+
+            // Check if logged in
+            var session = await sb.auth.getSession();
+            if (!session.data.session) {
+                alert.textContent = 'Please log in to submit a myth.';
+                alert.className = 'alert-box alert-error';
+                setTimeout(function() { window.location.href = 'login.html'; }, 1500);
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Submitting…';
+
+            var res = await sb.from('myth_submissions').insert({
+                myth_text: text,
+                category_id: catId || null,
+                additional_details: details || null,
+                user_id: session.data.session.user.id
+            });
+
+            if (res.error) {
+                alert.textContent = 'Error submitting. Please try again.';
+                alert.className = 'alert-box alert-error';
+            } else {
+                alert.textContent = '✅ Myth submitted! Our team will review it soon.';
+                alert.className = 'alert-box alert-success';
+                document.getElementById('mythText').value = '';
+                document.getElementById('mythCategory').value = '';
+                document.getElementById('mythDetails').value = '';
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Submit for Verification';
+        }
+
+        async function loadStats() {
+            var res = await sb.from('myths').select('id', { count: 'exact', head: true });
+            if (res.count) document.getElementById('totalMyths').textContent = res.count.toLocaleString();
+        }
+
+        loadPolls();
+        loadCategories();
+        loadStats();
+    </script>
 </body>
 </html>
