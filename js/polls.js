@@ -1,4 +1,3 @@
-// Load polls on community page
 async function loadPolls() {
     const container = document.getElementById('pollsContainer');
 
@@ -55,7 +54,6 @@ async function loadPolls() {
     }
 }
 
-// Load discussions (placeholder for now)
 async function loadDiscussions() {
     const container = document.getElementById('discussionsContainer');
 

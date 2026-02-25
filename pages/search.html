@@ -26,7 +26,15 @@
             --partial: #f59e0b;
         }
 
-        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
+        .dark {
+            --text: #f7fafc;
+            --text-muted: #a0aec0;
+            --border: #4a5568;
+            --card-bg: #2d3748;
+            --surface: #1a202c;
+        }
+
+        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; transition: background 0.3s, color 0.3s; }
 
         header {
             background: rgba(255,255,255,0.9);
@@ -188,6 +196,8 @@
                 <a href="browse.html">Browse Myths</a>
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
+                <a href="profile.html" id="profileLink" style="display:none">Profile</a>
+                <button class="dark-mode-toggle" id="darkModeToggle"></button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -214,6 +224,12 @@
                     <label class="filter-option"><input type="checkbox" value="TRUE" onchange="applyFilters()"><span class="verdict-dot dot-true"></span><label>True</label></label>
                     <label class="filter-option"><input type="checkbox" value="FALSE" onchange="applyFilters()"><span class="verdict-dot dot-false"></span><label>False</label></label>
                     <label class="filter-option"><input type="checkbox" value="PARTIALLY_TRUE" onchange="applyFilters()"><span class="verdict-dot dot-partial"></span><label>Partially True</label></label>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-group-label">Evidence Strength</div>
+                    <label class="filter-option"><input type="checkbox" value="strong" onchange="applyFilters()"><label>Strong</label></label>
+                    <label class="filter-option"><input type="checkbox" value="moderate" onchange="applyFilters()"><label>Moderate</label></label>
+                    <label class="filter-option"><input type="checkbox" value="weak" onchange="applyFilters()"><label>Weak</label></label>
                 </div>
                 <div class="filter-group">
                     <div class="filter-group-label">Category</div>
@@ -256,6 +272,7 @@
         var allResults = [];
         var activeVerdicts = [];
         var activeCategories = [];
+        var activeEvidenceStrength = [];
 
         document.getElementById('searchInput').value = currentQuery;
 
@@ -299,10 +316,13 @@
                 .filter(function(cb) { return cb.checked; }).map(function(cb) { return cb.value; });
             activeCategories = Array.from(document.querySelectorAll('#categoryFilters input'))
                 .filter(function(cb) { return cb.checked; }).map(function(cb) { return cb.value; });
+            activeEvidenceStrength = Array.from(document.querySelectorAll('.filter-group input[value="strong"], .filter-group input[value="moderate"], .filter-group input[value="weak"]'))
+                .filter(function(cb) { return cb.checked; }).map(function(cb) { return cb.value; });
 
             var filtered = allResults;
             if (activeVerdicts.length > 0) filtered = filtered.filter(function(m) { return activeVerdicts.indexOf(m.verdict) !== -1; });
             if (activeCategories.length > 0) filtered = filtered.filter(function(m) { return m.categories && activeCategories.indexOf(m.categories.slug) !== -1; });
+            if (activeEvidenceStrength.length > 0) filtered = filtered.filter(function(m) { return activeEvidenceStrength.indexOf(m.evidence_strength) !== -1; });
 
             var sort = document.getElementById('sortSelect').value;
             if (sort === 'newest') filtered = filtered.slice().sort(function(a, b) { return new Date(b.created_at) - new Date(a.created_at); });
@@ -448,6 +468,19 @@
         });
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') document.getElementById('searchBtn').click();
+        });
+
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const isDark = localStorage.getItem('darkMode') !== 'false';
+        if (isDark) {
+            body.classList.add('dark');
+            darkModeToggle.classList.add('active');
+        }
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            darkModeToggle.classList.toggle('active');
+            localStorage.setItem('darkMode', body.classList.contains('dark'));
         });
 
         loadCategories();

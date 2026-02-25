@@ -41,7 +41,6 @@
 
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
 
-        /* Hero */
         .community-hero {
             background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%);
             padding: 56px 24px;
@@ -58,7 +57,6 @@
         .hero-content h1 { font-family: 'Sora', sans-serif; font-size: 42px; font-weight: 800; color: white; margin-bottom: 12px; letter-spacing: -1px; }
         .hero-content p { color: rgba(255,255,255,0.8); font-size: 17px; max-width: 500px; margin: 0 auto; }
 
-        /* Main layout */
         .community-layout {
             display: grid;
             grid-template-columns: 1fr 300px;
@@ -67,7 +65,6 @@
             align-items: start;
         }
 
-        /* Section titles */
         .section-title {
             font-family: 'Sora', sans-serif;
             font-size: 22px;
@@ -78,7 +75,6 @@
             gap: 10px;
         }
 
-        /* Poll cards */
         .poll-card {
             background: white;
             border: 1.5px solid var(--border);
@@ -154,7 +150,6 @@
         .vote-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
         .vote-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        /* Submit myth form */
         .submit-section {
             background: white;
             border: 1.5px solid var(--border);
@@ -222,7 +217,6 @@
         .alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; display: block; }
         .alert-error { background: #fee2e2; color: #7f1d1d; border: 1px solid #fca5a5; display: block; }
 
-        /* Sidebar */
         .sidebar { position: sticky; top: 90px; }
         .sidebar-card {
             background: white;
@@ -314,14 +308,12 @@
     <div class="container">
         <div class="community-layout">
 
-            <!-- Main Column -->
             <div>
                 <div class="section-title">📊 Active Polls</div>
                 <div id="pollsContainer">
                     <div style="text-align:center;padding:40px;color:var(--text-muted);">Loading polls…</div>
                 </div>
 
-                <!-- Submit Myth -->
                 <div class="submit-section">
                     <div class="section-title">📬 Submit a Myth</div>
                     <div id="submitAlert" class="alert-box"></div>
@@ -343,7 +335,6 @@
                 </div>
             </div>
 
-            <!-- Sidebar -->
             <aside class="sidebar">
                 <div class="sidebar-card">
                     <div class="sidebar-title">🏆 Top Contributors</div>
@@ -429,12 +420,13 @@
                     daysLeft = diff > 0 ? diff + ' day' + (diff !== 1 ? 's' : '') + ' remaining' : 'Ended';
                 }
 
-                var optionsHTML = options.map(function(opt) {
+                var optionsHTML = options.map(function(opt, i) {
                     var pct = total > 0 ? ((opt.votes / total) * 100).toFixed(1) : 0;
                     return '<div class="poll-option-row">' +
                         '<div class="option-label"><span>' + opt.text + '</span><span class="option-pct">' + pct + '%</span></div>' +
                         '<div class="progress-track"><div class="progress-fill" data-width="' + pct + '"></div></div>' +
                         '<div class="option-votes">' + opt.votes.toLocaleString() + ' votes</div>' +
+                        '<button class="vote-btn" onclick="votePoll(' + poll.id + ', ' + i + ', this)">Vote</button>' +
                     '</div>';
                 }).join('');
 
@@ -470,7 +462,34 @@
             });
         }
 
-        async function submitMyth() {
+        async function votePoll(pollId, optionIndex, btn) {
+            var session = await sb.auth.getSession();
+            if (!session.data.session) {
+                alert('Please log in to vote.');
+                return;
+            }
+            var user = session.data.session.user;
+            if (!user.user_metadata?.full_name && !user.user_metadata?.avatar_url) {
+                alert('Please complete your profile to vote.');
+                window.location.href = 'profile.html';
+                return;
+            }
+            btn.disabled = true;
+            btn.textContent = 'Voting...';
+            var { error } = await sb.from('poll_votes').insert({ poll_id: pollId, user_id: user.id, option_index: optionIndex });
+            if (error) {
+                alert('Error voting: ' + error.message);
+                btn.disabled = false;
+                btn.textContent = 'Vote';
+                return;
+            }
+            // Update poll votes
+            var poll = polls.find(p => p.id === pollId);
+            if (poll) {
+                poll.options[optionIndex].votes++;
+                loadPolls(); // Reload
+            }
+        }
             var text = document.getElementById('mythText').value.trim();
             var catId = document.getElementById('mythCategory').value;
             var details = document.getElementById('mythDetails').value.trim();
@@ -512,7 +531,7 @@
 
             btn.disabled = false;
             btn.textContent = 'Submit for Verification';
-        }
+    
 
         async function loadStats() {
             var res = await sb.from('myths').select('id', { count: 'exact', head: true });

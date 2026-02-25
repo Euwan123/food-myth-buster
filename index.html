@@ -170,6 +170,8 @@
                 <a href="pages/browse.html">Browse Myths</a>
                 <a href="pages/community.html">Community</a>
                 <a href="pages/resources.html">Resources</a>
+                <a href="pages/profile.html" id="profileLink" style="display:none">Profile</a>
+                <button class="dark-mode-toggle" id="darkModeToggle"></button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -286,6 +288,19 @@
         });
         document.getElementById('searchInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') document.getElementById('searchBtn').click();
+        });
+
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const isDark = localStorage.getItem('darkMode') !== 'false'; // default to true
+        if (isDark) {
+            body.classList.add('dark');
+            darkModeToggle.classList.add('active');
+        }
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            darkModeToggle.classList.toggle('active');
+            localStorage.setItem('darkMode', body.classList.contains('dark'));
         });
 
         loadTrendingMyths();

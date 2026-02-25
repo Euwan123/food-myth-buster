@@ -1,9 +1,7 @@
-// Load trending myths on homepage
 async function loadTrendingMyths() {
     const grid = document.getElementById('trendingGrid');
     
     try {
-        // Fetch featured myths
         const { data: myths, error } = await sb
             .from('myths')
             .select(`
@@ -21,10 +19,8 @@ async function loadTrendingMyths() {
             return;
         }
 
-        // Clear loading
         grid.innerHTML = '';
 
-        // Display myths
         myths.forEach(myth => {
             const card = document.createElement('div');
             card.className = 'myth-card';

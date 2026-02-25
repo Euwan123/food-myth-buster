@@ -144,6 +144,7 @@
             var name = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
             var initial = name.charAt(0).toUpperCase();
             var joinDate = new Date(currentUser.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            var profileImage = currentUser.user_metadata?.avatar_url || null;
 
             var bmRes = await sb.from('bookmarks').select('*, myths(id, title, verdict, summary)').eq('user_id', currentUser.id).order('created_at', { ascending: false });
             bookmarks = (bmRes.data || []).filter(function(b) { return b.myths; });
@@ -154,7 +155,7 @@
             document.getElementById('pageContent').innerHTML =
                 '<section class="profile-hero">' +
                     '<div class="container"><div class="profile-hero-inner">' +
-                        '<div class="avatar-lg">' + initial + '</div>' +
+                        '<div class="avatar-lg" id="profileAvatar">' + (profileImage ? '<img src="' + profileImage + '" alt="Profile" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">' : initial) + '</div>' +
                         '<div class="profile-info">' +
                             '<h1>' + name + '</h1>' +
                             '<p>Member since ' + joinDate + ' &nbsp;•&nbsp; ' + currentUser.email + '</p>' +
@@ -178,7 +179,7 @@
                         '<div>' +
                             '<div class="tab-panel active" id="tab-bookmarks">' + renderBookmarks() + '</div>' +
                             '<div class="tab-panel" id="tab-submissions">' + renderSubmissions() + '</div>' +
-                            '<div class="tab-panel" id="tab-settings">' + renderSettings(name, currentUser.email) + '</div>' +
+                            '<div class="tab-panel" id="tab-settings">' + renderSettings(name, currentUser.email, profileImage) + '</div>' +
                         '</div>' +
                     '</div>' +
                 '</div>';
@@ -221,11 +222,13 @@
             return html;
         }
 
-        function renderSettings(name, email) {
+        function renderSettings(name, email, profileImage) {
             return '<div class="panel-title">⚙️ Settings</div>' +
                 '<div class="settings-card">' +
                     '<h3>Profile Information</h3>' +
                     '<div class="form-row"><label>Full Name</label><input type="text" id="settingsName" value="' + name + '"></div>' +
+                    '<div class="form-row"><label>Profile Picture</label><input type="file" id="profileImageInput" accept="image/*" onchange="uploadProfileImage()"></div>' +
+                    (profileImage ? '<div class="form-row"><img src="' + profileImage + '" alt="Current profile" style="width:50px;height:50px;border-radius:50%;"></div>' : '') +
                     '<div class="form-row"><label>Email</label><input type="email" value="' + email + '" disabled style="opacity:0.6;cursor:not-allowed;"></div>' +
                     '<button class="save-btn" onclick="saveSettings()">Save Changes</button>' +
                 '</div>' +
@@ -254,6 +257,23 @@
             if (!name) return;
             await sb.auth.updateUser({ data: { full_name: name } });
             alert('Profile updated!');
+        }
+
+        async function uploadProfileImage() {
+            var file = document.getElementById('profileImageInput').files[0];
+            if (!file) return;
+            var fileExt = file.name.split('.').pop();
+            var fileName = currentUser.id + '.' + fileExt;
+            var filePath = 'avatars/' + fileName;
+            var { error: uploadError } = await sb.storage.from('profiles').upload(filePath, file, { upsert: true });
+            if (uploadError) {
+                alert('Error uploading image: ' + uploadError.message);
+                return;
+            }
+            var { data } = sb.storage.from('profiles').getPublicUrl(filePath);
+            await sb.auth.updateUser({ data: { avatar_url: data.publicUrl } });
+            document.getElementById('profileAvatar').innerHTML = '<img src="' + data.publicUrl + '" alt="Profile" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+            alert('Profile picture updated!');
         }
 
         async function handleLogout() {
