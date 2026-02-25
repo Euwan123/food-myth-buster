@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search - Food Myth Buster</title>
+    <meta name="description" content="Search food myths and get evidence-based answers powered by AI.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
@@ -25,362 +26,157 @@
             --partial: #f59e0b;
         }
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-            color: var(--text);
-            background: var(--surface);
-            line-height: 1.6;
-        }
+        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
 
-        /* ── Header ── */
         header {
             background: rgba(255,255,255,0.9);
             backdrop-filter: blur(12px);
             padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 200;
+            position: sticky; top: 0; z-index: 200;
             border-bottom: 1px solid var(--border);
             box-shadow: 0 1px 20px rgba(108,99,255,0.08);
         }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
         nav { display: flex; gap: 8px; align-items: center; }
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
+        nav a { color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s; }
         nav a:hover { background: var(--purple-soft); color: var(--primary); }
-        .btn-login {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'DM Sans', sans-serif;
-        }
+        .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
         .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
 
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
 
-        /* ── Search Hero ── */
         .search-hero {
             background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 50%, #764ba2 100%);
             padding: 48px 24px;
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
         .search-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
+            content: ''; position: absolute; inset: 0;
             background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         .hero-inner { position: relative; max-width: 700px; margin: 0 auto; text-align: center; }
-        .hero-inner h1 {
-            font-family: 'Sora', sans-serif;
-            font-size: 36px;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 8px;
-            letter-spacing: -1px;
-        }
+        .hero-inner h1 { font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 800; color: white; margin-bottom: 8px; letter-spacing: -1px; }
         .hero-inner p { color: rgba(255,255,255,0.8); font-size: 16px; margin-bottom: 28px; }
 
-        .search-box {
-            display: flex;
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-            border: 2px solid transparent;
-            transition: border-color 0.3s;
-        }
+        .search-box { display: flex; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25); border: 2px solid transparent; transition: border-color 0.3s; }
         .search-box:focus-within { border-color: rgba(255,255,255,0.5); }
-        .search-box input {
-            flex: 1;
-            padding: 18px 24px;
-            border: none;
-            font-size: 16px;
-            font-family: 'DM Sans', sans-serif;
-            color: var(--text);
-            outline: none;
-        }
-        .search-box button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 18px 32px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Sora', sans-serif;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .search-box input { flex: 1; padding: 18px 24px; border: none; font-size: 16px; font-family: 'DM Sans', sans-serif; color: var(--text); outline: none; }
+        .search-box button { background: var(--primary); color: white; border: none; padding: 18px 32px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Sora', sans-serif; transition: background 0.2s; display: flex; align-items: center; gap: 8px; }
         .search-box button:hover { background: var(--primary-dark); }
-
-        .results-label {
-            margin-top: 16px;
-            color: rgba(255,255,255,0.75);
-            font-size: 14px;
-        }
+        .results-label { margin-top: 16px; color: rgba(255,255,255,0.75); font-size: 14px; }
         .results-label strong { color: white; }
 
-        /* ── Layout ── */
-        .search-layout {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 28px;
-            padding: 32px 0 60px;
-            align-items: start;
-        }
+        .search-layout { display: grid; grid-template-columns: 260px 1fr; gap: 28px; padding: 32px 0 60px; align-items: start; }
 
-        /* ── Sidebar ── */
-        .filters-sidebar {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 20px rgba(108,99,255,0.06);
-            position: sticky;
-            top: 90px;
-            animation: slideInLeft 0.4s ease both;
-        }
+        .filters-sidebar { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(108,99,255,0.06); position: sticky; top: 90px; animation: slideInLeft 0.4s ease both; }
         @keyframes slideInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
 
-        .sidebar-title {
-            font-family: 'Sora', sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .sidebar-title { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
         .filter-group { margin-bottom: 24px; }
-        .filter-group-label {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-        .filter-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.15s;
-            font-size: 14px;
-        }
+        .filter-group-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 12px; }
+        .filter-option { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; cursor: pointer; transition: background 0.15s; font-size: 14px; }
         .filter-option:hover { background: var(--purple-soft); }
         .filter-option input[type="checkbox"] { accent-color: var(--primary); width: 15px; height: 15px; cursor: pointer; }
         .filter-option label { cursor: pointer; flex: 1; }
-
-        .verdict-dot {
-            width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-        }
+        .verdict-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .dot-true { background: var(--true); }
         .dot-false { background: var(--false); }
         .dot-partial { background: var(--partial); }
-
-        .clear-filters {
-            width: 100%;
-            padding: 10px;
-            border: 1.5px solid var(--border);
-            border-radius: 8px;
-            background: white;
-            color: var(--text-muted);
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'DM Sans', sans-serif;
-        }
+        .clear-filters { width: 100%; padding: 10px; border: 1.5px solid var(--border); border-radius: 8px; background: white; color: var(--text-muted); font-size: 13px; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
         .clear-filters:hover { border-color: var(--primary); color: var(--primary); }
 
-        /* ── Results Column ── */
         .results-column { min-width: 0; }
-
-        .results-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .results-header h2 {
-            font-family: 'Sora', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-        }
+        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .results-header h2 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; }
         .results-header h2 span { color: var(--primary); }
-
-        .sort-select {
-            padding: 8px 16px;
-            border: 1.5px solid var(--border);
-            border-radius: 10px;
-            font-size: 13px;
-            font-family: 'DM Sans', sans-serif;
-            background: white;
-            color: var(--text);
-            cursor: pointer;
-            outline: none;
-        }
+        .sort-select { padding: 8px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 13px; font-family: 'DM Sans', sans-serif; background: white; color: var(--text); cursor: pointer; outline: none; }
         .sort-select:focus { border-color: var(--primary); }
 
-        /* ── Result Cards ── */
-        .result-card {
-            background: white;
-            border: 1.5px solid var(--border);
-            border-radius: 16px;
-            padding: 24px 28px;
-            margin-bottom: 16px;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.4s ease both;
-        }
-        .result-card::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 4px;
-            background: var(--border);
-            transition: background 0.2s;
-        }
-        .result-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(108,99,255,0.12);
-            border-color: var(--primary);
-        }
+        .result-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 16px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; animation: fadeInUp 0.4s ease both; }
+        .result-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--border); transition: background 0.2s; }
+        .result-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(108,99,255,0.12); border-color: var(--primary); }
         .result-card:hover::before { background: var(--primary); }
         .result-card.verdict-true::before { background: var(--true); }
         .result-card.verdict-false::before { background: var(--false); }
         .result-card.verdict-partial::before { background: var(--partial); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 16px;
-            margin-bottom: 10px;
-        }
-        .card-top h3 {
-            font-family: 'Sora', sans-serif;
-            font-size: 17px;
-            font-weight: 700;
-            line-height: 1.35;
-            color: var(--text);
-            flex: 1;
-        }
-        .card-top h3 mark {
-            background: #fff3cd;
-            color: var(--text);
-            border-radius: 3px;
-            padding: 0 2px;
-        }
-
-        .verdict-pill {
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            font-family: 'Sora', sans-serif;
-            white-space: nowrap;
-            letter-spacing: 0.3px;
-            flex-shrink: 0;
-        }
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 10px; }
+        .card-top h3 { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 700; line-height: 1.35; color: var(--text); flex: 1; }
+        .card-top h3 mark { background: #fff3cd; color: var(--text); border-radius: 3px; padding: 0 2px; }
+        .verdict-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; font-family: 'Sora', sans-serif; white-space: nowrap; letter-spacing: 0.3px; flex-shrink: 0; }
         .pill-TRUE { background: #d1fae5; color: #065f46; border: 1.5px solid #6ee7b7; }
         .pill-FALSE { background: #fee2e2; color: #7f1d1d; border: 1.5px solid #fca5a5; }
         .pill-PARTIALLY_TRUE { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
+        .card-summary { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 14px; }
+        .card-meta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .meta-chip { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted); background: var(--surface); padding: 4px 10px; border-radius: 6px; }
+        .category-tag { font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .card-summary {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 14px;
-        }
+        .skeleton { background: linear-gradient(90deg, #f0eeff 25%, #e8e4ff 50%, #f0eeff 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .skeleton-result { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 16px; }
+        .sk-line { height: 14px; margin-bottom: 10px; }
+        .sk-w100 { width: 100%; }
+        .sk-w70 { width: 70%; }
+        .sk-w50 { width: 50%; }
+        .sk-w30 { width: 30%; }
 
-        .card-meta {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .meta-chip {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            color: var(--text-muted);
-            background: var(--surface);
-            padding: 4px 10px;
-            border-radius: 6px;
-        }
-        .category-tag {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* ── Empty / Loading ── */
-        .state-box {
-            text-align: center;
-            padding: 80px 20px;
-            background: white;
-            border-radius: 16px;
-            border: 1.5px solid var(--border);
-        }
+        .state-box { text-align: center; padding: 80px 20px; background: white; border-radius: 16px; border: 1.5px solid var(--border); }
         .state-box .emoji { font-size: 56px; margin-bottom: 16px; }
         .state-box h3 { font-family: 'Sora', sans-serif; font-size: 20px; margin-bottom: 8px; }
         .state-box p { color: var(--text-muted); margin-bottom: 20px; }
-
         .suggestion-chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
-        .chip {
-            padding: 8px 16px;
-            background: var(--purple-soft);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            border: none;
-            font-family: 'DM Sans', sans-serif;
-            transition: all 0.2s;
-        }
+        .chip { padding: 8px 16px; background: var(--purple-soft); color: var(--primary); border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
         .chip:hover { background: var(--primary); color: white; transform: translateY(-1px); }
+
+        .ai-card {
+            background: white;
+            border: 1.5px solid var(--primary);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.5s ease both;
+            position: relative;
+            overflow: hidden;
+        }
+        .ai-card::before {
+            content: '';
+            position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+            background: linear-gradient(180deg, var(--primary), #9b59b6);
+        }
+        .ai-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--purple-soft); color: var(--primary);
+            padding: 4px 12px; border-radius: 20px;
+            font-size: 12px; font-weight: 700; font-family: 'Sora', sans-serif;
+            letter-spacing: 0.3px; margin-bottom: 14px;
+        }
+        .ai-title { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 12px; line-height: 1.35; }
+        .ai-body { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+        .ai-verdict-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+        .ai-disclaimer { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); display: flex; align-items: flex-start; gap: 6px; }
+
+        .ai-thinking {
+            background: white; border: 1.5px solid var(--border); border-radius: 16px;
+            padding: 28px; margin-bottom: 16px; text-align: center;
+        }
+        .thinking-dots { display: inline-flex; gap: 6px; margin-bottom: 12px; }
+        .thinking-dots span {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--primary); animation: bounce 1.2s infinite ease-in-out;
+        }
+        .thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+        .thinking-label { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+        .thinking-sub { font-size: 13px; color: var(--text-muted); }
 
         footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
         footer p { margin: 4px 0; }
 
-        @media (max-width: 768px) {
-            .search-layout { grid-template-columns: 1fr; }
-            .filters-sidebar { position: static; }
-            .hero-inner h1 { font-size: 26px; }
-        }
+        @media (max-width: 768px) { .search-layout { grid-template-columns: 1fr; } .filters-sidebar { position: static; } .hero-inner h1 { font-size: 26px; } }
     </style>
 </head>
 <body>
@@ -411,39 +207,21 @@
 
     <div class="container">
         <div class="search-layout">
-
-            <!-- Sidebar -->
             <aside class="filters-sidebar">
                 <div class="sidebar-title">🎛 Filter Results</div>
-
                 <div class="filter-group">
                     <div class="filter-group-label">Verdict</div>
-                    <label class="filter-option">
-                        <input type="checkbox" value="TRUE" onchange="applyFilters()">
-                        <span class="verdict-dot dot-true"></span>
-                        <label>True</label>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" value="FALSE" onchange="applyFilters()">
-                        <span class="verdict-dot dot-false"></span>
-                        <label>False</label>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" value="PARTIALLY_TRUE" onchange="applyFilters()">
-                        <span class="verdict-dot dot-partial"></span>
-                        <label>Partially True</label>
-                    </label>
+                    <label class="filter-option"><input type="checkbox" value="TRUE" onchange="applyFilters()"><span class="verdict-dot dot-true"></span><label>True</label></label>
+                    <label class="filter-option"><input type="checkbox" value="FALSE" onchange="applyFilters()"><span class="verdict-dot dot-false"></span><label>False</label></label>
+                    <label class="filter-option"><input type="checkbox" value="PARTIALLY_TRUE" onchange="applyFilters()"><span class="verdict-dot dot-partial"></span><label>Partially True</label></label>
                 </div>
-
                 <div class="filter-group">
                     <div class="filter-group-label">Category</div>
                     <div id="categoryFilters"></div>
                 </div>
-
                 <button class="clear-filters" onclick="clearFilters()">✕ Clear all filters</button>
             </aside>
 
-            <!-- Results -->
             <div class="results-column">
                 <div class="results-header">
                     <h2 id="resultsTitle">Results for <span id="queryDisplay"></span></h2>
@@ -454,10 +232,11 @@
                     </select>
                 </div>
                 <div id="resultsGrid">
-                    <div class="state-box"><div class="emoji">⏳</div><h3>Loading…</h3></div>
+                    <div class="skeleton-result"><div class="skeleton sk-line sk-w30" style="height:18px;margin-bottom:14px;"></div><div class="skeleton sk-line sk-w100"></div><div class="skeleton sk-line sk-w70"></div><div class="skeleton sk-line sk-w50" style="margin-top:8px;"></div></div>
+                    <div class="skeleton-result"><div class="skeleton sk-line sk-w30" style="height:18px;margin-bottom:14px;"></div><div class="skeleton sk-line sk-w100"></div><div class="skeleton sk-line sk-w70"></div><div class="skeleton sk-line sk-w50" style="margin-top:8px;"></div></div>
+                    <div class="skeleton-result"><div class="skeleton sk-line sk-w30" style="height:18px;margin-bottom:14px;"></div><div class="skeleton sk-line sk-w100"></div><div class="skeleton sk-line sk-w70"></div><div class="skeleton sk-line sk-w50" style="margin-top:8px;"></div></div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -487,15 +266,15 @@
             res.data.forEach(function(cat) {
                 var label = document.createElement('label');
                 label.className = 'filter-option';
-                label.innerHTML =
-                    '<input type="checkbox" value="' + cat.slug + '" onchange="applyFilters()">' +
-                    '<label>' + (cat.icon || '') + ' ' + cat.name + '</label>';
+                label.innerHTML = '<input type="checkbox" value="' + cat.slug + '" onchange="applyFilters()"><label>' + (cat.icon || '') + ' ' + cat.name + '</label>';
                 container.appendChild(label);
             });
         }
 
         async function runSearch(query) {
-            document.getElementById('resultsGrid').innerHTML = '<div class="state-box"><div class="emoji">⏳</div><h3>Searching…</h3></div>';
+            document.getElementById('resultsGrid').innerHTML =
+                '<div class="skeleton-result"><div class="skeleton sk-line sk-w30" style="height:18px;margin-bottom:14px;"></div><div class="skeleton sk-line sk-w100"></div><div class="skeleton sk-line sk-w70"></div><div class="skeleton sk-line sk-w50" style="margin-top:8px;"></div></div>' +
+                '<div class="skeleton-result"><div class="skeleton sk-line sk-w30" style="height:18px;margin-bottom:14px;"></div><div class="skeleton sk-line sk-w100"></div><div class="skeleton sk-line sk-w70"></div><div class="skeleton sk-line sk-w50" style="margin-top:8px;"></div></div>';
 
             var q = query ? query.trim() : '';
             document.getElementById('queryDisplay').textContent = q ? '"' + q + '"' : 'All Myths';
@@ -517,27 +296,17 @@
 
         function applyFilters() {
             activeVerdicts = Array.from(document.querySelectorAll('.filter-group input[value="TRUE"], .filter-group input[value="FALSE"], .filter-group input[value="PARTIALLY_TRUE"]'))
-                .filter(function(cb) { return cb.checked; })
-                .map(function(cb) { return cb.value; });
-
+                .filter(function(cb) { return cb.checked; }).map(function(cb) { return cb.value; });
             activeCategories = Array.from(document.querySelectorAll('#categoryFilters input'))
-                .filter(function(cb) { return cb.checked; })
-                .map(function(cb) { return cb.value; });
+                .filter(function(cb) { return cb.checked; }).map(function(cb) { return cb.value; });
 
             var filtered = allResults;
-            if (activeVerdicts.length > 0) {
-                filtered = filtered.filter(function(m) { return activeVerdicts.indexOf(m.verdict) !== -1; });
-            }
-            if (activeCategories.length > 0) {
-                filtered = filtered.filter(function(m) { return m.categories && activeCategories.indexOf(m.categories.slug) !== -1; });
-            }
+            if (activeVerdicts.length > 0) filtered = filtered.filter(function(m) { return activeVerdicts.indexOf(m.verdict) !== -1; });
+            if (activeCategories.length > 0) filtered = filtered.filter(function(m) { return m.categories && activeCategories.indexOf(m.categories.slug) !== -1; });
 
             var sort = document.getElementById('sortSelect').value;
-            if (sort === 'newest') {
-                filtered = filtered.slice().sort(function(a, b) { return new Date(b.created_at) - new Date(a.created_at); });
-            } else if (sort === 'alpha') {
-                filtered = filtered.slice().sort(function(a, b) { return a.title.localeCompare(b.title); });
-            }
+            if (sort === 'newest') filtered = filtered.slice().sort(function(a, b) { return new Date(b.created_at) - new Date(a.created_at); });
+            else if (sort === 'alpha') filtered = filtered.slice().sort(function(a, b) { return a.title.localeCompare(b.title); });
 
             renderResults(filtered);
         }
@@ -551,11 +320,15 @@
             var grid = document.getElementById('resultsGrid');
             var q = currentQuery;
 
+            if (filtered.length === 0 && q) {
+                showAIAnalysis(q);
+                return;
+            }
+
             if (filtered.length === 0) {
                 grid.innerHTML =
                     '<div class="state-box">' +
-                        '<div class="emoji">🔍</div>' +
-                        '<h3>No results found</h3>' +
+                        '<div class="emoji">🔍</div><h3>No results found</h3>' +
                         '<p>Try different keywords or clear your filters</p>' +
                         '<div class="suggestion-chips">' +
                             '<button class="chip" onclick="searchFor(\'MSG headaches\')">MSG headaches</button>' +
@@ -577,23 +350,81 @@
 
                 var catIcon = myth.categories ? (myth.categories.icon || '') : '';
                 var catName = myth.categories ? myth.categories.name : 'General';
-                var title = highlight(myth.title, q);
-                var summary = highlight(myth.summary || '', q);
 
                 card.innerHTML =
-                    '<div class="card-top">' +
-                        '<h3>' + title + '</h3>' +
-                        '<span class="verdict-pill pill-' + myth.verdict + '">' + myth.verdict.replace('_', ' ') + '</span>' +
-                    '</div>' +
-                    '<p class="card-summary">' + summary + '</p>' +
-                    '<div class="card-meta">' +
-                        '<span class="category-tag">' + catIcon + ' ' + catName + '</span>' +
-                        '<span class="meta-chip">👁 ' + (myth.views || 0) + ' views</span>' +
-                        (myth.featured ? '<span class="meta-chip">🔥 Trending</span>' : '') +
-                    '</div>';
+                    '<div class="card-top"><h3>' + highlight(myth.title, q) + '</h3>' +
+                    '<span class="verdict-pill pill-' + myth.verdict + '">' + myth.verdict.replace('_', ' ') + '</span></div>' +
+                    '<p class="card-summary">' + highlight(myth.summary || '', q) + '</p>' +
+                    '<div class="card-meta"><span class="category-tag">' + catIcon + ' ' + catName + '</span>' +
+                    '<span class="meta-chip">👁 ' + (myth.views || 0) + ' views</span>' +
+                    (myth.featured ? '<span class="meta-chip">🔥 Trending</span>' : '') + '</div>';
 
                 grid.appendChild(card);
             });
+        }
+
+        async function showAIAnalysis(query) {
+            var grid = document.getElementById('resultsGrid');
+            grid.innerHTML =
+                '<div class="ai-thinking">' +
+                    '<div class="thinking-dots"><span></span><span></span><span></span></div>' +
+                    '<div class="thinking-label">Analyzing with AI…</div>' +
+                    '<div class="thinking-sub">No database results found — asking Claude for an evidence-based answer</div>' +
+                '</div>';
+
+            try {
+                var response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1000,
+                        system: 'You are a food science expert who busts food myths with evidence-based analysis. When given a food myth or claim, respond ONLY with a valid JSON object (no markdown, no backticks) in this exact format: {"verdict": "TRUE" or "FALSE" or "PARTIALLY_TRUE", "title": "restate the claim as a clear question", "summary": "1-2 sentence verdict summary", "explanation": "3-4 sentence detailed explanation with scientific context", "confidence": "High" or "Medium" or "Low"}',
+                        messages: [{ role: 'user', content: 'Analyze this food myth or claim: ' + query }]
+                    })
+                });
+
+                var data = await response.json();
+                var text = data.content.map(function(i) { return i.text || ''; }).join('');
+                var clean = text.replace(/```json|```/g, '').trim();
+                var result = JSON.parse(clean);
+
+                var verdictClass = result.verdict === 'TRUE' ? 'verdict-true' : result.verdict === 'FALSE' ? 'verdict-false' : 'verdict-partial';
+                var pillClass = 'pill-' + result.verdict;
+
+                grid.innerHTML =
+                    '<div class="ai-card ' + verdictClass + '">' +
+                        '<span class="ai-badge">✨ AI Analysis — Not in database</span>' +
+                        '<div class="ai-verdict-row">' +
+                            '<h3 class="ai-title">' + result.title + '</h3>' +
+                            '<span class="verdict-pill ' + pillClass + '">' + result.verdict.replace('_', ' ') + '</span>' +
+                        '</div>' +
+                        '<p class="ai-body"><strong>' + result.summary + '</strong></p>' +
+                        '<p class="ai-body" style="margin-top:10px;">' + result.explanation + '</p>' +
+                        '<div class="ai-disclaimer">⚠️ This is an AI-generated analysis. Confidence: <strong>' + result.confidence + '</strong>. Always consult peer-reviewed sources for important health decisions.</div>' +
+                    '</div>' +
+                    '<div class="state-box" style="margin-top:16px;">' +
+                        '<div class="emoji" style="font-size:36px;">💡</div>' +
+                        '<h3 style="font-size:16px;">Want to explore more?</h3>' +
+                        '<p style="font-size:13px;">Try searching a related topic from our verified database</p>' +
+                        '<div class="suggestion-chips">' +
+                            '<button class="chip" onclick="searchFor(\'MSG headaches\')">MSG headaches</button>' +
+                            '<button class="chip" onclick="searchFor(\'sugar kids\')">Sugar & kids</button>' +
+                            '<button class="chip" onclick="searchFor(\'organic\')">Organic food</button>' +
+                        '</div>' +
+                    '</div>';
+            } catch (err) {
+                grid.innerHTML =
+                    '<div class="state-box">' +
+                        '<div class="emoji">🔍</div><h3>No results found</h3>' +
+                        '<p>We couldn\'t find "' + query + '" in our database. Try different keywords.</p>' +
+                        '<div class="suggestion-chips">' +
+                            '<button class="chip" onclick="searchFor(\'MSG headaches\')">MSG headaches</button>' +
+                            '<button class="chip" onclick="searchFor(\'sugar kids\')">Sugar & kids</button>' +
+                            '<button class="chip" onclick="searchFor(\'carrots\')">Carrots</button>' +
+                        '</div>' +
+                    '</div>';
+            }
         }
 
         function highlight(text, q) {

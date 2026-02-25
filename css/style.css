@@ -16,7 +16,6 @@ body {
     padding: 0 20px;
 }
 
-/* Header */
 header {
     background: #edf2f7;
     padding: 20px 0;
@@ -56,7 +55,6 @@ nav a:hover {
     background: white;
 }
 
-/* Buttons */
 .btn-primary {
     background: #667eea;
     color: white;
@@ -87,7 +85,6 @@ nav a:hover {
     color: #667eea;
 }
 
-/* Hero Section */
 .hero {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     padding: 80px 20px;
@@ -124,7 +121,6 @@ nav a:hover {
     outline: 2px solid #764ba2;
 }
 
-/* Trending Section */
 .trending, .categories {
     padding: 60px 20px;
 }
@@ -191,7 +187,6 @@ nav a:hover {
     font-size: 14px;
 }
 
-/* Category Grid */
 .category-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -227,7 +222,6 @@ nav a:hover {
     margin-top: 10px;
 }
 
-/* Footer */
 footer {
     background: #2d3748;
     color: white;
@@ -239,14 +233,12 @@ footer p {
     margin: 10px 0;
 }
 
-/* Loading */
 .loading {
     text-align: center;
     padding: 40px;
     color: #718096;
 }
 
-/* Polls Section */
 .polls, .discussions, .resources {
     padding: 60px 20px;
 }
@@ -320,7 +312,6 @@ footer p {
     text-align: center;
 }
 
-/* Discussions */
 .discussions-list {
     max-width: 800px;
     margin: 0 auto;
@@ -340,7 +331,6 @@ footer p {
     color: #2d3748;
 }
 
-/* Resources */
 .resources-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

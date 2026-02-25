@@ -1,25 +1,23 @@
-// Check if user is logged in
 async function checkAuth() {
     const { data: { session } } = await sb.auth.getSession();
-    
     const loginBtn = document.getElementById('loginBtn');
-    
+    if (!loginBtn) return;
+
     if (session) {
-        // User is logged in
         loginBtn.textContent = 'Logout';
+        loginBtn.className = 'btn-login';
         loginBtn.onclick = logout;
     } else {
-        // User is not logged in
         loginBtn.textContent = 'Login';
-        loginBtn.onclick = () => window.location.href = 'pages/login.html';
+        loginBtn.className = 'btn-login';
+        const isRoot = !window.location.pathname.includes('/pages/');
+        loginBtn.onclick = () => window.location.href = isRoot ? 'pages/login.html' : 'login.html';
     }
 }
 
-// Logout function
 async function logout() {
     await sb.auth.signOut();
     window.location.reload();
 }
 
-// Run on page load
 checkAuth();
