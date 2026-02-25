@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Myths - Food Myth Buster</title>
@@ -83,6 +83,7 @@
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
                 <a href="contact-and-info.html">Contact & Info</a>
+                <button id="themeToggle" class="dark-mode-toggle" aria-label="Toggle theme"></button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -137,6 +138,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/theme.js"></script>
     <script>
         var allMyths = [];
         var activeCategory = 'all';

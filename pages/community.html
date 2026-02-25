@@ -417,6 +417,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/theme.js"></script>
     <script>
         async function loadPolls() {
             var res = await sb.from('polls').select('*').eq('active', true).order('created_at', { ascending: false });

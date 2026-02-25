@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - Food Myth Buster</title>
@@ -100,6 +100,8 @@
                 <a href="browse.html">Browse Myths</a>
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
+                <a href="contact-and-info.html">Contact & Info</a>
+                <button id="themeToggle" class="dark-mode-toggle" aria-label="Toggle theme"></button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -119,6 +121,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/theme.js"></script>
     <script>
         var currentUser = null;
         var bookmarks = [];
@@ -170,7 +173,8 @@
                 '<div class="container">' +
                     '<div class="profile-layout">' +
                         '<aside class="sidebar-nav">' +
-                            '<button class="nav-item active" onclick="showTab(\'bookmarks\', this)"><span class="icon">🔖</span> Bookmarks</button>' +
+                            '<button class="nav-item active" onclick="showTab(\'profile\', this)"><span class="icon">👤</span> Profile Overview</button>' +
+                            '<button class="nav-item" onclick="showTab(\'bookmarks\', this)"><span class="icon">🔖</span> Bookmarks</button>' +
                             '<button class="nav-item" onclick="showTab(\'submissions\', this)"><span class="icon">📬</span> Submissions</button>' +
                             '<div class="nav-divider"></div>' +
                             '<button class="nav-item" onclick="showTab(\'settings\', this)"><span class="icon">⚙️</span> Settings</button>' +
@@ -178,10 +182,29 @@
                             '<button class="nav-item" onclick="handleLogout()" style="color:#ef4444;"><span class="icon">🚪</span> Logout</button>' +
                         '</aside>' +
                         '<div>' +
-                            '<div class="tab-panel active" id="tab-bookmarks">' + renderBookmarks() + '</div>' +
+                            '<div class="tab-panel active" id="tab-profile">' + renderProfileInfo(name, currentUser.email, bio, joinDate, bookmarks.length, submissions.length) + '</div>' +
+                            '<div class="tab-panel" id="tab-bookmarks">' + renderBookmarks() + '</div>' +
                             '<div class="tab-panel" id="tab-submissions">' + renderSubmissions() + '</div>' +
                             '<div class="tab-panel" id="tab-settings">' + renderSettings(name, currentUser.email, profileImage, bio) + '</div>' +
                         '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        function renderProfileInfo(name, email, bio, joinDate, bookmarkCount, submissionCount) {
+            return '<div class="panel-title">👤 Profile</div>' +
+                '<div class="settings-card">' +
+                    '<h3>Account Details</h3>' +
+                    '<div class="form-row"><label>Name</label><input type="text" value="' + name + '" disabled style="opacity:0.7;cursor:default;"></div>' +
+                    '<div class="form-row"><label>Email</label><input type="email" value="' + email + '" disabled style="opacity:0.7;cursor:default;"></div>' +
+                    '<div class="form-row"><label>Member Since</label><input type="text" value="' + joinDate + '" disabled style="opacity:0.7;cursor:default;"></div>' +
+                '</div>' +
+                '<div class="settings-card">' +
+                    '<h3>Bio & Activity</h3>' +
+                    '<div class="form-row"><label>Bio</label><textarea disabled style="width:100%;min-height:80px;padding:12px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);resize:vertical;">' + (bio || 'No bio yet.') + '</textarea></div>' +
+                    '<div style="display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--text-muted);">' +
+                        '<span>🔖 ' + bookmarkCount + ' bookmarks saved</span>' +
+                        '<span>📬 ' + submissionCount + ' myths submitted</span>' +
                     '</div>' +
                 '</div>';
         }
@@ -233,6 +256,17 @@
                     (profileImage ? '<div class="form-row"><img src="' + profileImage + '" alt="Current profile" style="width:50px;height:50px;border-radius:50%;"></div>' : '') +
                     '<div class="form-row"><label>Email</label><input type="email" value="' + email + '" disabled style="opacity:0.6;cursor:not-allowed;"></div>' +
                     '<button class="save-btn" onclick="saveSettings()">Save Changes</button>' +
+                '</div>' +
+                '<div class="settings-card">' +
+                    '<h3>Appearance</h3>' +
+                    '<div class="form-row">' +
+                        '<label>Theme</label>' +
+                        '<div style="display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--text-muted);">' +
+                            '<label><input type="radio" name="themePreference" value="light" style="margin-right:6px;"> Light</label>' +
+                            '<label><input type="radio" name="themePreference" value="dark" style="margin-right:6px;"> Dark</label>' +
+                            '<label><input type="radio" name="themePreference" value="system" style="margin-right:6px;"> Match system</label>' +
+                        '</div>' +
+                    '</div>' +
                 '</div>' +
                 '<div class="settings-card">' +
                     '<h3>Account</h3>' +

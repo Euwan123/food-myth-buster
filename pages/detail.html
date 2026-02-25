@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Myth Detail - Food Myth Buster</title>
@@ -120,6 +120,7 @@
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
                 <a href="contact-and-info.html">Contact & Info</a>
+                <button id="themeToggle" class="dark-mode-toggle" aria-label="Toggle theme"></button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -159,6 +160,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/theme.js"></script>
     <script>
         var urlParams = new URLSearchParams(window.location.search);
         var mythId = urlParams.get('id');
@@ -244,10 +246,15 @@
             var evidenceHTML = '';
             if (evidence.length > 0) {
                 evidenceHTML = evidence.map(function(e) {
+                    var authors = e.authors || e.author || '';
+                    var year = e.year || '';
+                    var meta = '';
+                    if (authors || year) meta = '<p>' + [authors, year].filter(Boolean).join(' • ') + '</p>';
                     return '<div class="evidence-item">' +
                         '<h4>' + (e.title || 'Study') + '</h4>' +
+                        meta +
                         '<p>' + (e.description || e.summary || '') + '</p>' +
-                        (e.source ? '<a class="evidence-source" href="' + (e.url || '#') + '" target="_blank">📄 ' + e.source + '</a>' : '') +
+                        (e.source || e.url ? '<a class="evidence-source" href="' + (e.url || e.source) + '" target="_blank">📄 ' + (e.source || 'View study') + '</a>' : '') +
                     '</div>';
                 }).join('');
             } else if (myth.evidence) {
@@ -266,6 +273,28 @@
             var total = upVotes + downVotes;
             var upPct = total > 0 ? Math.round(upVotes / total * 100) : 50;
 
+            var videoBlock = '';
+            if (myth.video_url) {
+                videoBlock =
+                    '<div class="section-block">' +
+                        '<h2>🎥 Video Explanation</h2>' +
+                        '<div style="position:relative;padding-bottom:56%;height:0;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#000;margin-bottom:10px;">' +
+                            '<iframe src="' + myth.video_url + '" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen loading="lazy"></iframe>' +
+                        '</div>' +
+                        '<p style="font-size:13px;color:var(--text-muted);">Video resource linked by the myth author or reviewer.</p>' +
+                    '</div>';
+            }
+
+            var surveyBlock = '';
+            if (myth.survey_url) {
+                surveyBlock =
+                    '<div class="section-block">' +
+                        '<h2>📊 Quick Survey</h2>' +
+                        '<p style="font-size:14px;color:var(--text-muted);margin-bottom:10px;">Share how you first heard this myth or how often you see it shared.</p>' +
+                        '<a href="' + myth.survey_url + '" target="_blank" style="display:inline-block;padding:10px 20px;border-radius:10px;background:var(--primary);color:white;text-decoration:none;font-weight:600;font-size:14px;">Open survey</a>' +
+                    '</div>';
+            }
+
             document.getElementById('mainContent').innerHTML =
                 '<section class="detail-content">' +
                     '<div class="container"><div class="detail-layout">' +
@@ -282,6 +311,8 @@
                                 '<button class="ai-expand-btn" id="aiExpandBtn" onclick="expandWithAI()">✨ Expand with AI Analysis</button>' +
                                 '<div id="aiExpandedContent"></div>' +
                             '</div>' +
+                            videoBlock +
+                            surveyBlock +
                             (myth.common_misconceptions ? '<div class="section-block"><h2>⚠️ Common Misconceptions</h2><p>' + myth.common_misconceptions + '</p></div>' : '') +
                             '<div class="vote-section">' +
                                 '<h3>Was this helpful?</h3>' +
