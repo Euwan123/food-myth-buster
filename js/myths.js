@@ -4,7 +4,7 @@ async function loadTrendingMyths() {
     
     try {
         // Fetch featured myths
-        const { data: myths, error } = await supabase
+        const { data: myths, error } = await sb
             .from('myths')
             .select(`
                 *,
@@ -50,7 +50,7 @@ async function loadCategories() {
     const grid = document.getElementById('categoryGrid');
     
     try {
-        const { data: categories, error } = await supabase
+        const { data: categories, error } = await sb
             .from('categories')
             .select('*')
             .order('name');

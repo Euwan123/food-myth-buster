@@ -1,6 +1,6 @@
 // Check if user is logged in
 async function checkAuth() {
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session } } = await sb.auth.getSession();
     
     const loginBtn = document.getElementById('loginBtn');
     
@@ -17,7 +17,7 @@ async function checkAuth() {
 
 // Logout function
 async function logout() {
-    await supabase.auth.signOut();
+    await sb.auth.signOut();
     window.location.reload();
 }
 

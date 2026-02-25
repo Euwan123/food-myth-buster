@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - Food Myth Buster</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">🍎 Food Myth Buster</div>
+            <nav>
+                <a href="../index.html">Home</a>
+                <a href="browse.html">Browse Myths</a>
+                <a href="community.html">Community</a>
+                <a href="resources.html">Resources</a>
+                <button id="loginBtn" class="btn-secondary">Login</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Community Hub</h1>
+            <p>Join the discussion, vote on polls, and share your thoughts on food myths</p>
+        </div>
+    </section>
+
+    <!-- Polls Section -->
+    <section class="polls">
+        <div class="container">
+            <h2>🗳️ Active Polls</h2>
+            <div id="pollsContainer" class="polls-grid">
+                <!-- Polls will be loaded here -->
+                <div class="loading">Loading polls...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discussions Section -->
+    <section class="discussions">
+        <div class="container">
+            <h2>💬 Recent Discussions</h2>
+            <div id="discussionsContainer" class="discussions-list">
+                <!-- Discussions will be loaded here -->
+                <div class="loading">Loading discussions...</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>🍎 Food Myth Buster</p>
+            <p>© 2025 Food Myth Buster. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/polls.js"></script>
+</body>
+</html>

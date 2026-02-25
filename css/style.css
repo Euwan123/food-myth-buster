@@ -245,3 +245,129 @@ footer p {
     padding: 40px;
     color: #718096;
 }
+
+/* Polls Section */
+.polls, .discussions, .resources {
+    padding: 60px 20px;
+}
+
+.polls h2, .discussions h2, .resources h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.polls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.poll-card {
+    background: #f7fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 30px;
+    transition: all 0.3s;
+}
+
+.poll-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.poll-card h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #2d3748;
+}
+
+.poll-options {
+    margin-bottom: 20px;
+}
+
+.poll-option {
+    margin-bottom: 15px;
+}
+
+.poll-option span {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    background: #e2e8f0;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.vote-count {
+    font-size: 14px;
+    color: #718096;
+}
+
+.total-votes {
+    font-size: 14px;
+    color: #a0aec0;
+    text-align: center;
+}
+
+/* Discussions */
+.discussions-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.discussion-item {
+    background: #f7fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.discussion-item h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #2d3748;
+}
+
+/* Resources */
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.resource-card {
+    background: #f7fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.resource-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #2d3748;
+}
+
+.resource-card p {
+    color: #718096;
+    margin-bottom: 20px;
+}
