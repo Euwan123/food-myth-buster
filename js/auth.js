@@ -1,20 +1,24 @@
 async function checkAuth() {
     const { data: { session } } = await sb.auth.getSession();
     const loginBtn = document.getElementById('loginBtn');
-    const profileLink = document.getElementById('profileLink');
     if (!loginBtn) return;
 
+    const isRoot = !window.location.pathname.includes('/pages/');
+
     if (session) {
-        loginBtn.textContent = 'Logout';
+        loginBtn.textContent = 'Profile';
         loginBtn.className = 'btn-login';
-        loginBtn.onclick = logout;
-        if (profileLink) profileLink.style.display = 'inline-block';
+        loginBtn.onclick = () => {
+            const base = isRoot ? 'pages/' : '';
+            window.location.href = base + 'profile.html';
+        };
     } else {
         loginBtn.textContent = 'Login';
         loginBtn.className = 'btn-login';
-        const isRoot = !window.location.pathname.includes('/pages/');
-        loginBtn.onclick = () => window.location.href = isRoot ? 'pages/login.html' : 'login.html';
-        if (profileLink) profileLink.style.display = 'none';
+        loginBtn.onclick = () => {
+            const base = isRoot ? 'pages/' : '';
+            window.location.href = base + 'login.html';
+        };
     }
 }
 
