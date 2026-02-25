@@ -21,7 +21,14 @@
             --surface: #f8f7ff;
         }
 
-        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
+        .dark {
+            --text: #f7fafc;
+            --text-muted: #a0aec0;
+            --border: #4a5568;
+            --surface: #1a202c;
+        }
+
+        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; transition: background 0.3s, color 0.3s; }
 
         header {
             background: rgba(255,255,255,0.92);
@@ -106,6 +113,7 @@
             margin-bottom: 6px;
             color: var(--text);
         }
+        .option-icon { font-size: 18px; }
         .option-pct { font-weight: 700; color: var(--primary); }
 
         .progress-track {
@@ -277,6 +285,39 @@
         footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
         footer p { margin: 4px 0; }
 
+        .dark-mode-toggle {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: none;
+            outline: none;
+        }
+
+        .dark-mode-toggle::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .dark-mode-toggle.active::before {
+            transform: translateX(26px);
+        }
+
+        .dark-mode-toggle.active {
+            background: #667eea;
+        }
+
         @media (max-width: 900px) {
             .community-layout { grid-template-columns: 1fr; }
             .sidebar { position: static; }
@@ -293,6 +334,9 @@
                 <a href="browse.html">Browse Myths</a>
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
+                <a href="profile.html" id="profileLink" style="display:none">Profile</a>
+                <a href="contact.html">Contact</a>
+                <button class="dark-mode-toggle" id="darkModeToggle"></button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -343,7 +387,7 @@
                         <div class="avatar">S</div>
                         <div class="contributor-info">
                             <div class="contributor-name">Sarah M.</div>
-                            <div class="contributor-sub">42 myths submitted</div>
+                            <div class="contributor-sub">142 myths submitted</div>
                         </div>
                     </div>
                     <div class="contributor-row">
@@ -351,7 +395,7 @@
                         <div class="avatar">J</div>
                         <div class="contributor-info">
                             <div class="contributor-name">John D.</div>
-                            <div class="contributor-sub">38 myths submitted</div>
+                            <div class="contributor-sub">138 myths submitted</div>
                         </div>
                     </div>
                     <div class="contributor-row">
@@ -359,7 +403,7 @@
                         <div class="avatar">M</div>
                         <div class="contributor-info">
                             <div class="contributor-name">Maria G.</div>
-                            <div class="contributor-sub">35 myths submitted</div>
+                            <div class="contributor-sub">135 myths submitted</div>
                         </div>
                     </div>
                 </div>
@@ -375,7 +419,7 @@
                         <span class="stat-label">Active Members</span>
                     </div>
                     <div class="stat-row">
-                        <span class="stat-number" id="pollResponses">1,234</span>
+                        <span class="stat-number" id="pollResponses">3,456</span>
                         <span class="stat-label">Poll Responses Today</span>
                     </div>
                 </div>
@@ -422,8 +466,9 @@
 
                 var optionsHTML = options.map(function(opt, i) {
                     var pct = total > 0 ? ((opt.votes / total) * 100).toFixed(1) : 0;
+                    var icon = i === 0 ? '👍' : i === 1 ? '👎' : opt.text.charAt(0);
                     return '<div class="poll-option-row">' +
-                        '<div class="option-label"><span>' + opt.text + '</span><span class="option-pct">' + pct + '%</span></div>' +
+                        '<div class="option-label"><span class="option-icon">' + icon + '</span><span>' + opt.text + '</span><span class="option-pct">' + pct + '%</span></div>' +
                         '<div class="progress-track"><div class="progress-fill" data-width="' + pct + '"></div></div>' +
                         '<div class="option-votes">' + opt.votes.toLocaleString() + ' votes</div>' +
                         '<button class="vote-btn" onclick="votePoll(' + poll.id + ', ' + i + ', this)">Vote</button>' +
@@ -537,6 +582,19 @@
             var res = await sb.from('myths').select('id', { count: 'exact', head: true });
             if (res.count) document.getElementById('totalMyths').textContent = res.count.toLocaleString();
         }
+
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const isDark = localStorage.getItem('darkMode') !== 'false';
+        if (isDark) {
+            body.classList.add('dark');
+            darkModeToggle.classList.add('active');
+        }
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            darkModeToggle.classList.toggle('active');
+            localStorage.setItem('darkMode', body.classList.contains('dark'));
+        });
 
         loadPolls();
         loadCategories();

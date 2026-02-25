@@ -103,6 +103,7 @@ nav a:hover {
 
 .btn-primary:hover {
     background: #5568d3;
+    transform: translateY(-2px) scale(1.05);
 }
 
 .btn-secondary {
@@ -118,6 +119,7 @@ nav a:hover {
 .btn-secondary:hover {
     border-color: #667eea;
     color: #667eea;
+    transform: translateY(-2px) scale(1.05);
 }
 
 .hero {

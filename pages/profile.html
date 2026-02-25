@@ -265,12 +265,12 @@
             var fileExt = file.name.split('.').pop();
             var fileName = currentUser.id + '.' + fileExt;
             var filePath = 'avatars/' + fileName;
-            var { error: uploadError } = await sb.storage.from('profiles').upload(filePath, file, { upsert: true });
+            var { error: uploadError } = await sb.storage.from('user-avatars').upload(filePath, file, { upsert: true });
             if (uploadError) {
                 alert('Error uploading image: ' + uploadError.message);
                 return;
             }
-            var { data } = sb.storage.from('profiles').getPublicUrl(filePath);
+            var { data } = sb.storage.from('user-avatars').getPublicUrl(filePath);
             await sb.auth.updateUser({ data: { avatar_url: data.publicUrl } });
             document.getElementById('profileAvatar').innerHTML = '<img src="' + data.publicUrl + '" alt="Profile" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
             alert('Profile picture updated!');
