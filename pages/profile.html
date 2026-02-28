@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - Food Myth Buster</title>
-    <meta name="description" content="Your Food Myth Buster profile — bookmarks, submissions and activity.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root { --primary: #6c63ff; --primary-dark: #5649e0; --purple-soft: #f0eeff; --text: #1a1a2e; --text-muted: #6b7280; --border: #e5e7f0; --surface: #f8f7ff; --true: #10b981; --false: #ef4444; --partial: #f59e0b; }
         body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         header { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
@@ -22,75 +20,114 @@
         .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
         .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
 
-        .profile-hero { background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%); padding: 48px 24px; position: relative; overflow: hidden; }
+        .profile-hero { background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%); padding: 48px 24px 80px; position: relative; overflow: hidden; }
         .profile-hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E"); }
-        .profile-hero-inner { position: relative; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
-        .avatar-lg { width: 88px; height: 88px; border-radius: 50%; background: rgba(255,255,255,0.2); border: 3px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 800; color: white; flex-shrink: 0; }
-        .profile-info h1 { font-family: 'Sora', sans-serif; font-size: 30px; font-weight: 800; color: white; margin-bottom: 4px; letter-spacing: -0.5px; }
-        .profile-info p { color: rgba(255,255,255,0.75); font-size: 14px; }
-        .profile-stats { display: flex; gap: 28px; margin-top: 16px; flex-wrap: wrap; }
-        .profile-stat-num { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: white; display: block; }
-        .profile-stat-label { font-size: 12px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; }
+        .hero-content { position: relative; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+        .avatar-ring { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 3px solid rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 800; color: white; font-family: 'Sora', sans-serif; flex-shrink: 0; }
+        .hero-text h1 { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; color: white; margin-bottom: 4px; letter-spacing: -0.5px; }
+        .hero-text .email { color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 10px; }
+        .hero-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+        .hero-badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; color: white; }
+        .hero-badge.admin { background: rgba(255,215,0,0.25); border-color: rgba(255,215,0,0.5); color: #ffd700; }
+        .logout-btn { margin-left: auto; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.3); color: white; padding: 9px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+        .logout-btn:hover { background: rgba(255,255,255,0.2); }
 
-        .profile-layout { display: grid; grid-template-columns: 220px 1fr; gap: 28px; padding: 36px 0 60px; align-items: start; }
+        .stats-strip { background: white; border-bottom: 1px solid var(--border); margin-top: -36px; position: relative; z-index: 10; border-radius: 20px 20px 0 0; padding: 0; }
+        .stats-strip .container { display: grid; grid-template-columns: repeat(4, 1fr); }
+        .stat-item { padding: 24px 20px; text-align: center; border-right: 1px solid var(--border); }
+        .stat-item:last-child { border-right: none; }
+        .stat-num { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800; color: var(--primary); display: block; }
+        .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
 
-        .sidebar-nav { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 16px; position: sticky; top: 90px; }
-        .nav-item { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--text-muted); transition: all 0.2s; border: none; background: none; width: 100%; text-align: left; font-family: 'DM Sans', sans-serif; }
-        .nav-item:hover { background: var(--purple-soft); color: var(--primary); }
-        .nav-item.active { background: var(--purple-soft); color: var(--primary); font-weight: 700; }
-        .nav-item .icon { font-size: 18px; }
-        .nav-divider { height: 1px; background: var(--border); margin: 8px 0; }
+        .profile-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; padding: 28px 0 60px; align-items: start; }
 
+        .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 24px; }
+        .tab-btn { padding: 11px 22px; border: none; background: transparent; font-size: 14px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 7px; }
+        .tab-btn:hover { color: var(--primary); }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .tab-count { background: var(--purple-soft); color: var(--primary); font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
         .tab-panel { display: none; }
-        .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-panel.active { display: block; }
 
-        .panel-title { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .myth-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; margin-bottom: 14px; cursor: pointer; transition: all 0.22s; position: relative; overflow: hidden; animation: fadeIn 0.35s ease both; }
+        .myth-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+        .myth-card.v-TRUE::before { background: var(--true); }
+        .myth-card.v-FALSE::before { background: var(--false); }
+        .myth-card.v-PARTIAL::before { background: var(--partial); }
+        .myth-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(108,99,255,0.1); border-color: var(--primary); }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        .myth-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+        .myth-card-title { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; line-height: 1.4; flex: 1; }
+        .myth-card-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .cat-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); }
+        .views-tag { font-size: 12px; color: var(--text-muted); }
+        .remove-bookmark { background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px 6px; border-radius: 6px; color: var(--text-muted); transition: all 0.2s; opacity: 0; }
+        .myth-card:hover .remove-bookmark { opacity: 1; }
+        .remove-bookmark:hover { background: #fee2e2; color: var(--false); }
 
-        .myth-row { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.2s; animation: fadeInUp 0.3s ease both; }
-        .myth-row:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,99,255,0.1); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .myth-row h4 { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; flex: 1; line-height: 1.3; }
-        .myth-row .meta { font-size: 12px; color: var(--text-muted); }
-        .bookmark-remove { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 18px; padding: 4px; border-radius: 6px; transition: all 0.2s; flex-shrink: 0; }
-        .bookmark-remove:hover { color: var(--false); background: #fee2e2; }
-
-        .verdict-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-size: 11px; font-family: 'Sora', sans-serif; flex-shrink: 0; }
+        .verdict-badge { display: inline-block; padding: 3px 11px; border-radius: 20px; font-weight: 700; font-size: 11px; font-family: 'Sora', sans-serif; }
         .verdict-TRUE { background: #d1fae5; color: #065f46; border: 1.5px solid #6ee7b7; }
         .verdict-FALSE { background: #fee2e2; color: #7f1d1d; border: 1.5px solid #fca5a5; }
-        .verdict-PARTIALLY_TRUE { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
+        .verdict-PARTIAL { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
 
-        .empty-panel { text-align: center; padding: 60px 20px; color: var(--text-muted); }
-        .empty-panel .emoji { font-size: 48px; margin-bottom: 14px; }
-        .empty-panel h3 { font-family: 'Sora', sans-serif; font-size: 18px; margin-bottom: 8px; color: var(--text); }
-        .empty-panel a { display: inline-block; margin-top: 16px; padding: 10px 24px; background: var(--primary); color: white; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 14px; }
+        .submission-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; margin-bottom: 14px; animation: fadeIn 0.35s ease both; }
+        .submission-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+        .submission-text { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; flex: 1; line-height: 1.4; }
+        .submission-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        .status-pill { font-size: 11px; padding: 4px 12px; border-radius: 999px; font-weight: 700; border: 1px solid transparent; display: inline-block; white-space: nowrap; }
+        .status-PENDING { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+        .status-APPROVED { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+        .status-REJECTED { background: #fee2e2; color: #7f1d1d; border-color: #fca5a5; }
+        .status-desc { margin-top: 10px; padding: 10px 14px; border-radius: 10px; font-size: 13px; }
+        .status-desc.pending { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+        .status-desc.approved { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+        .status-desc.rejected { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
 
-        .settings-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 20px; }
-        .settings-card h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 20px; }
-        .form-row { margin-bottom: 18px; }
-        .form-row label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 8px; }
-        .form-row input,
-        .form-row textarea { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; background: var(--surface); }
-        .form-row input:focus,
-        .form-row textarea:focus { border-color: var(--primary); background: white; }
-        .save-btn { padding: 11px 24px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
-        .save-btn:hover { background: var(--primary-dark); }
-        .danger-btn { padding: 11px 24px; background: white; color: var(--false); border: 1.5px solid var(--false); border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
-        .danger-btn:hover { background: var(--false); color: white; }
+        .empty-state { text-align: center; padding: 60px 20px; background: white; border-radius: 16px; border: 1.5px dashed var(--border); }
+        .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
+        .empty-state h3 { font-family: 'Sora', sans-serif; font-size: 18px; margin-bottom: 8px; }
+        .empty-state p { color: var(--text-muted); font-size: 14px; margin-bottom: 18px; }
+        .empty-state a { display: inline-block; padding: 10px 22px; background: var(--primary); color: white; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif; transition: background 0.2s; }
+        .empty-state a:hover { background: var(--primary-dark); }
+
+        .sidebar-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 18px; }
+        .sidebar-card-title { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .account-row { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        .account-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .account-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+        .account-value { font-size: 14px; font-weight: 500; color: var(--text); word-break: break-all; }
+        .account-icon { font-size: 18px; margin-top: 2px; }
+        .progress-section { margin-bottom: 10px; }
+        .progress-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; font-weight: 500; }
+        .progress-track { height: 8px; background: var(--surface); border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+        .progress-fill { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--primary), #9b59b6); transition: width 0.8s ease; }
+        .level-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; font-family: 'Sora', sans-serif; margin-top: 10px; }
+        .level-bronze { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+        .level-silver { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+        .level-gold { background: #fef9c3; color: #713f12; border: 1px solid #fde047; }
+        .level-legend { background: var(--purple-soft); color: var(--primary); border: 1px solid #c4b5fd; }
+
+        .danger-zone { background: #fef2f2; border: 1.5px solid #fecaca; border-radius: 16px; padding: 22px; }
+        .danger-zone-title { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; color: #991b1b; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .danger-btn { width: 100%; padding: 11px; border-radius: 10px; border: 1.5px solid #fca5a5; background: white; color: #b91c1c; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; margin-bottom: 8px; }
+        .danger-btn:hover { background: #fee2e2; }
+        .danger-btn:last-child { margin-bottom: 0; }
 
         .skeleton { background: linear-gradient(90deg, #f0eeff 25%, #e8e4ff 50%, #f0eeff 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        .not-logged-in { text-align: center; padding: 80px 20px; }
+        .not-logged-in { text-align: center; padding: 100px 20px; }
         .not-logged-in .emoji { font-size: 64px; margin-bottom: 16px; }
-        .not-logged-in h2 { font-family: 'Sora', sans-serif; font-size: 24px; margin-bottom: 8px; }
+        .not-logged-in h2 { font-family: 'Sora', sans-serif; font-size: 26px; margin-bottom: 10px; }
         .not-logged-in p { color: var(--text-muted); margin-bottom: 24px; }
-        .not-logged-in a { display: inline-block; padding: 12px 28px; background: var(--primary); color: white; border-radius: 10px; text-decoration: none; font-weight: 700; font-family: 'Sora', sans-serif; }
+        .not-logged-in button { padding: 13px 28px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Sora', sans-serif; transition: all 0.2s; }
+        .not-logged-in button:hover { background: var(--primary-dark); transform: translateY(-2px); }
 
         footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
         footer p { margin: 4px 0; }
 
-        @media (max-width: 768px) { .profile-layout { grid-template-columns: 1fr; } .sidebar-nav { position: static; } }
+        @media (max-width: 900px) { .profile-layout { grid-template-columns: 1fr; } .stats-strip .container { grid-template-columns: repeat(2, 1fr); } .stat-item:nth-child(2) { border-right: none; } .hero-content { flex-direction: column; align-items: flex-start; gap: 16px; } .logout-btn { margin-left: 0; } }
+        @media (max-width: 560px) { .stats-strip .container { grid-template-columns: repeat(2, 1fr); } header nav a { display: none; } }
     </style>
 </head>
 <body>
@@ -109,200 +146,257 @@
         </div>
     </header>
 
-    <div id="pageContent">
-        <div style="text-align:center;padding:100px 20px;color:var(--text-muted);">Loading…</div>
-    </div>
+    <div id="appRoot"></div>
 
     <footer>
         <div class="container">
-            <p class="logo-footer">🍎 Food Myth Buster</p>
-            <p>© 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
+            <p>🍎 Food Myth Buster &nbsp;•&nbsp; © 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
-    <script src="../js/theme.js"></script>
     <script>
         var currentUser = null;
         var bookmarks = [];
         var submissions = [];
+        var mythVotes = [];
 
-        async function init() {
-            var res = await sb.auth.getSession();
-            if (!res.data.session) {
-                document.getElementById('pageContent').innerHTML =
-                    '<div class="container"><div class="not-logged-in">' +
-                        '<div class="emoji">🔒</div>' +
-                        '<h2>You\'re not logged in</h2>' +
-                        '<p>Create an account or login to view your profile, bookmarks and submissions.</p>' +
-                        '<a href="login.html">Login / Sign Up</a>' +
-                    '</div></div>';
+        async function initProfile() {
+            var session = await sb.auth.getSession();
+            if (!session.data.session) {
+                renderNotLoggedIn();
                 return;
             }
-            currentUser = res.data.session.user;
-            await loadProfile();
+            currentUser = session.data.session.user;
+            renderSkeleton();
+            await loadAllData();
         }
 
-        async function loadProfile() {
-            var name = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
-            var bio = currentUser.user_metadata?.bio || '';
-            var initial = name.charAt(0).toUpperCase();
-            var joinDate = new Date(currentUser.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-            var profileImage = currentUser.user_metadata?.avatar_url || null;
+        function renderNotLoggedIn() {
+            document.getElementById('appRoot').innerHTML =
+                '<div class="not-logged-in"><div class="emoji">🔒</div>' +
+                '<h2>Sign in to view your profile</h2>' +
+                '<p>Your bookmarks, submissions, and activity are saved here.</p>' +
+                '<button onclick="openAuthOverlay()">Sign In / Register</button></div>';
+        }
 
-            var bmRes = await sb.from('bookmarks').select('*, myths(id, title, verdict, summary)').eq('user_id', currentUser.id).order('created_at', { ascending: false });
-            bookmarks = (bmRes.data || []).filter(function(b) { return b.myths; });
-
-            var subRes = await sb.from('myth_submissions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false });
-            submissions = subRes.data || [];
-
-            document.getElementById('pageContent').innerHTML =
-                '<section class="profile-hero">' +
-                    '<div class="container"><div class="profile-hero-inner">' +
-                        '<div class="avatar-lg" id="profileAvatar">' + (profileImage ? '<img src="' + profileImage + '" alt="Profile" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">' : initial) + '</div>' +
-                        '<div class="profile-info">' +
-                            '<h1>' + name + '</h1>' +
-                            '<p>Member since ' + joinDate + ' &nbsp;•&nbsp; ' + currentUser.email + '</p>' +
-                            '<div class="profile-stats">' +
-                                '<div><span class="profile-stat-num">' + bookmarks.length + '</span><span class="profile-stat-label">Bookmarks</span></div>' +
-                                '<div><span class="profile-stat-num">' + submissions.length + '</span><span class="profile-stat-label">Submissions</span></div>' +
-                            '</div>' +
-                        '</div>' +
+        function renderSkeleton() {
+            document.getElementById('appRoot').innerHTML =
+                '<div style="background:linear-gradient(135deg,#6c63ff,#764ba2);padding:48px 24px 80px;">' +
+                    '<div class="container"><div style="display:flex;gap:24px;align-items:center;">' +
+                        '<div class="skeleton" style="width:90px;height:90px;border-radius:50%;opacity:0.4;"></div>' +
+                        '<div><div class="skeleton" style="height:24px;width:200px;opacity:0.4;margin-bottom:10px;"></div>' +
+                        '<div class="skeleton" style="height:14px;width:150px;opacity:0.3;"></div></div>' +
                     '</div></div>' +
-                '</section>' +
-                '<div class="container">' +
-                    '<div class="profile-layout">' +
-                        '<aside class="sidebar-nav">' +
-                            '<button class="nav-item active" onclick="showTab(\'profile\', this)"><span class="icon">👤</span> Profile Overview</button>' +
-                            '<button class="nav-item" onclick="showTab(\'bookmarks\', this)"><span class="icon">🔖</span> Bookmarks</button>' +
-                            '<button class="nav-item" onclick="showTab(\'submissions\', this)"><span class="icon">📬</span> Submissions</button>' +
-                            '<div class="nav-divider"></div>' +
-                            '<button class="nav-item" onclick="showTab(\'settings\', this)"><span class="icon">⚙️</span> Settings</button>' +
-                            '<div class="nav-divider"></div>' +
-                            '<button class="nav-item" onclick="handleLogout()" style="color:#ef4444;"><span class="icon">🚪</span> Logout</button>' +
-                        '</aside>' +
-                        '<div>' +
-                            '<div class="tab-panel active" id="tab-profile">' + renderProfileInfo(name, currentUser.email, bio, joinDate, bookmarks.length, submissions.length) + '</div>' +
-                            '<div class="tab-panel" id="tab-bookmarks">' + renderBookmarks() + '</div>' +
-                            '<div class="tab-panel" id="tab-submissions">' + renderSubmissions() + '</div>' +
-                            '<div class="tab-panel" id="tab-settings">' + renderSettings(name, currentUser.email, profileImage, bio) + '</div>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
+                '</div>' +
+                '<div class="stats-strip"><div class="container">' +
+                    [1,2,3,4].map(function() { return '<div class="stat-item"><div class="skeleton" style="height:26px;width:50px;margin:0 auto 6px;"></div><div class="skeleton" style="height:12px;width:80px;margin:0 auto;"></div></div>'; }).join('') +
+                '</div></div>';
         }
 
-        function renderProfileInfo(name, email, bio, joinDate, bookmarkCount, submissionCount) {
-            return '<div class="panel-title">👤 Profile</div>' +
-                '<div class="settings-card">' +
-                    '<h3>Account Details</h3>' +
-                    '<div class="form-row"><label>Name</label><input type="text" value="' + name + '" disabled style="opacity:0.7;cursor:default;"></div>' +
-                    '<div class="form-row"><label>Email</label><input type="email" value="' + email + '" disabled style="opacity:0.7;cursor:default;"></div>' +
-                    '<div class="form-row"><label>Member Since</label><input type="text" value="' + joinDate + '" disabled style="opacity:0.7;cursor:default;"></div>' +
-                '</div>' +
-                '<div class="settings-card">' +
-                    '<h3>Bio & Activity</h3>' +
-                    '<div class="form-row"><label>Bio</label><textarea disabled style="width:100%;min-height:80px;padding:12px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);resize:vertical;">' + (bio || 'No bio yet.') + '</textarea></div>' +
-                    '<div style="display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--text-muted);">' +
-                        '<span>🔖 ' + bookmarkCount + ' bookmarks saved</span>' +
-                        '<span>📬 ' + submissionCount + ' myths submitted</span>' +
+        async function loadAllData() {
+            var results = await Promise.all([
+                sb.from('bookmarks').select('*, myths(id, title, verdict, views, categories(name, slug, icon))').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
+                sb.from('myth_submissions').select('*, categories(name, icon)').eq('user_id', currentUser.id).order('submitted_at', { ascending: false }),
+                sb.from('myth_votes').select('myth_id, vote, myths(title)').eq('user_id', currentUser.id).order('created_at', { ascending: false })
+            ]);
+
+            bookmarks = (results[0].data || []).filter(function(b) { return b.myths; });
+            submissions = results[1].data || [];
+            mythVotes = results[2].data || [];
+
+            renderProfile();
+        }
+
+        function getLevel(submissionCount, bookmarkCount) {
+            var score = submissionCount * 10 + bookmarkCount * 2;
+            if (score >= 200) return { label: '🌟 Legend', cls: 'level-legend', next: null, progress: 100 };
+            if (score >= 100) return { label: '🥇 Gold', cls: 'level-gold', next: 200, progress: Math.round((score - 100) / 100 * 100) };
+            if (score >= 30) return { label: '🥈 Silver', cls: 'level-silver', next: 100, progress: Math.round((score - 30) / 70 * 100) };
+            return { label: '🥉 Bronze', cls: 'level-bronze', next: 30, progress: Math.round(score / 30 * 100) };
+        }
+
+        function renderProfile() {
+            var user = currentUser;
+            var email = user.email || '';
+            var displayName = user.user_metadata?.full_name || user.user_metadata?.name || email.split('@')[0] || 'User';
+            var avatarLetter = displayName.charAt(0).toUpperCase();
+            var isAdmin = user.user_metadata?.role === 'admin';
+            var joinDate = new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+            var level = getLevel(submissions.length, bookmarks.length);
+            var approvedCount = submissions.filter(function(s) { return s.status === 'APPROVED'; }).length;
+            var pendingCount = submissions.filter(function(s) { return s.status === 'PENDING'; }).length;
+
+            var heroHTML =
+                '<section class="profile-hero">' +
+                    '<div class="container">' +
+                        '<div class="hero-content">' +
+                            '<div class="avatar-ring">' + avatarLetter + '</div>' +
+                            '<div class="hero-text">' +
+                                '<h1>' + displayName + '</h1>' +
+                                '<div class="email">' + email + '</div>' +
+                                '<div class="hero-badges">' +
+                                    '<span class="hero-badge">Member since ' + joinDate + '</span>' +
+                                    '<span class="hero-badge ' + (isAdmin ? 'admin' : '') + '">' + (isAdmin ? '⚡ Admin' : '👤 Member') + '</span>' +
+                                    '<span class="hero-badge">' + level.label + '</span>' +
+                                '</div>' +
+                            '</div>' +
+                            '<button class="logout-btn" onclick="handleLogout()">Sign Out →</button>' +
+                        '</div>' +
+                    '</div>' +
+                '</section>';
+
+            var statsHTML =
+                '<div class="stats-strip">' +
+                    '<div class="container">' +
+                        '<div class="stat-item"><span class="stat-num">' + bookmarks.length + '</span><span class="stat-label">Bookmarks</span></div>' +
+                        '<div class="stat-item"><span class="stat-num">' + submissions.length + '</span><span class="stat-label">Submitted</span></div>' +
+                        '<div class="stat-item"><span class="stat-num">' + approvedCount + '</span><span class="stat-label">Approved</span></div>' +
+                        '<div class="stat-item"><span class="stat-num">' + mythVotes.length + '</span><span class="stat-label">Myths Voted</span></div>' +
                     '</div>' +
                 '</div>';
+
+            var mainHTML =
+                '<div class="container"><div class="profile-layout">' +
+                    '<div>' +
+                        '<div class="tabs">' +
+                            '<button class="tab-btn active" onclick="switchTab(\'bookmarks\', this)">🔖 Bookmarks <span class="tab-count">' + bookmarks.length + '</span></button>' +
+                            '<button class="tab-btn" onclick="switchTab(\'submissions\', this)">📬 Submissions <span class="tab-count">' + submissions.length + '</span></button>' +
+                            '<button class="tab-btn" onclick="switchTab(\'votes\', this)">👍 Votes <span class="tab-count">' + mythVotes.length + '</span></button>' +
+                        '</div>' +
+                        '<div id="tab-bookmarks" class="tab-panel active">' + renderBookmarks() + '</div>' +
+                        '<div id="tab-submissions" class="tab-panel">' + renderSubmissions() + '</div>' +
+                        '<div id="tab-votes" class="tab-panel">' + renderVotes() + '</div>' +
+                    '</div>' +
+                    '<aside>' +
+                        '<div class="sidebar-card">' +
+                            '<div class="sidebar-card-title">👤 Account Info</div>' +
+                            '<div class="account-row"><span class="account-icon">📧</span><div><div class="account-label">Email</div><div class="account-value">' + email + '</div></div></div>' +
+                            '<div class="account-row"><span class="account-icon">📅</span><div><div class="account-label">Member Since</div><div class="account-value">' + joinDate + '</div></div></div>' +
+                            '<div class="account-row"><span class="account-icon">🔑</span><div><div class="account-label">Role</div><div class="account-value">' + (isAdmin ? '⚡ Admin' : 'Member') + '</div></div></div>' +
+                            '<div class="account-row"><span class="account-icon">🌐</span><div><div class="account-label">Provider</div><div class="account-value">' + (user.app_metadata?.provider || 'email') + '</div></div></div>' +
+                        '</div>' +
+                        '<div class="sidebar-card">' +
+                            '<div class="sidebar-card-title">📈 Progress</div>' +
+                            '<span class="level-badge ' + level.cls + '">' + level.label + '</span>' +
+                            (level.next ?
+                                '<div style="margin-top:14px;">' +
+                                    '<div class="progress-label"><span>Progress to next level</span><span>' + level.progress + '%</span></div>' +
+                                    '<div class="progress-track"><div class="progress-fill" data-w="' + level.progress + '" style="width:0"></div></div>' +
+                                    '<div style="font-size:12px;color:var(--text-muted);margin-top:6px;">Submit myths and bookmark content to level up</div>' +
+                                '</div>'
+                            : '<div style="margin-top:10px;font-size:13px;color:var(--text-muted);">You\'ve reached the highest level! 🏆</div>') +
+                        '</div>' +
+                        '<div class="sidebar-card">' +
+                            '<div class="sidebar-card-title">⚡ Quick Actions</div>' +
+                            '<a href="browse.html" style="display:block;padding:11px 16px;border-radius:10px;border:1.5px solid var(--border);text-decoration:none;color:var(--text);font-size:13px;font-weight:500;margin-bottom:8px;transition:all 0.2s;" onmouseover="this.style.borderColor=\'var(--primary)\';this.style.color=\'var(--primary)\'" onmouseout="this.style.borderColor=\'var(--border)\';this.style.color=\'var(--text)\'">📚 Browse Myths</a>' +
+                            '<a href="community.html" style="display:block;padding:11px 16px;border-radius:10px;border:1.5px solid var(--border);text-decoration:none;color:var(--text);font-size:13px;font-weight:500;margin-bottom:8px;transition:all 0.2s;" onmouseover="this.style.borderColor=\'var(--primary)\';this.style.color=\'var(--primary)\'" onmouseout="this.style.borderColor=\'var(--border)\';this.style.color=\'var(--text)\'">📬 Submit a Myth</a>' +
+                            (isAdmin ? '<a href="admin.html" style="display:block;padding:11px 16px;border-radius:10px;border:1.5px solid var(--primary);text-decoration:none;color:var(--primary);font-size:13px;font-weight:600;background:var(--purple-soft);margin-bottom:8px;">⚡ Admin Panel</a>' : '') +
+                        '</div>' +
+                        '<div class="danger-zone">' +
+                            '<div class="danger-zone-title">⚠️ Danger Zone</div>' +
+                            '<button class="danger-btn" onclick="handleLogout()">Sign Out</button>' +
+                        '</div>' +
+                    '</aside>' +
+                '</div></div>';
+
+            document.getElementById('appRoot').innerHTML = heroHTML + statsHTML + '<div style="background:white;border-top:1px solid var(--border);">' + mainHTML + '</div>';
+
+            setTimeout(function() {
+                var bar = document.querySelector('.progress-fill[data-w]');
+                if (bar) bar.style.width = bar.dataset.w + '%';
+            }, 200);
         }
 
         function renderBookmarks() {
-            var html = '<div class="panel-title">🔖 My Bookmarks</div>';
             if (bookmarks.length === 0) {
-                return html + '<div class="empty-panel"><div class="emoji">🔖</div><h3>No bookmarks yet</h3><p>Save myths you want to revisit later.</p><a href="browse.html">Browse Myths</a></div>';
+                return '<div class="empty-state"><div class="emoji">🔖</div><h3>No bookmarks yet</h3><p>Browse myths and hit the bookmark button to save them here.</p><a href="browse.html">Browse Myths →</a></div>';
             }
-            bookmarks.forEach(function(b, i) {
-                var verdictLabel = b.myths.verdict === 'PARTIALLY_TRUE' ? 'Partial' : b.myths.verdict.replace('_', ' ');
-                html += '<div class="myth-row" style="animation-delay:' + (i * 0.05) + 's">' +
-                    '<span class="verdict-badge verdict-' + b.myths.verdict + '">' + verdictLabel + '</span>' +
-                    '<div style="flex:1" onclick="window.location.href=\'detail.html?id=' + b.myths.id + '\'">' +
-                        '<h4>' + b.myths.title + '</h4>' +
-                        '<div class="meta">' + (b.myths.summary ? b.myths.summary.substring(0, 80) + '…' : '') + '</div>' +
+            return bookmarks.map(function(bm, i) {
+                var myth = bm.myths;
+                var verdictLabel = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
+                var catName = myth.categories ? (myth.categories.icon || '') + ' ' + myth.categories.name : 'General';
+                return '<div class="myth-card v-' + myth.verdict + '" style="animation-delay:' + (i * 0.05) + 's">' +
+                    '<div class="myth-card-top">' +
+                        '<div class="myth-card-title" onclick="window.location.href=\'detail.html?id=' + myth.id + '\'">' + myth.title + '</div>' +
+                        '<div style="display:flex;gap:6px;align-items:center;flex-shrink:0;">' +
+                            '<span class="verdict-badge verdict-' + myth.verdict + '">' + verdictLabel + '</span>' +
+                            '<button class="remove-bookmark" title="Remove bookmark" onclick="removeBookmark(' + bm.id + ', this)">✕</button>' +
+                        '</div>' +
                     '</div>' +
-                    '<button class="bookmark-remove" onclick="removeBookmark(\'' + b.id + '\', this)" title="Remove bookmark">🗑</button>' +
+                    '<div class="myth-card-meta">' +
+                        '<span class="cat-tag">' + catName + '</span>' +
+                        '<span class="views-tag">👁 ' + (myth.views || 0) + '</span>' +
+                    '</div>' +
                 '</div>';
-            });
-            return html;
+            }).join('');
         }
 
         function renderSubmissions() {
-            var html = '<div class="panel-title">📬 My Submissions</div>';
             if (submissions.length === 0) {
-                return html + '<div class="empty-panel"><div class="emoji">📬</div><h3>No submissions yet</h3><p>Submit a food myth for our team to verify.</p><a href="community.html">Submit a Myth</a></div>';
+                return '<div class="empty-state"><div class="emoji">📬</div><h3>No submissions yet</h3><p>Help grow the myth library by submitting food claims you\'ve heard.</p><a href="community.html">Submit a Myth →</a></div>';
             }
-            submissions.forEach(function(s, i) {
-                var statusColor = s.status === 'approved' ? '#10b981' : s.status === 'rejected' ? '#ef4444' : '#f59e0b';
-                var statusLabel = s.status ? s.status.charAt(0).toUpperCase() + s.status.slice(1) : 'Pending';
-                html += '<div class="myth-row" style="animation-delay:' + (i * 0.05) + 's;cursor:default">' +
-                    '<div style="flex:1">' +
-                        '<h4>' + s.myth_text + '</h4>' +
-                        '<div class="meta">Submitted ' + new Date(s.created_at).toLocaleDateString() + '</div>' +
+            return submissions.map(function(s, i) {
+                var status = s.status || 'PENDING';
+                var catName = s.categories ? (s.categories.icon || '') + ' ' + s.categories.name : 'Uncategorized';
+                var statusDescMap = {
+                    PENDING: '<div class="status-desc pending">⏳ Your submission is awaiting review by our team.</div>',
+                    APPROVED: '<div class="status-desc approved">✅ Approved! This myth may be added to our database.</div>',
+                    REJECTED: '<div class="status-desc rejected">❌ Not added to the database. This could be a duplicate or needs more evidence.</div>'
+                };
+                var date = new Date(s.submitted_at || s.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                return '<div class="submission-card" style="animation-delay:' + (i * 0.05) + 's">' +
+                    '<div class="submission-card-top">' +
+                        '<div class="submission-text">' + s.myth_text + '</div>' +
+                        '<span class="status-pill status-' + status + '">' + status + '</span>' +
                     '</div>' +
-                    '<span style="padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;background:' + statusColor + '20;color:' + statusColor + ';border:1.5px solid ' + statusColor + '40;">' + statusLabel + '</span>' +
+                    '<div class="submission-meta">' +
+                        catName +
+                        (s.suggested_verdict ? ' &nbsp;•&nbsp; Suggested: ' + s.suggested_verdict : '') +
+                        ' &nbsp;•&nbsp; Submitted ' + date +
+                        (s.source_link ? ' &nbsp;•&nbsp; <a href="' + s.source_link + '" target="_blank" style="color:var(--primary);">Source ↗</a>' : '') +
+                    '</div>' +
+                    statusDescMap[status] +
                 '</div>';
-            });
-            return html;
+            }).join('');
         }
 
-        function renderSettings(name, email, profileImage, bio) {
-            return '<div class="panel-title">⚙️ Settings</div>' +
-                '<div class="settings-card">' +
-                    '<h3>Profile Information</h3>' +
-                    '<div class="form-row"><label>Full Name</label><input type="text" id="settingsName" value="' + name + '"></div>' +
-                    '<div class="form-row"><label>Bio</label><textarea id="settingsBio" placeholder="Tell us about yourself..." maxlength="500">' + (bio || '') + '</textarea></div>' +
-                    '<div class="form-row"><label>Profile Picture</label><input type="file" id="profileImageInput" accept="image/*" onchange="uploadProfileImage()"></div>' +
-                    (profileImage ? '<div class="form-row"><img src="' + profileImage + '" alt="Current profile" style="width:50px;height:50px;border-radius:50%;"></div>' : '') +
-                    '<div class="form-row"><label>Email</label><input type="email" value="' + email + '" disabled style="opacity:0.6;cursor:not-allowed;"></div>' +
-                    '<button class="save-btn" onclick="saveSettings()">Save Changes</button>' +
-                '</div>' +
-                '<div class="settings-card">' +
-                    '<h3>Account</h3>' +
-                    '<button class="danger-btn" onclick="handleLogout()">🚪 Logout</button>' +
+        function renderVotes() {
+            if (mythVotes.length === 0) {
+                return '<div class="empty-state"><div class="emoji">👍</div><h3>No votes yet</h3><p>Visit any myth page and vote on whether the explanation was helpful.</p><a href="browse.html">Browse Myths →</a></div>';
+            }
+            return mythVotes.map(function(v, i) {
+                var mythTitle = v.myths ? v.myths.title : 'Unknown myth';
+                return '<div class="myth-card" style="animation-delay:' + (i * 0.05) + 's;cursor:default;">' +
+                    '<div class="myth-card-top">' +
+                        '<div class="myth-card-title" style="cursor:pointer;" onclick="window.location.href=\'detail.html?id=' + v.myth_id + '\'">' + mythTitle + '</div>' +
+                        '<span style="font-size:22px;">' + (v.vote === 'up' ? '👍' : '👎') + '</span>' +
+                    '</div>' +
+                    '<div class="myth-card-meta">' +
+                        '<span style="font-size:12px;color:var(--text-muted);">You found this ' + (v.vote === 'up' ? 'helpful' : 'not helpful') + '</span>' +
+                    '</div>' +
                 '</div>';
+            }).join('');
         }
 
-        function showTab(name, btn) {
+        function switchTab(name, btn) {
+            document.querySelectorAll('.tabs .tab-btn').forEach(function(b) { b.classList.remove('active'); });
             document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
-            document.querySelectorAll('.nav-item').forEach(function(b) { b.classList.remove('active'); });
-            document.getElementById('tab-' + name).classList.add('active');
             btn.classList.add('active');
+            document.getElementById('tab-' + name).classList.add('active');
         }
 
         async function removeBookmark(bookmarkId, btn) {
-            btn.disabled = true;
-            await sb.from('bookmarks').delete().eq('id', bookmarkId);
-            bookmarks = bookmarks.filter(function(b) { return b.id !== bookmarkId; });
-            document.getElementById('tab-bookmarks').innerHTML = renderBookmarks();
-        }
-
-        async function saveSettings() {
-            var name = document.getElementById('settingsName').value.trim();
-            var bio = document.getElementById('settingsBio').value.trim();
-            if (!name) return;
-            await sb.auth.updateUser({ data: { full_name: name, bio: bio } });
-            alert('Profile updated!');
-        }
-
-        async function uploadProfileImage() {
-            var file = document.getElementById('profileImageInput').files[0];
-            if (!file) return;
-            var fileExt = file.name.split('.').pop();
-            var fileName = currentUser.id + '.' + fileExt;
-            var filePath = 'avatars/' + fileName;
-            var { error: uploadError } = await sb.storage.from('user-avatars').upload(filePath, file, { upsert: true });
-            if (uploadError) {
-                alert('Error uploading image: ' + uploadError.message);
-                return;
+            btn.textContent = '…';
+            var res = await sb.from('bookmarks').delete().eq('id', bookmarkId);
+            if (!res.error) {
+                bookmarks = bookmarks.filter(function(b) { return b.id !== bookmarkId; });
+                document.getElementById('tab-bookmarks').innerHTML = renderBookmarks();
+                var countSpan = document.querySelector('.tab-btn:first-child .tab-count');
+                if (countSpan) countSpan.textContent = bookmarks.length;
             }
-            var { data } = sb.storage.from('user-avatars').getPublicUrl(filePath);
-            await sb.auth.updateUser({ data: { avatar_url: data.publicUrl } });
-            document.getElementById('profileAvatar').innerHTML = '<img src="' + data.publicUrl + '" alt="Profile" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
-            alert('Profile picture updated!');
         }
 
         async function handleLogout() {
@@ -310,7 +404,7 @@
             window.location.href = '../index.html';
         }
 
-        init();
+        initProfile();
     </script>
 </body>
 </html>
