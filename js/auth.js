@@ -1,18 +1,27 @@
+var _authReady = false;
+
+(function() {
+    var style = document.createElement('style');
+    style.id = 'auth-hide';
+    style.textContent = '#loginBtn, #adminBtn { visibility: hidden; }';
+    document.head.appendChild(style);
+})();
+
 async function checkAuth() {
     const { data: { session } } = await sb.auth.getSession();
     const loginBtn = document.getElementById('loginBtn');
     const adminBtn = document.getElementById('adminBtn');
-    if (!loginBtn) return;
 
     const isRoot = !window.location.pathname.includes('/pages/');
 
     if (session) {
+        if (loginBtn) {
         loginBtn.textContent = 'Profile';
-        loginBtn.className = 'btn-login';
         loginBtn.onclick = () => {
-            const base = isRoot ? 'pages/' : '';
-            window.location.href = base + 'profile.html';
-        };
+                const base = isRoot ? 'pages/' : '';
+                window.location.href = base + 'profile.html';
+            };
+        }
         if (adminBtn) {
             const isAdmin = session.user?.user_metadata?.role === 'admin';
             if (isAdmin) {
@@ -26,11 +35,16 @@ async function checkAuth() {
             }
         }
     } else {
-        loginBtn.textContent = 'Login';
-        loginBtn.className = 'btn-login';
-        loginBtn.onclick = openAuthOverlay;
+        if (loginBtn) {
+            loginBtn.textContent = 'Login';
+            loginBtn.onclick = openAuthOverlay;
+        }
         if (adminBtn) adminBtn.style.display = 'none';
     }
+
+    const hide = document.getElementById('auth-hide');
+    if (hide) hide.remove();
+    _authReady = true;
 }
 
 async function logout() {

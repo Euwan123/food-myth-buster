@@ -202,9 +202,18 @@
             document.title = currentMyth.title + ' - Food Myth Buster';
             document.querySelector('meta[name="description"]').setAttribute('content', currentMyth.summary || currentMyth.title);
 
-            var sessionKey = 'viewed_' + mythId;
+            var sessionKey = 'fmb_view_' + mythId;
+            var sessId = sessionStorage.getItem('fmb_session');
+            if (!sessId) {
+                sessId = 'sess_' + Math.random().toString(36).slice(2) + Date.now();
+                sessionStorage.setItem('fmb_session', sessId);
+            }
             if (!sessionStorage.getItem(sessionKey)) {
-                await sb.from('myths').update({ views: (currentMyth.views || 0) + 1 }).eq('id', mythId);
+                await sb.rpc('increment_myth_view', {
+                    p_myth_id: parseInt(mythId),
+                    p_session_id: sessId,
+                    p_user_id: currentUser ? currentUser.id : null
+                });
                 sessionStorage.setItem(sessionKey, '1');
             }
 
