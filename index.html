@@ -171,7 +171,7 @@
                 <a href="pages/community.html">Community</a>
                 <a href="pages/resources.html">Resources</a>
                 <a href="pages/contact-and-info.html">Contact & Info</a>
-                <button id="themeToggle" class="dark-mode-toggle" aria-label="Toggle theme"></button>
+                <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -213,36 +213,29 @@
 
     <section class="page-description" style="background: white; padding: 72px 0; border-bottom: 1px solid var(--border);">
         <div class="container">
-            <div class="description-content" style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:flex-start;max-width:1080px;margin:0 auto;">
-                <div>
-                    <h2 style="font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 20px; text-align:left;">What is Food Myth Buster?</h2>
-                    <p style="font-size: 17px; line-height: 1.7; color: var(--text-muted); margin-bottom: 18px;">
-                        Food Myth Buster is a small web app that treats every nutrition claim like a mini research project. Each myth is linked to real studies, expert reviews, and clear verdicts so you can see why something is labeled true, false, or partially true.
-                    </p>
-                    <p style="font-size: 16px; line-height: 1.7; color: var(--text-muted); margin-bottom: 18px;">
-                        Instead of viral TikToks and random Facebook posts, you get structured explanations, links to the original papers, and space for the community to vote on how helpful each breakdown is.
-                    </p>
-                    <ul style="list-style:none;padding:0;margin:8px 0 0;display:grid;gap:10px;">
-                        <li style="display:flex;align-items:flex-start;gap:8px;font-size:14px;color:var(--text-muted);"><span>✅</span><span>See the verdict plus a short, plain‑language explanation.</span></li>
-                        <li style="display:flex;align-items:flex-start;gap:8px;font-size:14px;color:var(--text-muted);"><span>📖</span><span>Scan the key studies, authors, years, and direct links for each myth.</span></li>
-                        <li style="display:flex;align-items:flex-start;gap:8px;font-size:14px;color:var(--text-muted);"><span>🎥</span><span>Watch supporting video explainers or walkthroughs when they exist.</span></li>
-                    </ul>
-                </div>
-                <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px 20px 18px;box-shadow:0 10px 30px rgba(0,0,0,0.04);">
-                    <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-muted);margin-bottom:10px;">How people use it</div>
-                    <div style="display:grid;gap:10px;font-size:14px;color:var(--text);">
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <span>Check if a viral claim is real</span>
-                            <span style="font-weight:600;color:var(--primary);">Myth search →</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <span>Collect studies for a school project</span>
-                            <span style="font-weight:600;color:var(--primary);">Evidence view →</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <span>Submit your own myths and vote</span>
-                            <span style="font-weight:600;color:var(--primary);">Community hub →</span>
-                        </div>
+            <div class="description-content" style="max-width: 1000px; margin: 0 auto; text-align: center;">
+                <h2 style="font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 18px;">What is Food Myth Buster?</h2>
+                <p style="font-size: 17px; line-height: 1.7; color: var(--text-muted); max-width: 700px; margin: 0 auto 10px;">
+                    Food Myth Buster is a small web app that turns confusing food claims into clear answers backed by real science.
+                </p>
+                <p style="font-size: 16px; line-height: 1.7; color: var(--text-muted); max-width: 720px; margin: 0 auto 34px;">
+                    Each myth page combines a verdict, explanation, linked studies, and community feedback so you can see not just what is true, but why.
+                </p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:8px;">
+                    <div style="border-radius:18px;padding:18px 16px;background:linear-gradient(135deg,#eef2ff,#e0f2fe);border:1px solid #e5e7f0;text-align:left;">
+                        <div style="font-size:28px;margin-bottom:6px;">🔬</div>
+                        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;color:var(--text);">Evidence first</div>
+                        <div style="font-size:13px;color:var(--text-muted);">Verdicts are built around peer‑reviewed studies and official guidelines, not opinions.</div>
+                    </div>
+                    <div style="border-radius:18px;padding:18px 16px;background:linear-gradient(135deg,#ecfdf3,#fef9c3);border:1px solid #e5e7f0;text-align:left;">
+                        <div style="font-size:28px;margin-bottom:6px;">📚</div>
+                        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;color:var(--text);">Myth library</div>
+                        <div style="font-size:13px;color:var(--text-muted);">Browse myths by category, verdict, or search terms when you hear something suspicious.</div>
+                    </div>
+                    <div style="border-radius:18px;padding:18px 16px;background:linear-gradient(135deg,#fdf2ff,#e0f2fe);border:1px solid #e5e7f0;text-align:left;">
+                        <div style="font-size:28px;margin-bottom:6px;">👥</div>
+                        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;color:var(--text);">Community input</div>
+                        <div style="font-size:13px;color:var(--text-muted);">Users can submit myths, bookmark favourites, and vote on which explanations are most helpful.</div>
                     </div>
                 </div>
             </div>
@@ -273,7 +266,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-client.js"></script>
     <script src="js/auth.js"></script>
-    <script src="js/theme.js"></script>
     <script>
         async function loadTrendingMyths() {
             const grid = document.getElementById('trendingGrid');
@@ -288,10 +280,11 @@
                 card.className = 'myth-card verdict-' + myth.verdict;
                 card.style.animationDelay = (i * 0.08) + 's';
                 card.onclick = () => window.location.href = 'pages/detail.html?id=' + myth.id;
+                const verdictLabel = myth.verdict === 'PARTIALLY_TRUE' ? 'Partial' : myth.verdict.replace('_', ' ');
                 card.innerHTML =
                     '<div class="cat-tag">' + (myth.categories?.icon || '') + ' ' + (myth.categories?.name || 'General') + '</div>' +
                     '<h3>' + myth.title + '</h3>' +
-                    '<div class="cta"><span class="verdict-badge verdict-' + myth.verdict + '">' + myth.verdict.replace('_', ' ') + '</span><span>Read more →</span></div>';
+                    '<div class="cta"><span class="verdict-badge verdict-' + myth.verdict + '">' + verdictLabel + '</span><span>Read more →</span></div>';
                 grid.appendChild(card);
             });
         }
@@ -301,17 +294,21 @@
             const { data: categories, error } = await sb.from('categories').select('*').order('name');
             if (error || !categories) { grid.innerHTML = ''; return; }
             grid.innerHTML = '';
-            categories.forEach((cat, i) => {
+            const enriched = await Promise.all(categories.map(async (cat) => {
+                const res = await sb.from('myths').select('id', { count: 'exact', head: true }).eq('category_id', cat.id);
+                return { cat, count: res.count || 0 };
+            }));
+            enriched.forEach((item, i) => {
                 const card = document.createElement('div');
                 card.className = 'category-card';
-                card.style.backgroundColor = cat.color + '12';
-                card.style.borderColor = cat.color + '40';
+                card.style.backgroundColor = item.cat.color + '12';
+                card.style.borderColor = item.cat.color + '40';
                 card.style.animationDelay = (i * 0.07) + 's';
-                card.onclick = () => window.location.href = 'pages/browse.html?category=' + cat.slug;
+                card.onclick = () => window.location.href = 'pages/browse.html?category=' + item.cat.slug;
                 card.innerHTML =
-                    '<div class="icon">' + cat.icon + '</div>' +
-                    '<h3 style="color:' + cat.color + '">' + cat.name + '</h3>' +
-                    '<p class="count">' + (cat.myth_count || 0) + ' myths verified</p>';
+                    '<div class="icon">' + item.cat.icon + '</div>' +
+                    '<h3 style="color:' + item.cat.color + '">' + item.cat.name + '</h3>' +
+                    '<p class="count">' + item.count + ' myths verified</p>';
                 grid.appendChild(card);
             });
         }

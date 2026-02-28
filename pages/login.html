@@ -134,11 +134,23 @@
             var password = document.getElementById('signupPassword').value;
             var btn = document.getElementById('signupBtn');
             if (!name || !email || !password) { showAlert('Please fill in all fields.'); return; }
-            if (password.length < 6) { showAlert('Password must be at least 6 characters.'); return; }
+            if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password)) {
+                showAlert('Password must be at least 8 characters and include upper, lower, and a number.');
+                return;
+            }
             btn.disabled = true; btn.textContent = 'Creating account…';
             var res = await sb.auth.signUp({ email, password, options: { data: { full_name: name } } });
-            if (res.error) { showAlert(res.error.message); btn.disabled = false; btn.textContent = 'Create Account'; }
-            else { showAlert('Account created! Check your email to confirm, then login.', 'success'); btn.disabled = false; btn.textContent = 'Create Account'; }
+            if (res.error) {
+                if (res.error.code === 'user_already_exists') {
+                    showAlert('An account with this email already exists.');
+                } else {
+                    showAlert(res.error.message);
+                }
+                btn.disabled = false; btn.textContent = 'Create Account';
+            } else {
+                showAlert('Account created! Check your email to confirm, then login.', 'success');
+                btn.disabled = false; btn.textContent = 'Create Account';
+            }
         }
 
         document.addEventListener('keydown', function(e) {

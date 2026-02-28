@@ -21,13 +21,6 @@
             --surface: #f8f7ff;
         }
 
-        .dark {
-            --text: #f7fafc;
-            --text-muted: #a0aec0;
-            --border: #4a5568;
-            --surface: #1a202c;
-        }
-
         body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; transition: background 0.3s, color 0.3s; }
 
         header {
@@ -302,6 +295,7 @@
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
                 <a href="contact-and-info.html">Contact & Info</a>
+                <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -417,7 +411,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
-    <script src="../js/theme.js"></script>
     <script>
         async function loadPolls() {
             var res = await sb.from('polls').select('*').eq('active', true).order('created_at', { ascending: false });
@@ -467,7 +460,6 @@
                 container.appendChild(card);
             });
 
-            // Animate progress bars after render
             setTimeout(function() {
                 document.querySelectorAll('.progress-fill[data-width]').forEach(function(bar) {
                     bar.style.width = bar.dataset.width + '%';
@@ -508,15 +500,13 @@
                 btn.textContent = 'Vote';
                 return;
             }
-            // Update poll votes
             var poll = polls.find(p => p.id === pollId);
             if (poll) {
                 poll.options[optionIndex].votes++;
-                loadPolls(); // Reload
+                loadPolls();
             }
         }
 
-        // Verdict button handling
         document.querySelectorAll('.verdict-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.verdict-btn').forEach(b => b.classList.remove('active'));
@@ -540,7 +530,6 @@
             if (!catId) { alert.textContent = 'Please select a category.'; alert.className = 'alert-box alert-error'; return; }
             if (!source) { alert.textContent = 'Please provide a source link.'; alert.className = 'alert-box alert-error'; return; }
 
-            // Check if logged in
             var session = await sb.auth.getSession();
             if (!session.data.session) {
                 alert.textContent = 'Please log in to submit a myth.';

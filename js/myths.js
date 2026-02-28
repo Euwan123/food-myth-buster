@@ -41,7 +41,6 @@ async function loadTrendingMyths() {
     }
 }
 
-// Load categories
 async function loadCategories() {
     const grid = document.getElementById('categoryGrid');
     
@@ -76,7 +75,6 @@ async function loadCategories() {
     }
 }
 
-// Search functionality
 document.getElementById('searchBtn')?.addEventListener('click', () => {
     const query = document.getElementById('searchInput').value;
     if (query.trim()) {
@@ -90,7 +88,6 @@ document.getElementById('searchInput')?.addEventListener('keypress', (e) => {
     }
 });
 
-// Load on page load
 if (document.getElementById('trendingGrid')) {
     loadTrendingMyths();
 }

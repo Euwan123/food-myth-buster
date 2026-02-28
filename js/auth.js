@@ -1,6 +1,7 @@
 async function checkAuth() {
     const { data: { session } } = await sb.auth.getSession();
     const loginBtn = document.getElementById('loginBtn');
+    const adminBtn = document.getElementById('adminBtn');
     if (!loginBtn) return;
 
     const isRoot = !window.location.pathname.includes('/pages/');
@@ -12,10 +13,24 @@ async function checkAuth() {
             const base = isRoot ? 'pages/' : '';
             window.location.href = base + 'profile.html';
         };
+        if (adminBtn) {
+            const user = session.user;
+            const isAdmin = user && user.user_metadata && user.user_metadata.role === 'admin';
+            if (isAdmin) {
+                adminBtn.style.display = 'inline-block';
+                adminBtn.onclick = () => {
+                    const base = isRoot ? 'pages/' : '';
+                    window.location.href = base + 'admin.html';
+                };
+            } else {
+                adminBtn.style.display = 'none';
+            }
+        }
     } else {
         loginBtn.textContent = 'Login';
         loginBtn.className = 'btn-login';
         loginBtn.onclick = openAuthOverlay;
+        if (adminBtn) adminBtn.style.display = 'none';
     }
 }
 

@@ -241,7 +241,7 @@
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
                 <a href="contact-and-info.html">Contact & Info</a>
-                <button id="themeToggle" class="dark-mode-toggle" aria-label="Toggle theme"></button>
+                <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -282,7 +282,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
-    <script src="../js/theme.js"></script>
     <script>
         var urlParams = new URLSearchParams(window.location.search);
         var mythId = urlParams.get('id');
@@ -313,7 +312,6 @@
                 sessionStorage.setItem(sessionKey, '1');
             }
 
-            // Fetch research papers, videos, and old evidence in parallel
             var [papersRes, videosRes, evidenceRes] = await Promise.all([
                 sb.from('research_papers').select('*').eq('myth_id', mythId).order('id'),
                 sb.from('myth_videos').select('*').eq('myth_id', mythId).order('id'),
@@ -386,7 +384,6 @@
             }
             return '<div class="video-cards-grid">' +
                 videos.map(function(v) {
-                    // Convert watch URLs to embed URLs if needed
                     var embedUrl = v.url;
                     if (embedUrl && embedUrl.includes('youtube.com/watch')) {
                         var vid = new URLSearchParams(embedUrl.split('?')[1]).get('v');
@@ -466,7 +463,7 @@
                         '<div>' +
                             '<div class="verdict-section">' +
                                 '<h2>The Verdict</h2>' +
-                                '<span class="verdict-badge verdict-' + myth.verdict + '" style="font-size:16px;padding:10px 28px;">' + myth.verdict.replace(/_/g, ' ') + '</span>' +
+                                '<span class="verdict-badge verdict-' + myth.verdict + '" style="font-size:16px;padding:10px 28px;">' + (myth.verdict === 'PARTIALLY_TRUE' ? 'Partial' : myth.verdict.replace(/_/g, ' ')) + '</span>' +
                                 '<div class="verdict-explanation">' + (myth.verdict_explanation || myth.summary || 'No explanation provided yet.') + '</div>' +
                             '</div>' +
                             (myth.full_explanation ? '<div class="section-block"><h2>📖 Full Explanation</h2><p>' + myth.full_explanation + '</p></div>' : '') +
@@ -487,7 +484,7 @@
                         '<div>' +
                             '<div class="sidebar-card">' +
                                 '<h3>📌 Quick Facts</h3>' +
-                                '<div class="quick-fact"><div><div class="label">Verdict</div><div class="value">' + myth.verdict.replace(/_/g, ' ') + '</div></div></div>' +
+                                '<div class="quick-fact"><div><div class="label">Verdict</div><div class="value">' + (myth.verdict === 'PARTIALLY_TRUE' ? 'Partial' : myth.verdict.replace(/_/g, ' ')) + '</div></div></div>' +
                                 '<div class="quick-fact"><div><div class="label">Category</div><div class="value">' + (myth.categories?.name || 'General') + '</div></div></div>' +
                                 '<div class="quick-fact"><div><div class="label">Views</div><div class="value">' + (myth.views || 0) + '</div></div></div>' +
                                 '<div class="quick-fact"><div><div class="label">Studies</div><div class="value">' + papers.length + ' research paper' + (papers.length !== 1 ? 's' : '') + '</div></div></div>' +

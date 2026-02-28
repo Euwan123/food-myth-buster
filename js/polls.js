@@ -57,7 +57,6 @@ async function loadPolls() {
 async function loadDiscussions() {
     const container = document.getElementById('discussionsContainer');
 
-    // Placeholder - in a real app, this would load from a discussions table
     container.innerHTML = `
         <div class="discussion-item">
             <h4>Discussion Feature Coming Soon!</h4>
@@ -66,7 +65,6 @@ async function loadDiscussions() {
     `;
 }
 
-// Run on page load
 if (document.getElementById('pollsContainer')) {
     loadPolls();
 }

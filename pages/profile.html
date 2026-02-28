@@ -69,8 +69,10 @@
         .settings-card h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 20px; }
         .form-row { margin-bottom: 18px; }
         .form-row label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 8px; }
-        .form-row input { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; background: var(--surface); }
-        .form-row input:focus { border-color: var(--primary); background: white; }
+        .form-row input,
+        .form-row textarea { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; background: var(--surface); }
+        .form-row input:focus,
+        .form-row textarea:focus { border-color: var(--primary); background: white; }
         .save-btn { padding: 11px 24px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
         .save-btn:hover { background: var(--primary-dark); }
         .danger-btn { padding: 11px 24px; background: white; color: var(--false); border: 1.5px solid var(--false); border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
@@ -101,7 +103,7 @@
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
                 <a href="contact-and-info.html">Contact & Info</a>
-                <button id="themeToggle" class="dark-mode-toggle" aria-label="Toggle theme"></button>
+                <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
         </div>
@@ -215,8 +217,9 @@
                 return html + '<div class="empty-panel"><div class="emoji">🔖</div><h3>No bookmarks yet</h3><p>Save myths you want to revisit later.</p><a href="browse.html">Browse Myths</a></div>';
             }
             bookmarks.forEach(function(b, i) {
+                var verdictLabel = b.myths.verdict === 'PARTIALLY_TRUE' ? 'Partial' : b.myths.verdict.replace('_', ' ');
                 html += '<div class="myth-row" style="animation-delay:' + (i * 0.05) + 's">' +
-                    '<span class="verdict-badge verdict-' + b.myths.verdict + '">' + b.myths.verdict.replace('_', ' ') + '</span>' +
+                    '<span class="verdict-badge verdict-' + b.myths.verdict + '">' + verdictLabel + '</span>' +
                     '<div style="flex:1" onclick="window.location.href=\'detail.html?id=' + b.myths.id + '\'">' +
                         '<h4>' + b.myths.title + '</h4>' +
                         '<div class="meta">' + (b.myths.summary ? b.myths.summary.substring(0, 80) + '…' : '') + '</div>' +
@@ -256,17 +259,6 @@
                     (profileImage ? '<div class="form-row"><img src="' + profileImage + '" alt="Current profile" style="width:50px;height:50px;border-radius:50%;"></div>' : '') +
                     '<div class="form-row"><label>Email</label><input type="email" value="' + email + '" disabled style="opacity:0.6;cursor:not-allowed;"></div>' +
                     '<button class="save-btn" onclick="saveSettings()">Save Changes</button>' +
-                '</div>' +
-                '<div class="settings-card">' +
-                    '<h3>Appearance</h3>' +
-                    '<div class="form-row">' +
-                        '<label>Theme</label>' +
-                        '<div style="display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--text-muted);">' +
-                            '<label><input type="radio" name="themePreference" value="light" style="margin-right:6px;"> Light</label>' +
-                            '<label><input type="radio" name="themePreference" value="dark" style="margin-right:6px;"> Dark</label>' +
-                            '<label><input type="radio" name="themePreference" value="system" style="margin-right:6px;"> Match system</label>' +
-                        '</div>' +
-                    '</div>' +
                 '</div>' +
                 '<div class="settings-card">' +
                     '<h3>Account</h3>' +
