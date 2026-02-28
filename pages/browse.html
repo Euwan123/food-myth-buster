@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Myths - Food Myth Buster</title>
-    <meta name="description" content="Browse all food myths by category and verdict. Evidence-based answers to common food claims.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
@@ -15,62 +14,77 @@
         header { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
-        nav { display: flex; gap: 8px; align-items: center; }
+        nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         nav a { color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s; }
         nav a:hover { background: var(--purple-soft); color: var(--primary); }
         .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
         .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
-        .browse-hero { background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%); padding: 60px 24px; text-align: center; position: relative; overflow: hidden; }
+        .browse-hero { background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%); padding: 56px 24px; text-align: center; position: relative; overflow: hidden; }
         .browse-hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E"); }
-        .browse-hero h1 { font-family: 'Sora', sans-serif; font-size: 42px; font-weight: 800; color: white; margin-bottom: 10px; letter-spacing: -1px; position: relative; }
-        .browse-hero p { font-size: 17px; color: rgba(255,255,255,0.8); position: relative; }
-        .filters-bar { background: white; border-bottom: 1px solid var(--border); padding: 16px 0; position: sticky; top: 65px; z-index: 100; }
-        .filters-bar .container { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-        .filter-btn { padding: 7px 18px; border-radius: 20px; border: 1.5px solid var(--border); background: white; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; font-family: 'DM Sans', sans-serif; color: var(--text-muted); }
+        .browse-hero h1 { font-family: 'Sora', sans-serif; font-size: 40px; font-weight: 800; color: white; margin-bottom: 8px; position: relative; letter-spacing: -1px; }
+        .browse-hero p { font-size: 16px; color: rgba(255,255,255,0.8); position: relative; }
+        .filters-bar { background: white; border-bottom: 1px solid var(--border); padding: 14px 0; position: sticky; top: 65px; z-index: 100; }
+        .filters-bar .container { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        .filter-btn { padding: 6px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: white; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; font-family: 'DM Sans', sans-serif; color: var(--text-muted); white-space: nowrap; }
         .filter-btn:hover, .filter-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
         .verdict-filter { margin-left: auto; }
-        .verdict-filter select { padding: 7px 16px; border-radius: 20px; border: 1.5px solid var(--border); font-size: 13px; cursor: pointer; background: white; font-family: 'DM Sans', sans-serif; outline: none; }
-        .verdict-filter select:focus { border-color: var(--primary); }
+        .verdict-filter select { padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--border); font-size: 13px; cursor: pointer; background: white; font-family: 'DM Sans', sans-serif; outline: none; }
         .browse-content { padding: 36px 0 60px; }
-        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .results-header h2 { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; }
-        .results-count { color: var(--text-muted); font-size: 14px; }
-        .myths-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
-        .myth-list-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 22px; cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden; animation: fadeInUp 0.4s ease both; }
-        .myth-list-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--border); transition: background 0.2s; }
-        .myth-list-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(108,99,255,0.12); border-color: var(--primary); }
-        .myth-list-card:hover::before { background: var(--primary); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        .myth-list-card .category-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-bottom: 10px; }
-        .myth-list-card h3 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
-        .myth-list-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .section-block { margin-bottom: 48px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .section-title { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .results-count { color: var(--text-muted); font-size: 13px; }
+        .myths-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; min-height: 160px; }
+        .myth-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; }
+        .myth-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; transition: background 0.2s; }
+        .myth-card.v-TRUE::before { background: var(--true); }
+        .myth-card.v-FALSE::before { background: var(--false); }
+        .myth-card.v-PARTIAL::before { background: var(--partial); }
+        .myth-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(108,99,255,0.12); border-color: var(--primary); }
+        .myth-card .cat-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-bottom: 8px; }
+        .myth-card h3 { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+        .myth-card p { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .card-footer { display: flex; justify-content: space-between; align-items: center; }
-        .views-count { font-size: 12px; color: var(--text-muted); }
-        .verdict-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 11px; font-family: 'Sora', sans-serif; }
+        .views-count { font-size: 11px; color: var(--text-muted); }
+        .verdict-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-size: 11px; font-family: 'Sora', sans-serif; }
         .verdict-TRUE { background: #d1fae5; color: #065f46; border: 1.5px solid #6ee7b7; }
         .verdict-FALSE { background: #fee2e2; color: #7f1d1d; border: 1.5px solid #fca5a5; }
         .verdict-PARTIAL { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
+        .pagination { display: flex; gap: 6px; align-items: center; margin-top: 20px; flex-wrap: wrap; }
+        .page-btn { width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border); background: white; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+        .page-btn:hover:not(.dots):not(:disabled) { border-color: var(--primary); color: var(--primary); }
+        .page-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+        .page-btn.dots { cursor: default; border-color: transparent; background: transparent; }
+        .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .for-you-refresh { display: flex; align-items: center; gap: 8px; }
+        .refresh-btn { background: var(--purple-soft); border: 1.5px solid #c4b5fd; color: var(--primary); border-radius: 20px; padding: 6px 16px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+        .refresh-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .refresh-btn.spinning svg { animation: spin 0.6s linear; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .for-you-hint { font-size: 12px; color: var(--text-muted); font-style: italic; }
         .skeleton { background: linear-gradient(90deg, #f0eeff 25%, #e8e4ff 50%, #f0eeff 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        .skeleton-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 22px; }
-        .sk-line { height: 14px; margin-bottom: 10px; }
-        .empty-state { text-align: center; padding: 80px 20px; color: var(--text-muted); grid-column: 1/-1; }
-        .empty-state .emoji { font-size: 56px; margin-bottom: 16px; }
-        .empty-state h3 { font-family: 'Sora', sans-serif; font-size: 20px; margin-bottom: 8px; color: var(--text); }
-        footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
+        .skeleton-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; }
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); grid-column: 1/-1; }
+        .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
+        .empty-state h3 { font-family: 'Sora', sans-serif; font-size: 18px; color: var(--text); margin-bottom: 6px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOutUp { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-8px); } }
+        .fade-out .myth-card { animation: fadeOutUp 0.16s ease both; }
+        footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; margin-top: 20px; }
         footer p { margin: 4px 0; }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <div class="logo">🍎 Food Myth Buster</div>
+            <div class="logo">&#x1F34E; Food Myth Buster</div>
             <nav>
                 <a href="../index.html">Home</a>
                 <a href="browse.html">Browse Myths</a>
                 <a href="community.html">Community</a>
                 <a href="resources.html">Resources</a>
-                <a href="contact-and-info.html">Contact & Info</a>
+                <a href="contact-and-info.html">Contact &amp; Info</a>
                 <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
@@ -80,20 +94,20 @@
     <section class="browse-hero">
         <div class="container">
             <h1>Browse Food Myths</h1>
-            <p>Explore myths by category and verdict — all backed by evidence</p>
+            <p>Explore myths by category and verdict &#x2014; all evidence-based</p>
         </div>
     </section>
 
     <div class="filters-bar">
         <div class="container">
-            <button class="filter-btn active" data-category="all">All Categories</button>
+            <button class="filter-btn active" data-category="all" onclick="setCategory('all',this)">All</button>
             <div id="categoryFilters" style="display:contents"></div>
             <div class="verdict-filter">
-                <select id="verdictFilter">
+                <select id="verdictFilter" onchange="setVerdict(this.value)">
                     <option value="all">All Verdicts</option>
-                    <option value="TRUE">✅ True</option>
-                    <option value="FALSE">❌ False</option>
-                    <option value="PARTIAL">⚠️ Partial</option>
+                    <option value="TRUE">&#x2705; True</option>
+                    <option value="FALSE">&#x274C; False</option>
+                    <option value="PARTIAL">&#x26A0;&#xFE0F; Partial</option>
                 </select>
             </div>
         </div>
@@ -101,24 +115,35 @@
 
     <section class="browse-content">
         <div class="container">
-            <div class="results-header">
-                <h2 id="sectionTitle">All Myths</h2>
-                <span class="results-count" id="resultsCount">Loading…</span>
+            <div id="popularBlock" class="section-block">
+                <div class="section-header">
+                    <div class="section-title">&#x1F525; Most Popular Myths</div>
+                    <span class="results-count" id="popularCount"></span>
+                </div>
+                <div id="popularGrid" class="myths-grid"></div>
+                <div id="popularPagination" class="pagination"></div>
             </div>
-            <div id="mythsList" class="myths-list">
-                <div class="skeleton-card"><div class="skeleton sk-line" style="width:40%"></div><div class="skeleton sk-line" style="width:100%"></div><div class="skeleton sk-line" style="width:70%"></div><div class="skeleton sk-line" style="width:30%;margin-top:8px"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-line" style="width:40%"></div><div class="skeleton sk-line" style="width:100%"></div><div class="skeleton sk-line" style="width:70%"></div><div class="skeleton sk-line" style="width:30%;margin-top:8px"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-line" style="width:40%"></div><div class="skeleton sk-line" style="width:100%"></div><div class="skeleton sk-line" style="width:70%"></div><div class="skeleton sk-line" style="width:30%;margin-top:8px"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-line" style="width:40%"></div><div class="skeleton sk-line" style="width:100%"></div><div class="skeleton sk-line" style="width:70%"></div><div class="skeleton sk-line" style="width:30%;margin-top:8px"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-line" style="width:40%"></div><div class="skeleton sk-line" style="width:100%"></div><div class="skeleton sk-line" style="width:70%"></div><div class="skeleton sk-line" style="width:30%;margin-top:8px"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-line" style="width:40%"></div><div class="skeleton sk-line" style="width:100%"></div><div class="skeleton sk-line" style="width:70%"></div><div class="skeleton sk-line" style="width:30%;margin-top:8px"></div></div>
+
+            <div id="foryouBlock" class="section-block">
+                <div class="section-header">
+                    <div class="section-title">&#x2728; For You</div>
+                    <div class="for-you-refresh">
+                        <span class="for-you-hint" id="foryouHint">Based on what you browse</span>
+                        <button class="refresh-btn" id="refreshBtn" onclick="refreshForYou()">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+                <div id="foryouGrid" class="myths-grid"></div>
+                <div id="foryouPagination" class="pagination"></div>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>🍎 Food Myth Buster &nbsp;•&nbsp; © 2026 Mapua Malayan Colleges Mindanao</p>
+            <p>&#x1F34E; Food Myth Buster &nbsp;&#x2022;&nbsp; &#xA9; 2026 Mapua Malayan Colleges Mindanao</p>
         </div>
     </footer>
 
@@ -126,12 +151,68 @@
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
     <script>
+        var PER_PAGE = 8;
         var allMyths = [];
+        var popularFiltered = [];
+        var foryouFiltered = [];
+        var popularPage = 1;
+        var foryouPage = 1;
         var activeCategory = 'all';
         var activeVerdict = 'all';
+
         var urlParams = new URLSearchParams(window.location.search);
-        var urlCategory = urlParams.get('category');
-        if (urlCategory) activeCategory = urlCategory;
+        if (urlParams.get('category')) activeCategory = urlParams.get('category');
+
+        function getPrefs() {
+            try { return JSON.parse(localStorage.getItem('fmb_prefs') || '{}'); }
+            catch(e) { return {}; }
+        }
+        function savePrefs(p) {
+            try { localStorage.setItem('fmb_prefs', JSON.stringify(p)); } catch(e) {}
+        }
+        function trackClick(myth) {
+            var p = getPrefs();
+            if (!p.cats) p.cats = {};
+            if (!p.verdicts) p.verdicts = {};
+            var slug = myth.categories ? myth.categories.slug : 'general';
+            p.cats[slug] = (p.cats[slug] || 0) + 1;
+            p.verdicts[myth.verdict] = (p.verdicts[myth.verdict] || 0) + 1;
+            p.lastVisited = (p.lastVisited || []);
+            if (p.lastVisited.indexOf(myth.id) === -1) p.lastVisited.unshift(myth.id);
+            if (p.lastVisited.length > 30) p.lastVisited = p.lastVisited.slice(0, 30);
+            savePrefs(p);
+        }
+
+        function buildForYouPool(myths) {
+            var p = getPrefs();
+            var cats = p.cats || {};
+            var verdicts = p.verdicts || {};
+            var visited = p.lastVisited || [];
+            var hasPref = Object.keys(cats).length > 0 || Object.keys(verdicts).length > 0;
+
+            if (!hasPref) {
+                var shuffled = myths.slice().sort(function() { return Math.random() - 0.5; });
+                document.getElementById('foryouHint').textContent = 'Browse myths to personalise this section';
+                return shuffled;
+            }
+
+            document.getElementById('foryouHint').textContent = 'Based on what you browse';
+
+            var totalCatClicks = Object.values(cats).reduce(function(a,b) { return a+b; }, 0) || 1;
+            var totalVerdictClicks = Object.values(verdicts).reduce(function(a,b) { return a+b; }, 0) || 1;
+
+            var scored = myths.map(function(myth) {
+                var slug = myth.categories ? myth.categories.slug : 'general';
+                var catScore = ((cats[slug] || 0) / totalCatClicks) * 60;
+                var verdictScore = ((verdicts[myth.verdict] || 0) / totalVerdictClicks) * 30;
+                var freshScore = visited.indexOf(myth.id) === -1 ? 10 : 0;
+                var noise = Math.random() * 20;
+                return { myth: myth, score: catScore + verdictScore + freshScore + noise };
+            });
+
+            scored.sort(function(a, b) { return b.score - a.score; });
+            return scored.map(function(s) { return s.myth; });
+        }
 
         async function loadCategories() {
             var res = await sb.from('categories').select('*').order('name');
@@ -142,59 +223,163 @@
                 btn.className = 'filter-btn' + (activeCategory === cat.slug ? ' active' : '');
                 btn.textContent = (cat.icon || '') + ' ' + cat.name;
                 btn.dataset.category = cat.slug;
-                btn.onclick = function() { setCategory(cat.slug); };
+                btn.onclick = function() { setCategory(cat.slug, btn); };
                 container.appendChild(btn);
             });
         }
 
         async function loadMyths() {
+            renderSkeletons('popularGrid', 8);
+            renderSkeletons('foryouGrid', 8);
             var res = await sb.from('myths').select('*, categories(name, slug, color, icon)').order('views', { ascending: false });
-            if (res.error) { document.getElementById('mythsList').innerHTML = '<p style="color:var(--text-muted);padding:20px;">Error loading myths.</p>'; return; }
+            if (res.error) return;
             allMyths = res.data || [];
-            renderMyths();
+            applyFilters();
         }
 
-        function setCategory(slug) {
+        function setCategory(slug, btn) {
             activeCategory = slug;
-            document.querySelectorAll('.filter-btn').forEach(function(b) {
-                b.classList.toggle('active', b.dataset.category === slug || (slug === 'all' && b.dataset.category === 'all'));
-            });
-            renderMyths();
+            popularPage = 1;
+            foryouPage = 1;
+            document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+            if (btn) btn.classList.add('active');
+            else { var ab = document.querySelector('[data-category="all"]'); if (ab) ab.classList.add('active'); }
+            applyFilters();
         }
 
-        document.getElementById('verdictFilter').addEventListener('change', function(e) { activeVerdict = e.target.value; renderMyths(); });
-        document.querySelector('[data-category="all"]').addEventListener('click', function() { setCategory('all'); });
+        function setVerdict(val) {
+            activeVerdict = val;
+            popularPage = 1;
+            foryouPage = 1;
+            applyFilters();
+        }
 
-        function renderMyths() {
-            var filtered = allMyths;
-            if (activeCategory !== 'all') filtered = filtered.filter(function(m) { return m.categories && m.categories.slug === activeCategory; });
-            if (activeVerdict !== 'all') filtered = filtered.filter(function(m) { return m.verdict === activeVerdict; });
+        function applyFilters() {
+            var base = allMyths;
+            if (activeCategory !== 'all') base = base.filter(function(m) { return m.categories && m.categories.slug === activeCategory; });
+            if (activeVerdict !== 'all') base = base.filter(function(m) { return m.verdict === activeVerdict; });
 
-            var container = document.getElementById('mythsList');
-            document.getElementById('resultsCount').textContent = filtered.length + ' myth' + (filtered.length !== 1 ? 's' : '') + ' found';
+            popularFiltered = base.slice();
+            foryouFiltered = buildForYouPool(base);
 
-            if (filtered.length === 0) {
-                container.innerHTML = '<div class="empty-state"><div class="emoji">🔍</div><h3>No myths found</h3><p>Try a different category or verdict filter</p></div>';
-                return;
+            document.getElementById('popularCount').textContent = popularFiltered.length + ' myths';
+            renderSection('popular', popularPage, false);
+            renderSection('foryou', foryouPage, false);
+        }
+
+        function refreshForYou() {
+            var btn = document.getElementById('refreshBtn');
+            btn.classList.add('spinning');
+            foryouPage = 1;
+            var base = allMyths;
+            if (activeCategory !== 'all') base = base.filter(function(m) { return m.categories && m.categories.slug === activeCategory; });
+            if (activeVerdict !== 'all') base = base.filter(function(m) { return m.verdict === activeVerdict; });
+            foryouFiltered = buildForYouPool(base);
+            renderSection('foryou', 1, true);
+            setTimeout(function() { btn.classList.remove('spinning'); }, 600);
+        }
+
+        function renderSection(which, page, animate) {
+            var filtered = which === 'popular' ? popularFiltered : foryouFiltered;
+            var gridId = which + 'Grid';
+            var paginationId = which + 'Pagination';
+            var grid = document.getElementById(gridId);
+
+            if (which === 'popular') popularPage = page;
+            else foryouPage = page;
+
+            var start = (page - 1) * PER_PAGE;
+            var items = filtered.slice(start, start + PER_PAGE);
+
+            function doRender() {
+                grid.classList.remove('fade-out');
+                if (items.length === 0) {
+                    grid.innerHTML = '<div class="empty-state"><div class="emoji">&#x1F50D;</div><h3>No myths found</h3><p>Try a different filter</p></div>';
+                    document.getElementById(paginationId).innerHTML = '';
+                    return;
+                }
+                grid.innerHTML = '';
+                items.forEach(function(myth, i) {
+                    var card = document.createElement('div');
+                    card.className = 'myth-card v-' + myth.verdict;
+                    card.style.animation = 'fadeInUp 0.35s ease ' + (i * 0.045) + 's both';
+                    card.onclick = function() {
+                        trackClick(myth);
+                        window.location.href = 'detail.html?id=' + myth.id;
+                    };
+                    var vl = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
+                    card.innerHTML =
+                        '<div class="cat-tag">' + (myth.categories ? myth.categories.icon || '' : '') + ' ' + (myth.categories ? myth.categories.name : 'General') + '</div>' +
+                        '<h3>' + myth.title + '</h3>' +
+                        '<p>' + (myth.summary || '') + '</p>' +
+                        '<div class="card-footer">' +
+                            '<span class="verdict-badge verdict-' + myth.verdict + '">' + vl + '</span>' +
+                            '<span class="views-count">&#x1F441; ' + (myth.views || 0) + '</span>' +
+                        '</div>';
+                    grid.appendChild(card);
+                });
+                renderPagination(which, filtered.length, page);
+                if (animate) window.scrollTo({ top: document.getElementById(which + 'Block').offsetTop - 100, behavior: 'smooth' });
             }
 
-            container.innerHTML = '';
-            filtered.forEach(function(myth, i) {
-                var card = document.createElement('div');
-                card.className = 'myth-list-card';
-                card.style.animationDelay = (i * 0.05) + 's';
-                card.onclick = function() { window.location.href = 'detail.html?id=' + myth.id; };
-                var verdictLabel = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
-                card.innerHTML =
-                    '<div class="category-tag">' + (myth.categories?.icon || '') + ' ' + (myth.categories?.name || 'General') + '</div>' +
-                    '<h3>' + myth.title + '</h3>' +
-                    '<p>' + (myth.summary || '') + '</p>' +
-                    '<div class="card-footer">' +
-                        '<span class="verdict-badge verdict-' + myth.verdict + '">' + verdictLabel + '</span>' +
-                        '<span class="views-count">👁 ' + (myth.views || 0) + '</span>' +
-                    '</div>';
-                container.appendChild(card);
+            if (animate) {
+                grid.classList.add('fade-out');
+                setTimeout(doRender, 160);
+            } else {
+                doRender();
+            }
+        }
+
+        function renderPagination(which, total, cur) {
+            var totalPages = Math.ceil(total / PER_PAGE);
+            var bar = document.getElementById(which + 'Pagination');
+            if (totalPages <= 1) { bar.innerHTML = ''; return; }
+            var pages = buildPageNums(cur, totalPages);
+            bar.innerHTML = '';
+
+            var prev = document.createElement('button');
+            prev.className = 'page-btn'; prev.textContent = '&#x2190;'; prev.disabled = cur === 1;
+            prev.onclick = function() { if (cur > 1) renderSection(which, cur - 1, true); };
+            bar.appendChild(prev);
+
+            pages.forEach(function(p) {
+                var btn = document.createElement('button');
+                if (p === '...') {
+                    btn.className = 'page-btn dots'; btn.textContent = '&#x2026;';
+                } else {
+                    btn.className = 'page-btn' + (p === cur ? ' active' : '');
+                    btn.textContent = p;
+                    btn.onclick = (function(pg) { return function() { if (pg !== cur) renderSection(which, pg, true); }; })(p);
+                }
+                bar.appendChild(btn);
             });
+
+            var next = document.createElement('button');
+            next.className = 'page-btn'; next.textContent = '&#x2192;'; next.disabled = cur === totalPages;
+            next.onclick = function() { if (cur < totalPages) renderSection(which, cur + 1, true); };
+            bar.appendChild(next);
+        }
+
+        function buildPageNums(cur, total) {
+            if (total <= 7) { var r = []; for (var i = 1; i <= total; i++) r.push(i); return r; }
+            var pages = [1];
+            if (cur > 3) pages.push('...');
+            var s = Math.max(2, cur - 1), e = Math.min(total - 1, cur + 1);
+            for (var i = s; i <= e; i++) pages.push(i);
+            if (cur < total - 2) pages.push('...');
+            pages.push(total);
+            return pages;
+        }
+
+        function renderSkeletons(gridId, count) {
+            var grid = document.getElementById(gridId);
+            grid.innerHTML = '';
+            for (var i = 0; i < count; i++) {
+                var d = document.createElement('div');
+                d.className = 'skeleton-card';
+                d.innerHTML = '<div class="skeleton" style="height:12px;width:40%;margin-bottom:10px;"></div><div class="skeleton" style="height:15px;width:100%;margin-bottom:6px;"></div><div class="skeleton" style="height:15px;width:65%;margin-bottom:12px;"></div><div class="skeleton" style="height:22px;width:80px;border-radius:20px;"></div>';
+                grid.appendChild(d);
+            }
         }
 
         loadCategories();

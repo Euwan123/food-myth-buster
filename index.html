@@ -4,30 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Myth Buster - Evidence-Based Food Myth Verification</title>
-    <meta name="description" content="Search any food-related claim and get evidence-based answers. Bust food myths with science.">
+    <meta name="description" content="Search any food claim and get evidence-based answers. Bust food myths with science.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root {
-            --primary: #6c63ff;
-            --primary-dark: #5649e0;
-            --purple-soft: #f0eeff;
-            --text: #1a1a2e;
-            --text-muted: #6b7280;
-            --border: #e5e7f0;
-            --surface: #f8f7ff;
-            --true: #10b981;
-            --false: #ef4444;
-            --partial: #f59e0b;
-        }
+        :root { --primary: #6c63ff; --primary-dark: #5649e0; --purple-soft: #f0eeff; --text: #1a1a2e; --text-muted: #6b7280; --border: #e5e7f0; --surface: #f8f7ff; --true: #10b981; --false: #ef4444; --partial: #f59e0b; }
         body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
         header { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
-        nav { display: flex; gap: 8px; align-items: center; }
+        nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         nav a { color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s; }
         nav a:hover { background: var(--purple-soft); color: var(--primary); }
         .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
@@ -44,47 +32,64 @@
         .search-bar button { background: var(--primary); color: white; border: none; padding: 18px 32px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Sora', sans-serif; transition: background 0.2s; white-space: nowrap; }
         .search-bar button:hover { background: var(--primary-dark); }
         .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
-        .hero-stat { text-align: center; }
         .hero-stat-num { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; color: white; display: block; }
         .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); }
-        .trending, .categories { padding: 64px 0; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
-        .section-title { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 10px; }
-        .section-link { font-size: 14px; font-weight: 600; color: var(--primary); text-decoration: none; }
+        .myths-section { padding: 56px 0; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+        .section-title { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 8px; }
+        .section-link { font-size: 14px; font-weight: 600; color: var(--primary); text-decoration: none; white-space: nowrap; }
         .section-link:hover { text-decoration: underline; }
-        .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .myth-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; animation: fadeInUp 0.4s ease both; }
-        .myth-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--border); transition: background 0.2s; }
+        .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; min-height: 160px; }
+        .myth-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 22px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; }
+        .myth-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+        .myth-card.v-TRUE::before { background: var(--true); }
+        .myth-card.v-FALSE::before { background: var(--false); }
+        .myth-card.v-PARTIAL::before { background: var(--partial); }
         .myth-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(108,99,255,0.12); border-color: var(--primary); }
-        .myth-card:hover::before { background: var(--primary); }
-        .myth-card.verdict-TRUE::before { background: var(--true); }
-        .myth-card.verdict-FALSE::before { background: var(--false); }
-        .myth-card.verdict-PARTIAL::before { background: var(--partial); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        .myth-card .cat-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-bottom: 10px; }
-        .myth-card h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 14px; line-height: 1.4; color: var(--text); }
-        .myth-card .cta { color: var(--text-muted); font-size: 13px; display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
-        .verdict-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; font-family: 'Sora', sans-serif; letter-spacing: 0.3px; }
+        .myth-card .cat-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-bottom: 8px; }
+        .myth-card h3 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+        .myth-card .cta { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; font-size: 12px; color: var(--text-muted); }
+        .verdict-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 11px; font-family: 'Sora', sans-serif; }
         .verdict-TRUE { background: #d1fae5; color: #065f46; border: 1.5px solid #6ee7b7; }
         .verdict-FALSE { background: #fee2e2; color: #7f1d1d; border: 1.5px solid #fca5a5; }
         .verdict-PARTIAL { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
+        .pagination { display: flex; gap: 6px; align-items: center; margin-top: 20px; flex-wrap: wrap; }
+        .page-btn { width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border); background: white; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+        .page-btn:hover:not(.dots):not(:disabled) { border-color: var(--primary); color: var(--primary); }
+        .page-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+        .page-btn.dots { cursor: default; border-color: transparent; background: transparent; }
+        .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .foryou-controls { display: flex; align-items: center; gap: 10px; }
+        .foryou-hint { font-size: 12px; color: var(--text-muted); font-style: italic; }
+        .refresh-btn { background: var(--purple-soft); border: 1.5px solid #c4b5fd; color: var(--primary); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 5px; }
+        .refresh-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .refresh-btn.spinning svg { animation: spinIcon 0.6s linear; }
+        @keyframes spinIcon { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .skeleton { background: linear-gradient(90deg, #f0eeff 25%, #e8e4ff 50%, #f0eeff 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        .skeleton-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; }
-        .sk-tag { height: 14px; width: 60px; margin-bottom: 14px; }
-        .sk-title { height: 18px; width: 100%; margin-bottom: 8px; }
-        .sk-title2 { height: 18px; width: 70%; margin-bottom: 16px; }
-        .sk-badge { height: 26px; width: 80px; border-radius: 20px; }
-        .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-        .category-card { padding: 32px 24px; border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.25s; border: 1.5px solid; background: white; animation: fadeInUp 0.4s ease both; }
-        .category-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
-        .category-card .icon { font-size: 44px; margin-bottom: 14px; }
-        .category-card h3 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-        .category-card .count { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
-        .skeleton-cat { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px 24px; text-align: center; }
-        .sk-icon { height: 44px; width: 44px; border-radius: 50%; margin: 0 auto 14px; }
-        .sk-cat-title { height: 20px; width: 60%; margin: 0 auto 8px; }
-        .sk-cat-count { height: 14px; width: 40%; margin: 0 auto; }
+        .skeleton-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 22px; }
+        .sk-tag { height: 12px; width: 60px; margin-bottom: 12px; }
+        .sk-title { height: 16px; width: 100%; margin-bottom: 6px; }
+        .sk-title2 { height: 16px; width: 65%; margin-bottom: 14px; }
+        .sk-badge { height: 24px; width: 70px; border-radius: 20px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOutUp { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-8px); } }
+        .fade-out .myth-card { animation: fadeOutUp 0.16s ease both; }
+        .category-section { padding: 56px 0; background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+        .category-card { padding: 28px 20px; border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.25s; border: 1.5px solid; background: white; }
+        .category-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+        .category-card .icon { font-size: 40px; margin-bottom: 12px; }
+        .category-card h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .category-card .count { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        .about-strip { background: white; padding: 64px 0; }
+        .about-strip h2 { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 14px; }
+        .about-strip p { font-size: 16px; color: var(--text-muted); line-height: 1.75; max-width: 680px; margin-bottom: 10px; }
+        .about-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 16px; margin-top: 28px; }
+        .about-card { border-radius: 16px; padding: 16px 14px; border: 1px solid var(--border); text-align: left; }
+        .about-card .aicon { font-size: 26px; margin-bottom: 6px; }
+        .about-card h4 { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+        .about-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
         footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
         footer p { margin: 4px 0; }
         .logo-footer { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 800; color: white; margin-bottom: 8px; }
@@ -94,13 +99,13 @@
 <body>
     <header>
         <div class="container">
-            <div class="logo">🍎 Food Myth Buster</div>
+            <div class="logo">&#x1F34E; Food Myth Buster</div>
             <nav>
                 <a href="index.html">Home</a>
                 <a href="pages/browse.html">Browse Myths</a>
                 <a href="pages/community.html">Community</a>
                 <a href="pages/resources.html">Resources</a>
-                <a href="pages/contact-and-info.html">Contact & Info</a>
+                <a href="pages/contact-and-info.html">Contact &amp; Info</a>
                 <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
                 <button id="loginBtn" class="btn-login">Login</button>
             </nav>
@@ -110,82 +115,88 @@
     <section class="hero">
         <div class="container">
             <div class="hero-inner">
-                <div class="hero-eyebrow">🔬 Evidence-Based Myth Busting</div>
+                <div class="hero-eyebrow">&#x1F52C; Evidence-Based Myth Busting</div>
                 <h1>Is That Food Myth<br>True or False?</h1>
                 <p>Search any food claim and get science-backed answers instantly</p>
                 <div class="search-bar">
                     <input type="text" id="searchInput" placeholder='Try "Does MSG cause headaches?"'>
-                    <button id="searchBtn">🔍 Search</button>
+                    <button id="searchBtn">&#x1F50D; Search</button>
                 </div>
                 <div class="hero-stats">
-                    <div class="hero-stat"><span class="hero-stat-num" id="statMyths">—</span><span class="hero-stat-label">Myths Verified</span></div>
-                    <div class="hero-stat"><span class="hero-stat-num">0</span><span class="hero-stat-label">Active Members</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num" id="statMyths">&#x2014;</span><span class="hero-stat-label">Myths Verified</span></div>
                     <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Science-Backed</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Always Free</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="trending">
+    <section class="myths-section">
         <div class="container">
             <div class="section-header">
-                <div class="section-title">🔥 Trending Myths</div>
-                <a href="pages/browse.html" class="section-link">View all →</a>
+                <div class="section-title">&#x1F525; Most Popular Myths</div>
+                <a href="pages/browse.html" class="section-link">View all &#x2192;</a>
             </div>
-            <div id="trendingGrid" class="myth-grid">
+            <div id="popularGrid" class="myth-grid">
                 <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
                 <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
                 <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
                 <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
             </div>
+            <div id="popularPagination" class="pagination"></div>
         </div>
     </section>
 
-    <section class="page-description" style="background: white; padding: 72px 0; border-bottom: 1px solid var(--border);">
+    <section class="myths-section" style="padding-top:0;background:var(--surface);">
         <div class="container">
-            <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
-                <h2 style="font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 18px;">What is Food Myth Buster?</h2>
-                <p style="font-size: 17px; line-height: 1.7; color: var(--text-muted); max-width: 700px; margin: 0 auto 10px;">Food Myth Buster is a small web app that turns confusing food claims into clear answers backed by real science.</p>
-                <p style="font-size: 16px; line-height: 1.7; color: var(--text-muted); max-width: 720px; margin: 0 auto 34px;">Each myth page combines a verdict, explanation, linked studies, and community feedback so you can see not just what is true, but why.</p>
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:8px;">
-                    <div style="border-radius:18px;padding:18px 16px;background:linear-gradient(135deg,#eef2ff,#e0f2fe);border:1px solid #e5e7f0;text-align:left;">
-                        <div style="font-size:28px;margin-bottom:6px;">🔬</div>
-                        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;color:var(--text);">Evidence first</div>
-                        <div style="font-size:13px;color:var(--text-muted);">Verdicts are built around peer-reviewed studies and official guidelines, not opinions.</div>
-                    </div>
-                    <div style="border-radius:18px;padding:18px 16px;background:linear-gradient(135deg,#ecfdf3,#fef9c3);border:1px solid #e5e7f0;text-align:left;">
-                        <div style="font-size:28px;margin-bottom:6px;">📚</div>
-                        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;color:var(--text);">Myth library</div>
-                        <div style="font-size:13px;color:var(--text-muted);">Browse myths by category, verdict, or search terms when you hear something suspicious.</div>
-                    </div>
-                    <div style="border-radius:18px;padding:18px 16px;background:linear-gradient(135deg,#fdf2ff,#e0f2fe);border:1px solid #e5e7f0;text-align:left;">
-                        <div style="font-size:28px;margin-bottom:6px;">👥</div>
-                        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;color:var(--text);">Community input</div>
-                        <div style="font-size:13px;color:var(--text-muted);">Users can submit myths, bookmark favourites, and vote on which explanations are most helpful.</div>
-                    </div>
+            <div class="section-header">
+                <div class="section-title">&#x2728; For You</div>
+                <div class="foryou-controls">
+                    <span class="foryou-hint" id="foryouHint">Browse myths to personalise</span>
+                    <button class="refresh-btn" id="homeRefreshBtn" onclick="refreshForYou()">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                        Refresh
+                    </button>
+                    <a href="pages/browse.html" class="section-link">View all &#x2192;</a>
                 </div>
             </div>
+            <div id="foryouGrid" class="myth-grid">
+                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
+                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
+            </div>
+            <div id="foryouPagination" class="pagination"></div>
         </div>
     </section>
 
-    <section class="categories" style="background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <section class="category-section">
         <div class="container">
             <div class="section-header">
                 <div class="section-title">Browse by Category</div>
             </div>
-            <div id="categoryGrid" class="category-grid">
-                <div class="skeleton-cat"><div class="skeleton sk-icon"></div><div class="skeleton sk-cat-title"></div><div class="skeleton sk-cat-count"></div></div>
-                <div class="skeleton-cat"><div class="skeleton sk-icon"></div><div class="skeleton sk-cat-title"></div><div class="skeleton sk-cat-count"></div></div>
-                <div class="skeleton-cat"><div class="skeleton sk-icon"></div><div class="skeleton sk-cat-title"></div><div class="skeleton sk-cat-count"></div></div>
-                <div class="skeleton-cat"><div class="skeleton sk-icon"></div><div class="skeleton sk-cat-title"></div><div class="skeleton sk-cat-count"></div></div>
+            <div id="categoryGrid" class="category-grid"></div>
+        </div>
+    </section>
+
+    <section class="about-strip">
+        <div class="container">
+            <h2>What is Food Myth Buster?</h2>
+            <p>Food Myth Buster turns confusing food claims into clear, science-backed answers. Each myth page combines a verdict, detailed explanation, linked studies, and community feedback.</p>
+            <p>Browse the library, search for any claim, or submit a myth you want verified.</p>
+            <div class="about-cards">
+                <div class="about-card" style="background:linear-gradient(135deg,#eef2ff,#e0f2fe);"><div class="aicon">&#x1F52C;</div><h4>Evidence first</h4><p>Verdicts built around peer-reviewed studies.</p></div>
+                <div class="about-card" style="background:linear-gradient(135deg,#ecfdf3,#fef9c3);"><div class="aicon">&#x1F4DA;</div><h4>Myth library</h4><p>Browse myths by category, verdict, or search.</p></div>
+                <div class="about-card" style="background:linear-gradient(135deg,#fdf2ff,#e0f2fe);"><div class="aicon">&#x1F465;</div><h4>Community input</h4><p>Submit myths, bookmark favourites, and vote.</p></div>
+                <div class="about-card" style="background:linear-gradient(135deg,#fff7ed,#ecfdf3);"><div class="aicon">&#x26A1;</div><h4>AI-assisted search</h4><p>Claims not in our DB get an AI answer on demand.</p></div>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p class="logo-footer">🍎 Food Myth Buster</p>
-            <p>© 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
+            <p class="logo-footer">&#x1F34E; Food Myth Buster</p>
+            <p>&#xA9; 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
         </div>
     </footer>
 
@@ -193,69 +204,170 @@
     <script src="js/supabase-client.js"></script>
     <script src="js/auth.js"></script>
     <script>
-        async function loadTrendingMyths() {
-            const grid = document.getElementById('trendingGrid');
-            const { data: myths, error } = await sb.from('myths').select('*, categories(name, slug, color, icon)').eq('featured', true).order('views', { ascending: false }).limit(4);
-            if (error || !myths || myths.length === 0) {
-                grid.innerHTML = '<p style="color:var(--text-muted);padding:20px;">No featured myths found.</p>';
-                return;
+        var PER_PAGE = 4;
+        var allMyths = [];
+        var popularFiltered = [];
+        var foryouFiltered = [];
+        var popularPage = 1;
+        var foryouPage = 1;
+
+        function getPrefs() {
+            try { return JSON.parse(localStorage.getItem('fmb_prefs') || '{}'); } catch(e) { return {}; }
+        }
+        function trackClick(myth) {
+            var p = getPrefs();
+            if (!p.cats) p.cats = {};
+            if (!p.verdicts) p.verdicts = {};
+            var slug = myth.categories ? myth.categories.slug : 'general';
+            p.cats[slug] = (p.cats[slug] || 0) + 1;
+            p.verdicts[myth.verdict] = (p.verdicts[myth.verdict] || 0) + 1;
+            p.lastVisited = p.lastVisited || [];
+            if (p.lastVisited.indexOf(myth.id) === -1) p.lastVisited.unshift(myth.id);
+            if (p.lastVisited.length > 30) p.lastVisited = p.lastVisited.slice(0, 30);
+            try { localStorage.setItem('fmb_prefs', JSON.stringify(p)); } catch(e) {}
+        }
+
+        function buildForYouPool(myths) {
+            var p = getPrefs();
+            var cats = p.cats || {};
+            var verdicts = p.verdicts || {};
+            var visited = p.lastVisited || [];
+            var hasPref = Object.keys(cats).length > 0;
+            if (!hasPref) {
+                document.getElementById('foryouHint').textContent = 'Browse myths to personalise';
+                return myths.slice().sort(function() { return Math.random() - 0.5; });
             }
-            grid.innerHTML = '';
-            myths.forEach((myth, i) => {
-                const card = document.createElement('div');
-                card.className = 'myth-card verdict-' + myth.verdict;
-                card.style.animationDelay = (i * 0.08) + 's';
-                card.onclick = () => window.location.href = 'pages/detail.html?id=' + myth.id;
-                const verdictLabel = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
-                card.innerHTML =
-                    '<div class="cat-tag">' + (myth.categories?.icon || '') + ' ' + (myth.categories?.name || 'General') + '</div>' +
-                    '<h3>' + myth.title + '</h3>' +
-                    '<div class="cta"><span class="verdict-badge verdict-' + myth.verdict + '">' + verdictLabel + '</span><span>Read more →</span></div>';
-                grid.appendChild(card);
+            document.getElementById('foryouHint').textContent = 'Based on what you browse';
+            var totalC = Object.values(cats).reduce(function(a,b){return a+b;},0)||1;
+            var totalV = Object.values(verdicts).reduce(function(a,b){return a+b;},0)||1;
+            var scored = myths.map(function(m) {
+                var slug = m.categories ? m.categories.slug : 'general';
+                var score = ((cats[slug]||0)/totalC)*60 + ((verdicts[m.verdict]||0)/totalV)*30 + (visited.indexOf(m.id)===-1?10:0) + Math.random()*20;
+                return { m: m, s: score };
             });
+            scored.sort(function(a,b){return b.s-a.s;});
+            return scored.map(function(x){return x.m;});
+        }
+
+        async function loadData() {
+            var res = await sb.from('myths').select('*, categories(name, slug, color, icon)').order('views', { ascending: false });
+            if (!res.data) return;
+            allMyths = res.data;
+            popularFiltered = allMyths.slice();
+            foryouFiltered = buildForYouPool(allMyths);
+            renderSection('popular', 1, false);
+            renderSection('foryou', 1, false);
+            document.getElementById('statMyths').textContent = allMyths.length;
+        }
+
+        function refreshForYou() {
+            var btn = document.getElementById('homeRefreshBtn');
+            btn.classList.add('spinning');
+            foryouFiltered = buildForYouPool(allMyths);
+            renderSection('foryou', 1, true);
+            setTimeout(function(){btn.classList.remove('spinning');}, 600);
+        }
+
+        function renderSection(which, page, animate) {
+            var filtered = which === 'popular' ? popularFiltered : foryouFiltered;
+            var gridId = which + 'Grid';
+            var pagId = which + 'Pagination';
+            if (which === 'popular') popularPage = page; else foryouPage = page;
+            var items = filtered.slice((page-1)*PER_PAGE, page*PER_PAGE);
+            var grid = document.getElementById(gridId);
+
+            function doRender() {
+                grid.classList.remove('fade-out');
+                grid.innerHTML = '';
+                items.forEach(function(myth, i) {
+                    var card = document.createElement('div');
+                    card.className = 'myth-card v-' + myth.verdict;
+                    card.style.animation = 'fadeInUp 0.35s ease ' + (i*0.06) + 's both';
+                    card.onclick = function() { trackClick(myth); window.location.href = 'pages/detail.html?id=' + myth.id; };
+                    var vl = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
+                    card.innerHTML =
+                        '<div class="cat-tag">' + (myth.categories?myth.categories.icon||'':'') + ' ' + (myth.categories?myth.categories.name:'General') + '</div>' +
+                        '<h3>' + myth.title + '</h3>' +
+                        '<div class="cta"><span class="verdict-badge verdict-' + myth.verdict + '">' + vl + '</span><span>&#x1F441; ' + (myth.views||0) + '</span></div>';
+                    grid.appendChild(card);
+                });
+                renderPagination(which, filtered.length, page);
+            }
+
+            if (animate) {
+                grid.classList.add('fade-out');
+                setTimeout(doRender, 160);
+            } else { doRender(); }
+        }
+
+        function renderPagination(which, total, cur) {
+            var tp = Math.ceil(total / PER_PAGE);
+            var bar = document.getElementById(which + 'Pagination');
+            if (tp <= 1) { bar.innerHTML = ''; return; }
+            var pages = buildPageNums(cur, tp);
+            bar.innerHTML = '';
+            var prev = document.createElement('button');
+            prev.className = 'page-btn'; prev.innerHTML = '&#x2190;'; prev.disabled = cur===1;
+            prev.onclick = function(){ if(cur>1) renderSection(which, cur-1, true); };
+            bar.appendChild(prev);
+            pages.forEach(function(p) {
+                var btn = document.createElement('button');
+                if (p==='...') { btn.className='page-btn dots'; btn.innerHTML='&#x2026;'; }
+                else {
+                    btn.className='page-btn'+(p===cur?' active':'');
+                    btn.textContent=p;
+                    btn.onclick=(function(pg){return function(){if(pg!==cur)renderSection(which,pg,true);};})(p);
+                }
+                bar.appendChild(btn);
+            });
+            var next = document.createElement('button');
+            next.className='page-btn'; next.innerHTML='&#x2192;'; next.disabled=cur===tp;
+            next.onclick=function(){if(cur<tp)renderSection(which,cur+1,true);};
+            bar.appendChild(next);
+        }
+
+        function buildPageNums(cur, total) {
+            if (total<=7){var r=[];for(var i=1;i<=total;i++)r.push(i);return r;}
+            var pages=[1];
+            if(cur>3)pages.push('...');
+            var s=Math.max(2,cur-1),e=Math.min(total-1,cur+1);
+            for(var i=s;i<=e;i++)pages.push(i);
+            if(cur<total-2)pages.push('...');
+            pages.push(total);
+            return pages;
         }
 
         async function loadCategories() {
-            const grid = document.getElementById('categoryGrid');
-            const { data: categories, error } = await sb.from('categories').select('*').order('name');
-            if (error || !categories) { grid.innerHTML = ''; return; }
+            var res = await sb.from('categories').select('*').order('name');
+            if (!res.data) return;
+            var grid = document.getElementById('categoryGrid');
             grid.innerHTML = '';
-            const enriched = await Promise.all(categories.map(async (cat) => {
-                const res = await sb.from('myths').select('id', { count: 'exact', head: true }).eq('category_id', cat.id);
-                return { cat, count: res.count || 0 };
+            var enriched = await Promise.all(res.data.map(async function(cat) {
+                var r = await sb.from('myths').select('id',{count:'exact',head:true}).eq('category_id',cat.id);
+                return {cat:cat, count:r.count||0};
             }));
-            enriched.forEach((item, i) => {
-                const card = document.createElement('div');
+            enriched.forEach(function(item,i) {
+                var card = document.createElement('div');
                 card.className = 'category-card';
-                card.style.backgroundColor = item.cat.color + '12';
-                card.style.borderColor = item.cat.color + '40';
-                card.style.animationDelay = (i * 0.07) + 's';
-                card.onclick = () => window.location.href = 'pages/browse.html?category=' + item.cat.slug;
-                card.innerHTML =
-                    '<div class="icon">' + item.cat.icon + '</div>' +
-                    '<h3 style="color:' + item.cat.color + '">' + item.cat.name + '</h3>' +
-                    '<p class="count">' + item.count + ' myths verified</p>';
+                card.style.backgroundColor = item.cat.color+'12';
+                card.style.borderColor = item.cat.color+'40';
+                card.style.animationDelay = (i*0.07)+'s';
+                card.onclick = function(){ window.location.href='pages/browse.html?category='+item.cat.slug; };
+                card.innerHTML = '<div class="icon">'+item.cat.icon+'</div><h3 style="color:'+item.cat.color+'">'+item.cat.name+'</h3><p class="count">'+item.count+' myths</p>';
                 grid.appendChild(card);
             });
         }
 
-        async function loadStats() {
-            const { count } = await sb.from('myths').select('id', { count: 'exact', head: true });
-            if (count) document.getElementById('statMyths').textContent = count.toLocaleString();
-        }
-
-        document.getElementById('searchBtn').addEventListener('click', () => {
-            const q = document.getElementById('searchInput').value.trim();
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            var q = document.getElementById('searchInput').value.trim();
             if (q) window.location.href = 'pages/search.html?q=' + encodeURIComponent(q);
         });
-
-        document.getElementById('searchInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') document.getElementById('searchBtn').click();
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key==='Enter') document.getElementById('searchBtn').click();
         });
 
-        loadTrendingMyths();
+        loadData();
         loadCategories();
-        loadStats();
     </script>
 </body>
 </html>
