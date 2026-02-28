@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/style.css">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
             --primary: #6c63ff;
             --primary-dark: #5649e0;
@@ -23,19 +22,9 @@
             --false: #ef4444;
             --partial: #f59e0b;
         }
-
         body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
-
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
-
-        header {
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(12px);
-            padding: 16px 0;
-            position: sticky; top: 0; z-index: 200;
-            border-bottom: 1px solid var(--border);
-            box-shadow: 0 1px 20px rgba(108,99,255,0.08);
-        }
+        header { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
         nav { display: flex; gap: 8px; align-items: center; }
@@ -43,93 +32,42 @@
         nav a:hover { background: var(--purple-soft); color: var(--primary); }
         .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
         .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
-
-        .hero {
-            background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%);
-            padding: 80px 24px 90px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E");
-        }
+        .hero { background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%); padding: 80px 24px 90px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E"); }
         .hero-inner { position: relative; }
-        .hero-eyebrow {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-            padding: 6px 16px; border-radius: 20px;
-            font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9);
-            margin-bottom: 24px; letter-spacing: 0.5px;
-        }
+        .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 24px; letter-spacing: 0.5px; }
         .hero h1 { font-family: 'Sora', sans-serif; font-size: 52px; font-weight: 800; color: white; margin-bottom: 16px; letter-spacing: -1.5px; line-height: 1.1; }
         .hero p { font-size: 18px; color: rgba(255,255,255,0.8); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
-
-        .search-bar {
-            display: flex;
-            max-width: 720px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-            border: 2px solid transparent;
-            transition: border-color 0.3s;
-        }
+        .search-bar { display: flex; max-width: 720px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.2); border: 2px solid transparent; transition: border-color 0.3s; }
         .search-bar:focus-within { border-color: rgba(255,255,255,0.4); }
         .search-bar input { flex: 1; padding: 18px 24px; border: none; font-size: 16px; font-family: 'DM Sans', sans-serif; color: var(--text); outline: none; }
         .search-bar button { background: var(--primary); color: white; border: none; padding: 18px 32px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Sora', sans-serif; transition: background 0.2s; white-space: nowrap; }
         .search-bar button:hover { background: var(--primary-dark); }
-
         .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
         .hero-stat { text-align: center; }
         .hero-stat-num { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; color: white; display: block; }
         .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); }
-
         .trending, .categories { padding: 64px 0; }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
         .section-title { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 10px; }
         .section-link { font-size: 14px; font-weight: 600; color: var(--primary); text-decoration: none; }
         .section-link:hover { text-decoration: underline; }
-
         .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-
-        .myth-card {
-            background: white;
-            border: 1.5px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-            position: relative; overflow: hidden;
-            animation: fadeInUp 0.4s ease both;
-        }
-        .myth-card::before {
-            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-            background: var(--border); transition: background 0.2s;
-        }
+        .myth-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; animation: fadeInUp 0.4s ease both; }
+        .myth-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--border); transition: background 0.2s; }
         .myth-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(108,99,255,0.12); border-color: var(--primary); }
         .myth-card:hover::before { background: var(--primary); }
         .myth-card.verdict-TRUE::before { background: var(--true); }
         .myth-card.verdict-FALSE::before { background: var(--false); }
-        .myth-card.verdict-PARTIALLY_TRUE::before { background: var(--partial); }
-
+        .myth-card.verdict-PARTIAL::before { background: var(--partial); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-
         .myth-card .cat-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-bottom: 10px; }
         .myth-card h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 14px; line-height: 1.4; color: var(--text); }
         .myth-card .cta { color: var(--text-muted); font-size: 13px; display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
-
-        .verdict-badge {
-            display: inline-block; padding: 5px 14px; border-radius: 20px;
-            font-weight: 700; font-size: 12px; font-family: 'Sora', sans-serif; letter-spacing: 0.3px;
-        }
+        .verdict-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; font-family: 'Sora', sans-serif; letter-spacing: 0.3px; }
         .verdict-TRUE { background: #d1fae5; color: #065f46; border: 1.5px solid #6ee7b7; }
         .verdict-FALSE { background: #fee2e2; color: #7f1d1d; border: 1.5px solid #fca5a5; }
-        .verdict-PARTIALLY_TRUE { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
-
+        .verdict-PARTIAL { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
         .skeleton { background: linear-gradient(90deg, #f0eeff 25%, #e8e4ff 50%, #f0eeff 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
         .skeleton-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; }
@@ -137,27 +75,19 @@
         .sk-title { height: 18px; width: 100%; margin-bottom: 8px; }
         .sk-title2 { height: 18px; width: 70%; margin-bottom: 16px; }
         .sk-badge { height: 26px; width: 80px; border-radius: 20px; }
-
         .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-        .category-card {
-            padding: 32px 24px; border-radius: 16px; text-align: center; cursor: pointer;
-            transition: all 0.25s; border: 1.5px solid; background: white;
-            animation: fadeInUp 0.4s ease both;
-        }
+        .category-card { padding: 32px 24px; border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.25s; border: 1.5px solid; background: white; animation: fadeInUp 0.4s ease both; }
         .category-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
         .category-card .icon { font-size: 44px; margin-bottom: 14px; }
         .category-card h3 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 6px; }
         .category-card .count { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
-
         .skeleton-cat { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px 24px; text-align: center; }
         .sk-icon { height: 44px; width: 44px; border-radius: 50%; margin: 0 auto 14px; }
         .sk-cat-title { height: 20px; width: 60%; margin: 0 auto 8px; }
         .sk-cat-count { height: 14px; width: 40%; margin: 0 auto; }
-
         footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
         footer p { margin: 4px 0; }
         .logo-footer { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 800; color: white; margin-bottom: 8px; }
-
         @media (max-width: 768px) { .hero h1 { font-size: 34px; } .hero-stats { gap: 24px; } }
     </style>
 </head>
@@ -213,19 +143,15 @@
 
     <section class="page-description" style="background: white; padding: 72px 0; border-bottom: 1px solid var(--border);">
         <div class="container">
-            <div class="description-content" style="max-width: 1000px; margin: 0 auto; text-align: center;">
+            <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
                 <h2 style="font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 18px;">What is Food Myth Buster?</h2>
-                <p style="font-size: 17px; line-height: 1.7; color: var(--text-muted); max-width: 700px; margin: 0 auto 10px;">
-                    Food Myth Buster is a small web app that turns confusing food claims into clear answers backed by real science.
-                </p>
-                <p style="font-size: 16px; line-height: 1.7; color: var(--text-muted); max-width: 720px; margin: 0 auto 34px;">
-                    Each myth page combines a verdict, explanation, linked studies, and community feedback so you can see not just what is true, but why.
-                </p>
+                <p style="font-size: 17px; line-height: 1.7; color: var(--text-muted); max-width: 700px; margin: 0 auto 10px;">Food Myth Buster is a small web app that turns confusing food claims into clear answers backed by real science.</p>
+                <p style="font-size: 16px; line-height: 1.7; color: var(--text-muted); max-width: 720px; margin: 0 auto 34px;">Each myth page combines a verdict, explanation, linked studies, and community feedback so you can see not just what is true, but why.</p>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:8px;">
                     <div style="border-radius:18px;padding:18px 16px;background:linear-gradient(135deg,#eef2ff,#e0f2fe);border:1px solid #e5e7f0;text-align:left;">
                         <div style="font-size:28px;margin-bottom:6px;">🔬</div>
                         <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;color:var(--text);">Evidence first</div>
-                        <div style="font-size:13px;color:var(--text-muted);">Verdicts are built around peer‑reviewed studies and official guidelines, not opinions.</div>
+                        <div style="font-size:13px;color:var(--text-muted);">Verdicts are built around peer-reviewed studies and official guidelines, not opinions.</div>
                     </div>
                     <div style="border-radius:18px;padding:18px 16px;background:linear-gradient(135deg,#ecfdf3,#fef9c3);border:1px solid #e5e7f0;text-align:left;">
                         <div style="font-size:28px;margin-bottom:6px;">📚</div>
@@ -271,7 +197,7 @@
             const grid = document.getElementById('trendingGrid');
             const { data: myths, error } = await sb.from('myths').select('*, categories(name, slug, color, icon)').eq('featured', true).order('views', { ascending: false }).limit(4);
             if (error || !myths || myths.length === 0) {
-                grid.innerHTML = '<p style="color:var(--text-muted);padding:20px;">No myths found. Add some in Supabase!</p>';
+                grid.innerHTML = '<p style="color:var(--text-muted);padding:20px;">No featured myths found.</p>';
                 return;
             }
             grid.innerHTML = '';
@@ -280,7 +206,7 @@
                 card.className = 'myth-card verdict-' + myth.verdict;
                 card.style.animationDelay = (i * 0.08) + 's';
                 card.onclick = () => window.location.href = 'pages/detail.html?id=' + myth.id;
-                const verdictLabel = myth.verdict === 'PARTIALLY_TRUE' ? 'Partial' : myth.verdict.replace('_', ' ');
+                const verdictLabel = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
                 card.innerHTML =
                     '<div class="cat-tag">' + (myth.categories?.icon || '') + ' ' + (myth.categories?.name || 'General') + '</div>' +
                     '<h3>' + myth.title + '</h3>' +
@@ -322,6 +248,7 @@
             const q = document.getElementById('searchInput').value.trim();
             if (q) window.location.href = 'pages/search.html?q=' + encodeURIComponent(q);
         });
+
         document.getElementById('searchInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') document.getElementById('searchBtn').click();
         });

@@ -14,8 +14,7 @@ async function checkAuth() {
             window.location.href = base + 'profile.html';
         };
         if (adminBtn) {
-            const user = session.user;
-            const isAdmin = user && user.user_metadata && user.user_metadata.role === 'admin';
+            const isAdmin = session.user?.user_metadata?.role === 'admin';
             if (isAdmin) {
                 adminBtn.style.display = 'inline-block';
                 adminBtn.onclick = () => {
@@ -40,12 +39,12 @@ async function logout() {
 }
 
 function openAuthOverlay() {
-    var existing = document.getElementById('authOverlay');
-    var isRoot = !window.location.pathname.includes('/pages/');
-    var src = isRoot ? 'pages/login.html' : 'login.html';
+    let existing = document.getElementById('authOverlay');
+    const isRoot = !window.location.pathname.includes('/pages/');
+    const src = isRoot ? 'pages/login.html' : 'login.html';
 
     if (!existing) {
-        var overlay = document.createElement('div');
+        const overlay = document.createElement('div');
         overlay.id = 'authOverlay';
         overlay.className = 'auth-overlay';
         overlay.innerHTML =
@@ -55,11 +54,11 @@ function openAuthOverlay() {
             '</div>';
         document.body.appendChild(overlay);
         existing = overlay;
-        overlay.addEventListener('click', function (e) {
+        overlay.addEventListener('click', function(e) {
             if (e.target === overlay) closeAuthOverlay();
         });
     } else {
-        var frame = existing.querySelector('iframe');
+        const frame = existing.querySelector('iframe');
         if (frame && frame.src.indexOf(src) === -1) frame.src = src;
     }
 
@@ -67,8 +66,15 @@ function openAuthOverlay() {
 }
 
 function closeAuthOverlay() {
-    var overlay = document.getElementById('authOverlay');
+    const overlay = document.getElementById('authOverlay');
     if (overlay) overlay.classList.remove('open');
 }
+
+window.addEventListener('message', function(e) {
+    if (e.data === 'auth:success') {
+        closeAuthOverlay();
+        window.location.reload();
+    }
+});
 
 checkAuth();

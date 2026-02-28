@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Myth Detail - Food Myth Buster</title>
@@ -12,7 +12,6 @@
         :root { --primary: #6c63ff; --primary-dark: #5649e0; --purple-soft: #f0eeff; --text: #1a1a2e; --text-muted: #6b7280; --border: #e5e7f0; --surface: #f8f7ff; --true: #10b981; --false: #ef4444; --partial: #f59e0b; }
         body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
         header { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
@@ -21,7 +20,6 @@
         nav a:hover { background: var(--purple-soft); color: var(--primary); }
         .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
         .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
-
         .detail-hero { background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%); padding: 60px 24px; color: white; position: relative; overflow: hidden; }
         .detail-hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E"); }
         .hero-inner { position: relative; }
@@ -31,137 +29,57 @@
         .detail-hero h1 { font-family: 'Sora', sans-serif; font-size: 34px; font-weight: 800; margin-bottom: 20px; max-width: 800px; line-height: 1.25; letter-spacing: -0.5px; }
         .hero-meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
         .meta-item { font-size: 13px; opacity: 0.8; }
-        .bookmark-btn { background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); color: white; padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+        .bookmark-btn { background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); color: white; padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
         .bookmark-btn:hover { background: rgba(255,255,255,0.25); }
         .bookmark-btn.bookmarked { background: rgba(255,255,255,0.9); color: var(--primary); }
-
         .verdict-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; font-family: 'Sora', sans-serif; }
         .verdict-TRUE { background: #d1fae5; color: #065f46; border: 1.5px solid #6ee7b7; }
         .verdict-FALSE { background: #fee2e2; color: #7f1d1d; border: 1.5px solid #fca5a5; }
-        .verdict-PARTIALLY_TRUE { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
-        .verdict-PARTIALLY_FALSE { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
-
+        .verdict-PARTIAL { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
         .detail-content { padding: 40px 0 60px; }
         .detail-layout { display: grid; grid-template-columns: 1fr 300px; gap: 28px; align-items: start; }
-
         .section-block { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 26px; margin-bottom: 18px; animation: fadeInUp 0.4s ease both; }
-        .section-block h2 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .section-block h2 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 16px; }
         .section-block p, .section-block li { color: #4a5568; line-height: 1.75; margin-bottom: 10px; font-size: 15px; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-
         .verdict-section { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 18px; text-align: center; }
         .verdict-section h2 { font-family: 'Sora', sans-serif; font-size: 18px; margin-bottom: 14px; }
         .verdict-explanation { margin-top: 18px; color: #4a5568; font-size: 15px; line-height: 1.75; text-align: left; }
-
-        /* ── RESEARCH PAPERS ── */
-        .papers-section { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 26px; margin-bottom: 18px; animation: fadeInUp 0.4s ease both; animation-delay: 0.1s; }
-        .papers-section h2 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        .papers-section { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 26px; margin-bottom: 18px; }
+        .papers-section h2 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 20px; }
         .papers-count { font-size: 12px; background: var(--purple-soft); color: var(--primary); padding: 3px 10px; border-radius: 20px; font-weight: 700; font-family: 'Sora', sans-serif; }
-
-        .paper-card {
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 14px;
-            transition: all 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-        .paper-card::before {
-            content: '';
-            position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-            background: var(--primary);
-            border-radius: 2px 0 0 2px;
-        }
+        .paper-card { border: 1.5px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 14px; transition: all 0.2s; position: relative; overflow: hidden; }
+        .paper-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--primary); border-radius: 2px 0 0 2px; }
         .paper-card:hover { border-color: var(--primary); box-shadow: 0 4px 20px rgba(108,99,255,0.1); transform: translateY(-2px); }
         .paper-card:last-child { margin-bottom: 0; }
-
         .paper-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
-        .paper-number { width: 24px; height: 24px; border-radius: 50%; background: var(--purple-soft); color: var(--primary); font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'Sora', sans-serif; }
+        .paper-number { width: 24px; height: 24px; border-radius: 50%; background: var(--purple-soft); color: var(--primary); font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .paper-title { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.4; color: var(--text); flex: 1; }
         .paper-year { font-size: 11px; font-weight: 700; color: var(--text-muted); background: var(--surface); padding: 3px 8px; border-radius: 6px; flex-shrink: 0; }
-
         .paper-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; margin-top: 4px; }
         .paper-authors { font-size: 12px; color: var(--text-muted); font-style: italic; }
         .paper-journal { font-size: 11px; background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 6px; font-weight: 600; }
-
         .paper-description { font-size: 13px; color: #4a5568; line-height: 1.6; margin-bottom: 12px; }
-
-        .paper-link {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: var(--purple-soft); color: var(--primary);
-            padding: 7px 14px; border-radius: 8px;
-            font-size: 12px; font-weight: 700; text-decoration: none;
-            font-family: 'Sora', sans-serif; letter-spacing: 0.3px;
-            transition: all 0.2s;
-        }
+        .paper-link { display: inline-flex; align-items: center; gap: 6px; background: var(--purple-soft); color: var(--primary); padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; font-family: 'Sora', sans-serif; transition: all 0.2s; }
         .paper-link:hover { background: var(--primary); color: white; transform: translateY(-1px); }
-
-        /* ── VIDEOS ── */
-        .videos-section { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 26px; margin-bottom: 18px; animation: fadeInUp 0.4s ease both; animation-delay: 0.2s; }
-        .videos-section h2 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        .videos-section { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 26px; margin-bottom: 18px; }
+        .videos-section h2 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 20px; }
         .videos-count { font-size: 12px; background: #fee2e2; color: #991b1b; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-family: 'Sora', sans-serif; }
-
         .video-cards-grid { display: grid; gap: 16px; }
-
-        .video-card {
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.25s;
-        }
+        .video-card { border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.25s; }
         .video-card:hover { border-color: #f56565; box-shadow: 0 4px 20px rgba(239,68,68,0.12); transform: translateY(-2px); }
-
-        .video-thumb-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            background: #1a1a2e;
-            cursor: pointer;
-        }
-        .video-thumb-wrapper iframe {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 0;
-        }
-        .video-play-overlay {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(0,0,0,0.4);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
+        .video-thumb-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #1a1a2e; cursor: pointer; }
+        .video-thumb-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .video-play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); cursor: pointer; transition: background 0.2s; }
         .video-play-overlay:hover { background: rgba(0,0,0,0.2); }
-        .play-circle {
-            width: 56px; height: 56px;
-            background: white;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            padding-left: 4px;
-            transition: transform 0.2s;
-        }
+        .play-circle { width: 56px; height: 56px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); padding-left: 4px; transition: transform 0.2s; }
         .video-play-overlay:hover .play-circle { transform: scale(1.1); }
-
         .video-info { padding: 16px; }
-        .video-title-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
-        .video-icon { font-size: 18px; flex-shrink: 0; }
-        .video-title { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.35; color: var(--text); }
+        .video-title { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
         .video-channel { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: #991b1b; background: #fee2e2; padding: 2px 8px; border-radius: 6px; margin-bottom: 8px; }
         .video-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-        .video-watch-btn {
-            display: inline-flex; align-items: center; gap: 5px;
-            margin-top: 10px;
-            background: #fee2e2; color: #991b1b;
-            padding: 6px 12px; border-radius: 7px;
-            font-size: 12px; font-weight: 700; text-decoration: none;
-            font-family: 'Sora', sans-serif;
-            transition: all 0.2s;
-        }
+        .video-watch-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; background: #fee2e2; color: #991b1b; padding: 6px 12px; border-radius: 7px; font-size: 12px; font-weight: 700; text-decoration: none; font-family: 'Sora', sans-serif; transition: all 0.2s; }
         .video-watch-btn:hover { background: #ef4444; color: white; }
-
-        /* ── AI EXPAND ── */
         .vote-section { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 18px; text-align: center; }
         .vote-section h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 16px; }
         .vote-buttons { display: flex; gap: 12px; justify-content: center; margin-bottom: 14px; }
@@ -172,7 +90,6 @@
         .vote-bar { background: var(--surface); border-radius: 20px; height: 8px; overflow: hidden; margin-bottom: 8px; }
         .vote-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #9b59b6); border-radius: 20px; transition: width 0.6s ease; }
         .vote-counts { font-size: 12px; color: var(--text-muted); }
-
         .ai-expand-btn { display: flex; align-items: center; gap: 8px; padding: 11px 20px; background: var(--purple-soft); color: var(--primary); border: 1.5px solid var(--primary); border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; margin-top: 14px; width: 100%; justify-content: center; }
         .ai-expand-btn:hover { background: var(--primary); color: white; }
         .ai-expand-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -188,8 +105,6 @@
         .thinking-dots-sm span:nth-child(2) { animation-delay: 0.2s; }
         .thinking-dots-sm span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes bounce { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
-
-        /* ── SIDEBAR ── */
         .sidebar-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
         .sidebar-card h3 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 14px; }
         .quick-fact { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
@@ -201,33 +116,18 @@
         .related-myth:last-child { border-bottom: none; }
         .related-myth:hover { opacity: 0.7; }
         .related-myth h4 { font-size: 12px; line-height: 1.4; }
-
-        /* ── EMPTY STATES ── */
         .no-data { text-align: center; padding: 30px 20px; color: var(--text-muted); font-size: 14px; border: 1.5px dashed var(--border); border-radius: 10px; }
-        .no-data .no-icon { font-size: 32px; margin-bottom: 8px; }
-
-        /* ── SKELETON ── */
         .skeleton { background: linear-gradient(90deg, #f0eeff 25%, #e8e4ff 50%, #f0eeff 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
         .error-state { text-align: center; padding: 100px 20px; }
         .error-state h2 { font-family: 'Sora', sans-serif; font-size: 28px; margin-bottom: 12px; }
-
         footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 32px 0; text-align: center; font-size: 14px; }
         footer p { margin: 4px 0; }
-
-        /* dark mode toggle */
-        .dark-mode-toggle { position: relative; width: 50px; height: 24px; background: var(--border); border-radius: 12px; cursor: pointer; transition: background 0.3s; border: none; outline: none; }
-        .dark-mode-toggle::before { content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .dark-mode-toggle.active::before { transform: translateX(26px); }
-        .dark-mode-toggle.active { background: #667eea; }
-
         .auth-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 500; }
         .auth-overlay.open { display: flex; }
         .auth-overlay-inner { position: relative; width: 100%; max-width: 480px; max-height: 90vh; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.35); background: transparent; }
         .auth-overlay-frame { width: 100%; height: 600px; border: none; display: block; }
         .auth-overlay-close { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 16px; border: none; background: rgba(0,0,0,0.6); color: white; cursor: pointer; font-size: 18px; line-height: 1; display: flex; align-items: center; justify-content: center; }
-
         @media (max-width: 900px) { .detail-layout { grid-template-columns: 1fr; } .detail-hero h1 { font-size: 24px; } }
     </style>
 </head>
@@ -264,9 +164,8 @@
                 <div class="detail-layout">
                     <div>
                         <div class="section-block"><div class="skeleton" style="height:16px;width:40%;margin-bottom:14px;"></div><div class="skeleton" style="height:13px;width:100%;margin-bottom:8px;"></div><div class="skeleton" style="height:13px;width:75%;"></div></div>
-                        <div class="section-block"><div class="skeleton" style="height:16px;width:40%;margin-bottom:14px;"></div><div class="skeleton" style="height:13px;width:100%;margin-bottom:8px;"></div><div class="skeleton" style="height:13px;width:85%;margin-bottom:8px;"></div><div class="skeleton" style="height:13px;width:65%;"></div></div>
                     </div>
-                    <div><div class="sidebar-card"><div class="skeleton" style="height:16px;width:60%;margin-bottom:14px;"></div><div class="skeleton" style="height:13px;width:100%;margin-bottom:8px;"></div><div class="skeleton" style="height:13px;width:80%;"></div></div></div>
+                    <div><div class="sidebar-card"><div class="skeleton" style="height:16px;width:60%;margin-bottom:14px;"></div><div class="skeleton" style="height:13px;width:100%;margin-bottom:8px;"></div></div></div>
                 </div>
             </div>
         </div>
@@ -274,8 +173,7 @@
 
     <footer>
         <div class="container">
-            <p>🍎 Food Myth Buster</p>
-            <p>© 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
+            <p>🍎 Food Myth Buster &nbsp;•&nbsp; © 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
         </div>
     </footer>
 
@@ -298,10 +196,8 @@
 
         async function loadMythDetail() {
             if (!mythId) { showError('No myth ID provided.'); return; }
-
             var res = await sb.from('myths').select('*, categories(name, slug, color, icon)').eq('id', mythId).single();
             if (res.error || !res.data) { showError('Myth not found.'); return; }
-
             currentMyth = res.data;
             document.title = currentMyth.title + ' - Food Myth Buster';
             document.querySelector('meta[name="description"]').setAttribute('content', currentMyth.summary || currentMyth.title);
@@ -312,15 +208,12 @@
                 sessionStorage.setItem(sessionKey, '1');
             }
 
-            var [papersRes, videosRes, evidenceRes] = await Promise.all([
+            var [papersRes, videosRes] = await Promise.all([
                 sb.from('research_papers').select('*').eq('myth_id', mythId).order('id'),
-                sb.from('myth_videos').select('*').eq('myth_id', mythId).order('id'),
-                sb.from('evidence').select('*').eq('myth_id', mythId)
+                sb.from('myth_videos').select('*').eq('myth_id', mythId).order('id')
             ]);
-
             var papers = papersRes.data || [];
             var videos = videosRes.data || [];
-            var evidence = evidenceRes.data || [];
 
             if (currentUser) {
                 var bmRes = await sb.from('bookmarks').select('id').eq('user_id', currentUser.id).eq('myth_id', mythId).single();
@@ -335,10 +228,11 @@
             var downVotes = votes.filter(function(v) { return v.vote === 'down'; }).length;
 
             renderHero(currentMyth);
-            await renderContent(currentMyth, papers, videos, evidence, upVotes, downVotes);
+            await renderContent(currentMyth, papers, videos, upVotes, downVotes);
         }
 
         function renderHero(myth) {
+            var verdictLabel = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
             document.getElementById('heroSection').innerHTML =
                 '<section class="detail-hero">' +
                     '<div class="container"><div class="hero-inner">' +
@@ -346,7 +240,7 @@
                         '<div style="font-size:12px;opacity:0.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">' + (myth.categories?.icon || '') + ' ' + (myth.categories?.name || '') + '</div>' +
                         '<h1>' + myth.title + '</h1>' +
                         '<div class="hero-meta">' +
-                            '<span class="verdict-badge verdict-' + myth.verdict + '">' + myth.verdict.replace(/_/g, ' ') + '</span>' +
+                            '<span class="verdict-badge verdict-' + myth.verdict + '">' + verdictLabel + '</span>' +
                             '<span class="meta-item">👁 ' + (myth.views || 0) + ' views</span>' +
                             (myth.updated_at ? '<span class="meta-item">Updated ' + new Date(myth.updated_at).toLocaleDateString() + '</span>' : '') +
                             '<button class="bookmark-btn' + (isBookmarked ? ' bookmarked' : '') + '" id="bookmarkBtn" onclick="toggleBookmark()">' +
@@ -358,9 +252,7 @@
         }
 
         function buildPapersHTML(papers) {
-            if (papers.length === 0) {
-                return '<div class="no-data"><div class="no-icon">📄</div><p>No research papers linked yet for this myth.</p></div>';
-            }
+            if (papers.length === 0) return '<div class="no-data"><p>No research papers linked yet for this myth.</p></div>';
             return papers.map(function(p, i) {
                 return '<div class="paper-card">' +
                     '<div class="paper-header">' +
@@ -379,9 +271,7 @@
         }
 
         function buildVideosHTML(videos) {
-            if (videos.length === 0) {
-                return '<div class="no-data"><div class="no-icon">🎥</div><p>No videos linked yet for this myth.</p></div>';
-            }
+            if (videos.length === 0) return '<div class="no-data"><p>No videos linked yet for this myth.</p></div>';
             return '<div class="video-cards-grid">' +
                 videos.map(function(v) {
                     var embedUrl = v.url;
@@ -392,8 +282,6 @@
                         var vid2 = embedUrl.split('youtu.be/')[1].split('?')[0];
                         embedUrl = 'https://www.youtube.com/embed/' + vid2;
                     }
-                    var watchUrl = v.url;
-
                     return '<div class="video-card">' +
                         '<div class="video-thumb-wrapper" id="vthumb-' + v.id + '">' +
                             '<div class="video-play-overlay" onclick="loadVideo(' + v.id + ', \'' + embedUrl + '\')">' +
@@ -401,13 +289,10 @@
                             '</div>' +
                         '</div>' +
                         '<div class="video-info">' +
-                            '<div class="video-title-row">' +
-                                '<span class="video-icon">🎬</span>' +
-                                '<div class="video-title">' + v.title + '</div>' +
-                            '</div>' +
+                            '<div class="video-title">' + v.title + '</div>' +
                             (v.channel ? '<div class="video-channel">📺 ' + v.channel + '</div>' : '') +
                             (v.description ? '<div class="video-desc">' + v.description + '</div>' : '') +
-                            '<a class="video-watch-btn" href="' + watchUrl + '" target="_blank" rel="noopener">▶ Watch on YouTube</a>' +
+                            '<a class="video-watch-btn" href="' + v.url + '" target="_blank" rel="noopener">▶ Watch on YouTube</a>' +
                         '</div>' +
                     '</div>';
                 }).join('') +
@@ -420,14 +305,15 @@
             wrapper.innerHTML = '<iframe src="' + embedUrl + '?autoplay=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen allow="autoplay"></iframe>';
         }
 
-        async function renderContent(myth, papers, videos, evidence, upVotes, downVotes) {
+        async function renderContent(myth, papers, videos, upVotes, downVotes) {
             var relatedHTML = '';
             if (myth.category_id) {
                 var relRes = await sb.from('myths').select('id, title, verdict').eq('category_id', myth.category_id).neq('id', myth.id).limit(3);
                 if (relRes.data && relRes.data.length > 0) {
                     relatedHTML = relRes.data.map(function(r) {
+                        var vl = r.verdict === 'PARTIAL' ? 'Partial' : r.verdict;
                         return '<div class="related-myth" onclick="window.location.href=\'detail.html?id=' + r.id + '\'">' +
-                            '<span class="verdict-badge verdict-' + r.verdict + '" style="font-size:10px;padding:2px 8px;white-space:nowrap;">' + r.verdict.replace(/_/g, ' ') + '</span>' +
+                            '<span class="verdict-badge verdict-' + r.verdict + '" style="font-size:10px;padding:2px 8px;white-space:nowrap;">' + vl + '</span>' +
                             '<h4>' + r.title + '</h4></div>';
                     }).join('');
                 }
@@ -435,6 +321,7 @@
 
             var total = upVotes + downVotes;
             var upPct = total > 0 ? Math.round(upVotes / total * 100) : 50;
+            var verdictLabel = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
 
             var papersSection =
                 '<div class="papers-section">' +
@@ -452,24 +339,18 @@
                     buildVideosHTML(videos) +
                 '</div>';
 
-            var surveyBlock = '';
-            if (myth.survey_url) {
-                surveyBlock = '<div class="section-block"><h2>📊 Quick Survey</h2><p style="font-size:14px;color:var(--text-muted);margin-bottom:10px;">Share how you first heard this myth.</p><a href="' + myth.survey_url + '" target="_blank" style="display:inline-block;padding:10px 20px;border-radius:10px;background:var(--primary);color:white;text-decoration:none;font-weight:600;font-size:14px;">Open survey</a></div>';
-            }
-
             document.getElementById('mainContent').innerHTML =
                 '<section class="detail-content">' +
                     '<div class="container"><div class="detail-layout">' +
                         '<div>' +
                             '<div class="verdict-section">' +
                                 '<h2>The Verdict</h2>' +
-                                '<span class="verdict-badge verdict-' + myth.verdict + '" style="font-size:16px;padding:10px 28px;">' + (myth.verdict === 'PARTIALLY_TRUE' ? 'Partial' : myth.verdict.replace(/_/g, ' ')) + '</span>' +
+                                '<span class="verdict-badge verdict-' + myth.verdict + '" style="font-size:16px;padding:10px 28px;">' + verdictLabel + '</span>' +
                                 '<div class="verdict-explanation">' + (myth.verdict_explanation || myth.summary || 'No explanation provided yet.') + '</div>' +
                             '</div>' +
                             (myth.full_explanation ? '<div class="section-block"><h2>📖 Full Explanation</h2><p>' + myth.full_explanation + '</p></div>' : '') +
                             papersSection +
                             videosSection +
-                            surveyBlock +
                             (myth.common_misconceptions ? '<div class="section-block"><h2>⚠️ Common Misconceptions</h2><p>' + myth.common_misconceptions + '</p></div>' : '') +
                             '<div class="vote-section">' +
                                 '<h3>Was this helpful?</h3>' +
@@ -484,11 +365,11 @@
                         '<div>' +
                             '<div class="sidebar-card">' +
                                 '<h3>📌 Quick Facts</h3>' +
-                                '<div class="quick-fact"><div><div class="label">Verdict</div><div class="value">' + (myth.verdict === 'PARTIALLY_TRUE' ? 'Partial' : myth.verdict.replace(/_/g, ' ')) + '</div></div></div>' +
+                                '<div class="quick-fact"><div><div class="label">Verdict</div><div class="value">' + verdictLabel + '</div></div></div>' +
                                 '<div class="quick-fact"><div><div class="label">Category</div><div class="value">' + (myth.categories?.name || 'General') + '</div></div></div>' +
                                 '<div class="quick-fact"><div><div class="label">Views</div><div class="value">' + (myth.views || 0) + '</div></div></div>' +
                                 '<div class="quick-fact"><div><div class="label">Studies</div><div class="value">' + papers.length + ' research paper' + (papers.length !== 1 ? 's' : '') + '</div></div></div>' +
-                                '<div class="quick-fact"><div><div class="label">Videos</div><div class="value">' + videos.length + ' supporting video' + (videos.length !== 1 ? 's' : '') + '</div></div></div>' +
+                                '<div class="quick-fact"><div><div class="label">Videos</div><div class="value">' + videos.length + ' video' + (videos.length !== 1 ? 's' : '') + '</div></div></div>' +
                             '</div>' +
                             '<div class="sidebar-card">' +
                                 '<h3>🔗 Share</h3>' +
@@ -503,7 +384,7 @@
         }
 
         async function toggleBookmark() {
-            if (!currentUser) { window.location.href = 'login.html'; return; }
+            if (!currentUser) { openAuthOverlay(); return; }
             var btn = document.getElementById('bookmarkBtn');
             btn.disabled = true;
             if (isBookmarked) {
@@ -512,7 +393,7 @@
                 btn.textContent = '🔖 Bookmark';
                 btn.classList.remove('bookmarked');
             } else {
-                await sb.from('bookmarks').insert({ user_id: currentUser.id, myth_id: mythId });
+                await sb.from('bookmarks').insert({ user_id: currentUser.id, myth_id: parseInt(mythId) });
                 isBookmarked = true;
                 btn.textContent = '🔖 Bookmarked';
                 btn.classList.add('bookmarked');
@@ -521,12 +402,12 @@
         }
 
         async function castVote(vote) {
-            if (!currentUser) { window.location.href = 'login.html'; return; }
+            if (!currentUser) { openAuthOverlay(); return; }
             if (userVote === vote) {
                 await sb.from('myth_votes').delete().eq('user_id', currentUser.id).eq('myth_id', mythId);
                 userVote = null;
             } else {
-                await sb.from('myth_votes').upsert({ user_id: currentUser.id, myth_id: mythId, vote: vote }, { onConflict: 'user_id,myth_id' });
+                await sb.from('myth_votes').upsert({ user_id: currentUser.id, myth_id: parseInt(mythId), vote: vote }, { onConflict: 'myth_id,user_id' });
                 userVote = vote;
             }
             var votesRes = await sb.from('myth_votes').select('vote').eq('myth_id', mythId);
@@ -547,7 +428,8 @@
             var myth = currentMyth;
             var btn = document.getElementById('aiExpandBtn');
             var container = document.getElementById('aiExpandedContent');
-            btn.disabled = true; btn.textContent = 'Loading…';
+            btn.disabled = true;
+            btn.textContent = 'Loading…';
             container.innerHTML = '<div class="thinking-inline"><div class="thinking-dots-sm"><span></span><span></span><span></span></div><span>Claude is analyzing all the evidence…</span></div>';
 
             try {
@@ -564,12 +446,12 @@
                 var data = await response.json();
                 var text = data.content.map(function(i) { return i.text || ''; }).join('');
                 var result = JSON.parse(text.replace(/```json|```/g, '').trim());
-
                 container.innerHTML =
                     '<div class="ai-expanded">' +
                         '<span class="ai-badge">✨ AI Evidence Summary</span>' +
                         '<p><strong>Deeper Context:</strong> ' + result.deeper_context + '</p>' +
-                        '<p><strong>Key Takeaways from the Studies:</strong></p><ul>' + result.key_studies.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ul>' +
+                        '<p><strong>Key Takeaways from the Studies:</strong></p>' +
+                        '<ul>' + result.key_studies.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ul>' +
                         '<p style="margin-top:10px;"><strong>Practical Takeaway:</strong> ' + result.practical_takeaway + '</p>' +
                         '<p><strong>Why People Get Confused:</strong> ' + result.common_confusion + '</p>' +
                         '<div class="ai-disclaimer-sm">⚠️ AI-generated summary. Always verify with the primary sources linked above.</div>' +
@@ -577,7 +459,8 @@
                 btn.style.display = 'none';
             } catch(err) {
                 container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:10px;">Could not load AI analysis. Try again.</p>';
-                btn.disabled = false; btn.textContent = '✨ Get AI Summary of All Evidence';
+                btn.disabled = false;
+                btn.textContent = '✨ Get AI Summary of All Evidence';
             }
         }
 
