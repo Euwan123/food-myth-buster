@@ -1,4 +1,5 @@
 :root {
+    /* light theme defaults */
     --bg-color: #ffffff;
     --text-color: #2d3748;
     --header-bg: #edf2f7;
@@ -12,6 +13,51 @@
     --progress-bg: #e2e8f0;
     --muted-text: #718096;
     --light-text: #a0aec0;
+
+    /* colors used by page-specific styles */
+    --primary: #667eea;
+    --primary-dark: #5568d3;
+    --purple-soft: #f0eeff;
+    --true: #10d988;
+    --false: #ff5c6b;
+    --partial: #ffb347;
+
+    /* alias names for backwards compatibility */
+    --surface: var(--bg-color);
+    --card: var(--card-bg);
+    --text: var(--text-color);
+    --border: var(--border-color);
+}
+
+/* dark theme overrides applied via body.dark */
+body.dark {
+    --bg-color: #0d0b1e;
+    --text-color: #e8e6f0;
+    --header-bg: rgba(13,11,30,0.97);
+    --card-bg: #161330;
+    --border-color: #2a2650;
+    --hover-bg: #10101e;
+    --btn-secondary-bg: #1a1630;
+    --btn-secondary-border: #3a3560;
+    --footer-bg: #080714;
+    --footer-text: #e8e6f0;
+    --progress-bg: #2a2650;
+    --muted-text: #8886a8;
+    --light-text: #a0aec0;
+
+    /* page-specific colors in dark mode can reuse aliases */
+    --primary: #667eea;
+    --primary-dark: #5568d3;
+    --purple-soft: rgba(124,107,255,0.12);
+    --true: #10d988;
+    --false: #ff5c6b;
+    --partial: #ffb347;
+
+    /* maintain alias mapping */
+    --surface: var(--bg-color);
+    --card: var(--card-bg);
+    --text: var(--text-color);
+    --border: var(--border-color);
 }
 
 * {
@@ -20,8 +66,18 @@
     box-sizing: border-box;
 }
 
+/* remove default list numbering which was previously visible in some places */
+ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* global typography and interactions */
+
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'DM Sans', sans-serif;
     color: var(--text-color);
     background: var(--bg-color);
     line-height: 1.6;
@@ -105,6 +161,11 @@ nav a:hover {
     border-color: #667eea;
     color: #667eea;
     transform: translateY(-2px) scale(1.05);
+}
+
+#themeToggle.active {
+    background: var(--primary);
+    color: white;
 }
 
 .hero {
@@ -213,6 +274,12 @@ nav a:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
+}
+
+.category-filter-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .category-card {

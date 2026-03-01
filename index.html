@@ -7,12 +7,11 @@
     <meta name="description" content="Search any food claim and get evidence-based answers. Bust food myths with science.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root { --primary:#7c6bff;--primary-dark:#6254e8;--purple-soft:rgba(124,107,255,0.12);--text:#e8e6f0;--text-muted:#8886a8;--border:#2a2650;--surface:#0d0b1e;--card:#161330;--true:#10d988;--false:#ff5c6b;--partial:#ffb347; }
-
+        /* page-specific overrides use global variables now */
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
-        header { background: rgba(13,11,30,0.97); backdrop-filter: blur(16px); padding: 14px 0; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--border); }
+        header { background: rgba(13,11,30,0.97); backdrop-filter: blur(16px); padding: 14px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 800; background: linear-gradient(135deg, #7c6bff, #c77dff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
         nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
@@ -77,7 +76,7 @@
         .fade-out .myth-card { animation: fadeOutUp 0.16s ease both; }
         .category-section { padding: 56px 0; background: #0f0d1e; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
-        .category-card { padding: 28px 20px; border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.25s; border: 1.5px solid; background: white; }
+        .category-card { padding: 28px 20px; border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.25s; border: 1.5px solid; background: var(--card); }
         .category-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
         .category-card .icon { font-size: 40px; margin-bottom: 12px; }
         .category-card h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
@@ -108,6 +107,7 @@
                 <a href="pages/contact-and-info.html">Contact &amp; Info</a>
                 <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
                 <button id="loginBtn" class="btn-login">Login</button>
+                <button id="themeToggle" class="btn-secondary" title="Toggle theme">🌗</button>
             </nav>
         </div>
     </header>
@@ -203,6 +203,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-client.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
     <script>
         var PER_PAGE = 4;
         var allMyths = [];

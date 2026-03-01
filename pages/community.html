@@ -6,12 +6,11 @@
     <title>Community - Food Myth Buster</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root { --primary: #6c63ff; --primary-dark: #5649e0; --purple-soft: #f0eeff; --text: #1a1a2e; --text-muted: #6b7280; --border: #e5e7f0; --surface: #f8f7ff; }
-        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
+        /* community-specific overrides only */
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
-        header { background: rgba(13,11,30,0.97); backdrop-filter: blur(16px); padding: 14px 0; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--border); }
+        header { background: rgba(13,11,30,0.97); backdrop-filter: blur(16px); padding: 14px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 800; background: linear-gradient(135deg, #7c6bff, #c77dff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
         nav { display: flex; gap: 8px; align-items: center; }
@@ -26,7 +25,7 @@
         .hero-content p { color: rgba(255,255,255,0.8); font-size: 17px; max-width: 500px; margin: 0 auto; }
         .community-layout { display: grid; grid-template-columns: 1fr 300px; gap: 28px; padding: 36px 0 60px; align-items: start; }
         .section-title { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .poll-card { background: white; border: 1.5px solid var(--border); border-radius: 20px; padding: 28px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(108,99,255,0.05); transition: box-shadow 0.25s; animation: fadeInUp 0.4s ease both; }
+        .poll-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; padding: 28px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(108,99,255,0.05); transition: box-shadow 0.25s; animation: fadeInUp 0.4s ease both; }
         .poll-card:hover { box-shadow: 0 8px 32px rgba(108,99,255,0.12); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
         .poll-question { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 20px; color: var(--text); }
@@ -41,19 +40,19 @@
         .vote-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
         .vote-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         .voted-label { font-size: 12px; color: var(--primary); font-weight: 700; }
-        .submit-section { background: white; border: 1.5px solid var(--border); border-radius: 20px; padding: 32px; margin-top: 8px; box-shadow: 0 4px 20px rgba(108,99,255,0.05); }
+        .submit-section { background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; padding: 32px; margin-top: 8px; box-shadow: 0 4px 20px rgba(108,99,255,0.05); }
         .form-row { margin-bottom: 20px; }
         .form-row label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
         .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); outline: none; transition: border-color 0.2s, background 0.2s; resize: vertical; }
-        .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 3px rgba(108,99,255,0.1); }
+        .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--primary); background: var(--card); box-shadow: 0 0 0 3px rgba(108,99,255,0.1); }
         .form-row textarea { min-height: 100px; }
         .verdict-buttons { display: flex; gap: 10px; margin-top: 8px; }
         .verdict-btn { padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-family: 'DM Sans', sans-serif; font-size: 14px; transition: all 0.2s; }
-        .verdict-btn-true { border: 2px solid #10b981; background: white; color: #10b981; }
+        .verdict-btn-true { border: 2px solid #10b981; background: var(--card); color: #10b981; }
         .verdict-btn-true.active { background: #10b981; color: white; }
-        .verdict-btn-false { border: 2px solid #ef4444; background: white; color: #ef4444; }
+        .verdict-btn-false { border: 2px solid #ef4444; background: var(--card); color: #ef4444; }
         .verdict-btn-false.active { background: #ef4444; color: white; }
-        .verdict-btn-partial { border: 2px solid #f59e0b; background: white; color: #f59e0b; }
+        .verdict-btn-partial { border: 2px solid #f59e0b; background: var(--card); color: #f59e0b; }
         .verdict-btn-partial.active { background: #f59e0b; color: white; }
         .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--primary), #9b59b6); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Sora', sans-serif; transition: all 0.25s; letter-spacing: 0.3px; }
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,99,255,0.35); }
@@ -62,7 +61,7 @@
         .alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; display: block; }
         .alert-error { background: #fee2e2; color: #7f1d1d; border: 1px solid #fca5a5; display: block; }
         .sidebar { position: sticky; top: 90px; }
-        .sidebar-card { background: white; border: 1.5px solid var(--border); border-radius: 20px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(108,99,255,0.05); }
+        .sidebar-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(108,99,255,0.05); }
         .sidebar-title { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
         .contributor-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
         .contributor-row:last-child { border-bottom: none; padding-bottom: 0; }
@@ -92,6 +91,7 @@
                 <a href="contact-and-info.html">Contact & Info</a>
                 <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
                 <button id="loginBtn" class="btn-login">Login</button>
+                <button id="themeToggle" class="btn-secondary" title="Toggle theme">🌗</button>
             </nav>
         </div>
     </header>
@@ -180,6 +180,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/theme.js"></script>
     <script>
         var pollsData = [];
         var userVotedPolls = new Set();

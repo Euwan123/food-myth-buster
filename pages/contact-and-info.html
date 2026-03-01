@@ -7,12 +7,11 @@
     <meta name="description" content="Contact Food Myth Buster or learn more about the project and its creator.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root { --primary: #6c63ff; --primary-dark: #5649e0; --purple-soft: #f0eeff; --text: #1a1a2e; --text-muted: #6b7280; --border: #e5e7f0; --surface: #f8f7ff; }
-        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
+        /* page-specific overrides only */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        header { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
+        header { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
         nav { display: flex; gap: 8px; align-items: center; }
@@ -28,7 +27,7 @@
 
         .page-body { padding: 60px 0; }
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-        .card { background: white; border: 1.5px solid var(--border); border-radius: 20px; padding: 36px; box-shadow: 0 6px 24px rgba(108,99,255,0.05); }
+        .card { background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; padding: 36px; box-shadow: 0 6px 24px rgba(108,99,255,0.05); }
         .card-icon { font-size: 40px; margin-bottom: 18px; }
         .card h2 { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 16px; }
         .card p { font-size: 15px; color: var(--text-muted); line-height: 1.75; margin-bottom: 12px; }
@@ -42,7 +41,7 @@
         .contact-value a { color: var(--primary); text-decoration: none; }
         .contact-value a:hover { text-decoration: underline; }
 
-        .creator-card { background: white; border: 1.5px solid var(--border); border-radius: 20px; padding: 40px 36px; box-shadow: 0 6px 24px rgba(108,99,255,0.05); display: flex; gap: 32px; align-items: flex-start; margin-bottom: 32px; }
+        .creator-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; padding: 40px 36px; box-shadow: 0 6px 24px rgba(108,99,255,0.05); display: flex; gap: 32px; align-items: flex-start; margin-bottom: 32px; }
         .creator-avatar { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #9b59b6); display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 40px; font-weight: 800; color: white; flex-shrink: 0; }
         .creator-info h2 { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 4px; }
         .creator-role { display: inline-block; font-size: 12px; font-weight: 700; background: var(--purple-soft); color: var(--primary); padding: 4px 14px; border-radius: 20px; margin-bottom: 14px; font-family: 'Sora', sans-serif; }
@@ -52,7 +51,7 @@
 
         .about-section { margin-top: 32px; }
         .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
-        .about-item { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 20px; text-align: center; }
+        .about-item { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 20px; text-align: center; }
         .about-item .icon { font-size: 32px; margin-bottom: 12px; }
         .about-item h4 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 6px; }
         .about-item p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
@@ -63,7 +62,7 @@
 
         .faq-section { margin-top: 40px; }
         .faq-section h2 { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .faq-item { background: white; border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 10px; }
+        .faq-item { background: var(--card); border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 10px; }
         .faq-question { padding: 18px 22px; font-weight: 600; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background 0.2s; }
         .faq-question:hover { background: var(--surface); }
         .faq-arrow { font-size: 16px; transition: transform 0.25s; color: var(--text-muted); }
@@ -89,6 +88,7 @@
                 <a href="contact-and-info.html">Contact &amp; Info</a>
                 <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
                 <button id="loginBtn" class="btn-login">Login</button>
+                <button id="themeToggle" class="btn-secondary" title="Toggle theme">🌗</button>
             </nav>
         </div>
     </header>
@@ -251,6 +251,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/theme.js"></script>
     <script>
         function toggleFaq(el) {
             var item = el.parentElement;

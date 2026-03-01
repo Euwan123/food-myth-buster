@@ -5,13 +5,12 @@
 <title>My Profile - Food Myth Buster</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{--primary:#7c6bff;--text:#e8e6f0;--text-muted:#8886a8;--border:#2a2650;--surface:#0d0b1e;--card:#161330;--true:#10d988;--false:#ff5c6b;--partial:#ffb347;}
-body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--surface);line-height:1.6;}
+    /* profile-specific overrides only */
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--surface)}::-webkit-scrollbar-thumb{background:#3a3560;border-radius:3px}
 .container{max-width:1200px;margin:0 auto;padding:0 24px;}
-header{background:rgba(13,11,30,0.97);backdrop-filter:blur(16px);padding:14px 0;position:sticky;top:0;z-index:200;border-bottom:1px solid var(--border);}
+header{background:rgba(13,11,30,0.97);backdrop-filter:blur(16px);padding:14px 0;position:sticky;top:0;z-index:1000;border-bottom:1px solid var(--border);}
 header .container{display:flex;justify-content:space-between;align-items:center;gap:12px;}
 .logo{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;background:linear-gradient(135deg,#7c6bff,#c77dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
 nav{display:flex;gap:4px;align-items:center;flex-wrap:wrap;}
@@ -125,6 +124,7 @@ footer p{margin:3px 0;}
       <a href="contact-and-info.html">Contact &amp; Info</a>
       <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
       <button id="loginBtn" class="btn-login">Login</button>
+      <button id="themeToggle" class="btn-secondary" title="Toggle theme">🌗</button>
     </nav>
   </div>
 </header>
@@ -133,6 +133,7 @@ footer p{margin:3px 0;}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase-client.js"></script>
 <script src="../js/auth.js"></script>
+<script src="../js/theme.js"></script>
 <script>
 var SB_URL = 'https://gyrqdwypsqdeeqzmkdze.supabase.co';
 var currentUser = null, profile = null, bookmarks = [], submissions = [], votes = [];

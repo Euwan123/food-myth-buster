@@ -6,12 +6,11 @@
     <title>Admin Panel - Food Myth Buster</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root { --primary: #6c63ff; --primary-dark: #5649e0; --purple-soft: #f0eeff; --text: #1a1a2e; --text-muted: #6b7280; --border: #e5e7f0; --surface: #f8f7ff; --true: #10b981; --false: #ef4444; --partial: #f59e0b; }
-        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); line-height: 1.6; }
+        /* admin-specific overrides only */
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
-        header { background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--border); box-shadow: 0 1px 16px rgba(108,99,255,0.08); }
+        header { background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); box-shadow: 0 1px 16px rgba(108,99,255,0.08); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
         nav { display: flex; gap: 8px; align-items: center; }
@@ -29,7 +28,7 @@
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
         .admin-layout { display: grid; grid-template-columns: minmax(0,2.2fr) minmax(0,1fr); gap: 24px; align-items: flex-start; }
-        .card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: 0 6px 20px rgba(15,23,42,0.05); margin-bottom: 20px; }
+        .card { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: 0 6px 20px rgba(15,23,42,0.05); margin-bottom: 20px; }
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .card-title { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
         .pill { font-size: 11px; padding: 3px 9px; border-radius: 999px; background: var(--purple-soft); color: var(--primary); font-weight: 600; }
@@ -46,7 +45,7 @@
         .status-APPROVED { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
         .status-REJECTED { background: #fee2e2; color: #7f1d1d; border-color: #fca5a5; }
         .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-        .btn-action { border-radius: 8px; border: 1px solid var(--border); padding: 6px 12px; font-size: 12px; cursor: pointer; background: white; font-family: 'DM Sans', sans-serif; font-weight: 600; transition: all 0.2s; }
+        .btn-action { border-radius: 8px; border: 1px solid var(--border); padding: 6px 12px; font-size: 12px; cursor: pointer; background: var(--card); font-family: 'DM Sans', sans-serif; font-weight: 600; transition: all 0.2s; }
         .btn-approve { border-color: #10b981; color: #047857; }
         .btn-reject { border-color: #ef4444; color: #b91c1c; }
         .btn-approve:hover { background: #ecfdf5; }
@@ -69,13 +68,13 @@
         .myth-edit-form.open { display: block; }
         .form-row { margin-bottom: 12px; }
         .form-row label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 6px; }
-        .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; background: white; }
+        .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; background: var(--card); }
         .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--primary); }
         .form-row textarea { min-height: 80px; resize: vertical; }
         .save-btn { padding: 8px 18px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
         .save-btn:hover { background: var(--primary-dark); }
-        .cancel-btn { padding: 8px 18px; background: white; color: var(--text-muted); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; margin-left: 8px; }
-        .add-myth-form { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: 0 6px 20px rgba(15,23,42,0.05); }
+        .cancel-btn { padding: 8px 18px; background: var(--card); color: var(--text-muted); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; margin-left: 8px; }
+        .add-myth-form { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: 0 6px 20px rgba(15,23,42,0.05); }
         .add-myth-title { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 20px; }
         .verdict-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-size: 11px; font-family: 'Sora', sans-serif; }
         .verdict-TRUE { background: #d1fae5; color: #065f46; border: 1.5px solid #6ee7b7; }
@@ -96,6 +95,7 @@
                 <a href="resources.html">Resources</a>
                 <a href="contact-and-info.html">Contact & Info</a>
                 <button id="loginBtn" class="btn-login">Profile</button>
+                <button id="themeToggle" class="btn-secondary" title="Toggle theme">🌗</button>
             </nav>
         </div>
     </header>
@@ -182,6 +182,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/theme.js"></script>
     <script>
         var allMythsData = [];
         var categoriesData = [];
@@ -191,7 +192,7 @@
             if (!session.data.session || session.data.session.user.user_metadata?.role !== 'admin') {
                 document.body.innerHTML =
                     '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:DM Sans,sans-serif;color:#4b5563;">' +
-                        '<div style="max-width:320px;text-align:center;padding:24px;border-radius:16px;border:1px solid #e5e7eb;background:white;">' +
+                        '<div style="max-width:320px;text-align:center;padding:24px;border-radius:16px;border:1px solid #e5e7eb;background:var(--card);">' +
                             '<div style="font-size:40px;margin-bottom:8px;">🔒</div>' +
                             '<div style="font-weight:700;margin-bottom:4px;">Admin only</div>' +
                             '<div style="font-size:14px;margin-bottom:16px;">You need an admin account to view this page.</div>' +
