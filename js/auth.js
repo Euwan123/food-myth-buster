@@ -70,6 +70,7 @@ async function checkAuth() {
         }
         if (loginBtn) {
             loginBtn.textContent = 'Profile';
+            loginBtn.style.visibility = 'visible';
             loginBtn.onclick = function() { showLoader(); window.location.href = (isRoot ? 'pages/' : '') + 'profile.html'; };
         }
         if (adminBtn) {
@@ -79,6 +80,7 @@ async function checkAuth() {
     } else {
         if (loginBtn) {
             loginBtn.textContent = 'Login';
+            loginBtn.style.visibility = 'visible';
             loginBtn.onclick = openAuthOverlay;
         }
         if (adminBtn) adminBtn.style.display = 'none';

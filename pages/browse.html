@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/theme.js" data-load-before-render="true"></script>
     <style>
         /* page-specific rules only, global theme vars handle colors and fonts */
         ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--surface)}::-webkit-scrollbar-thumb{background:#3a3560;border-radius:3px}
@@ -17,8 +18,11 @@
         nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         nav a { color: var(--text-muted); text-decoration: none; padding: 7px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; transition: all 0.2s; }
         nav a:hover { background: rgba(124,107,255,0.15); color: var(--text); }
-        .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
-        .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .btn-login { background: linear-gradient(135deg,#7c6bff,#9b6bff); color: white; border: none; padding: 8px 18px; border-radius: 9px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+        .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,107,255,0.4); }
+        .btn-secondary { background: rgba(124,107,255,0.12); border: 1px solid rgba(124,107,255,0.3); color: #9b8fff; border-radius: 9px; padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; min-width: 38px; }
+        .btn-secondary:hover { background: rgba(124,107,255,0.2); border-color: rgba(124,107,255,0.6); transform: translateY(-1px); }
+        .btn-secondary.active { background: rgba(124,107,255,0.25); border-color: rgba(124,107,255,0.8); }
         .browse-hero { background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%); padding: 56px 24px; text-align: center; position: relative; overflow: hidden; }
         .browse-hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E"); }
         .browse-hero h1 { font-family: 'Sora', sans-serif; font-size: 40px; font-weight: 800; color: white; margin-bottom: 8px; position: relative; letter-spacing: -1px; }
@@ -86,8 +90,8 @@
                 <a href="resources.html">Resources</a>
                 <a href="contact-and-info.html">Contact &amp; Info</a>
                 <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
-                <button id="loginBtn" class="btn-login">Login</button>
-                <button id="themeToggle" class="btn-secondary" title="Toggle theme">🌗</button>
+                <button id="loginBtn" class="btn-login" style="visibility:hidden;">Login</button>
+                <button id="themeToggle" class="btn-secondary" title="Toggle theme">☀️</button>
             </nav>
         </div>
     </header>

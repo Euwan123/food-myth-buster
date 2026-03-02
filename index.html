@@ -8,8 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js" data-load-before-render="true"></script>
     <style>
-        
+
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
         header { background: rgba(13,11,30,0.97); backdrop-filter: blur(16px); padding: 14px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
@@ -19,15 +20,19 @@
         nav a:hover { background: rgba(124,107,255,0.15); color: var(--text); }
         .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
         .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .btn-secondary { background: rgba(124,107,255,0.12); border: 1px solid rgba(124,107,255,0.3); color: #9b8fff; border-radius: 9px; padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; min-width: 38px; }
+        .btn-secondary:hover { background: rgba(124,107,255,0.2); border-color: rgba(124,107,255,0.6); transform: translateY(-1px); }
+        .btn-secondary.active { background: rgba(124,107,255,0.25); border-color: rgba(124,107,255,0.8); }
         .hero { background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%); padding: 80px 24px 90px; text-align: center; position: relative; overflow: hidden; }
         .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E"); }
         .hero-inner { position: relative; }
         .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 24px; letter-spacing: 0.5px; }
         .hero h1 { font-family: 'Sora', sans-serif; font-size: 52px; font-weight: 800; color: white; margin-bottom: 16px; letter-spacing: -1.5px; line-height: 1.1; }
         .hero p { font-size: 18px; color: rgba(255,255,255,0.8); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
-        .search-bar { display: flex; max-width: 720px; margin: 0 auto; background: #1a1630; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.2); border: 2px solid transparent; transition: border-color 0.3s; }
-        .search-bar:focus-within { border-color: rgba(255,255,255,0.4); }
+        .search-bar { display: flex; max-width: 720px; margin: 0 auto; background: rgba(26,22,48,0.8); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25); border: 2px solid rgba(124,107,255,0.3); transition: all 0.35s; backdrop-filter: blur(8px); }
+        .search-bar:focus-within { border-color: rgba(124,107,255,0.8); box-shadow: 0 20px 60px rgba(108,99,255,0.35); }
         .search-bar input { flex: 1; padding: 18px 24px; border: none; font-size: 16px; font-family: 'DM Sans', sans-serif; color: #e8e6f0; background: transparent; outline: none; }
+        .search-bar input::placeholder { color: rgba(232,230,240,0.4); }
         .search-bar button { background: var(--primary); color: white; border: none; padding: 18px 32px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Sora', sans-serif; transition: background 0.2s; white-space: nowrap; }
         .search-bar button:hover { background: var(--primary-dark); }
         .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
@@ -85,8 +90,8 @@
         .about-strip h2 { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 14px; }
         .about-strip p { font-size: 16px; color: var(--text-muted); line-height: 1.75; max-width: 680px; margin-bottom: 10px; }
         .about-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 16px; margin-top: 28px; }
-        .about-card { border-radius: 16px; padding: 16px 14px; border: 1px solid var(--border); background: #161330; text-align: left; }
-        .about-card .aicon { font-size: 26px; margin-bottom: 6px; }
+        .about-card { border-radius: 16px; padding: 16px 14px; border: 1px solid var(--border); background: var(--card); text-align: left; }
+        .about-card .aicon { font-size: 26px; margin-bottom: 6px; background: rgba(124,107,255,0.12); width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
         .about-card h4 { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
         .about-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
         footer { background: #080714; border-top: 1px solid var(--border); color: var(--text-muted); padding: 28px 0; text-align: center; font-size: 13px; }
@@ -106,8 +111,8 @@
                 <a href="pages/resources.html">Resources</a>
                 <a href="pages/contact-and-info.html">Contact &amp; Info</a>
                 <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
-                <button id="loginBtn" class="btn-login">Login</button>
-                <button id="themeToggle" class="btn-secondary" title="Toggle theme">🌗</button>
+                <button id="loginBtn" class="btn-login" style="visibility:hidden;">Login</button>
+                <button id="themeToggle" class="btn-secondary" title="Toggle theme">☀️</button>
             </nav>
         </div>
     </header>
@@ -185,10 +190,10 @@
             <p>Food Myth Buster turns confusing food claims into clear, science-backed answers. Each myth page combines a verdict, detailed explanation, linked studies, and community feedback.</p>
             <p>Browse the library, search for any claim, or submit a myth you want verified.</p>
             <div class="about-cards">
-                <div class="about-card" style="background:linear-gradient(135deg,#eef2ff,#e0f2fe);"><div class="aicon">&#x1F52C;</div><h4>Evidence first</h4><p>Verdicts built around peer-reviewed studies.</p></div>
-                <div class="about-card" style="background:linear-gradient(135deg,#ecfdf3,#fef9c3);"><div class="aicon">&#x1F4DA;</div><h4>Myth library</h4><p>Browse myths by category, verdict, or search.</p></div>
-                <div class="about-card" style="background:linear-gradient(135deg,#fdf2ff,#e0f2fe);"><div class="aicon">&#x1F465;</div><h4>Community input</h4><p>Submit myths, bookmark favourites, and vote.</p></div>
-                <div class="about-card" style="background:linear-gradient(135deg,#fff7ed,#ecfdf3);"><div class="aicon">&#x26A1;</div><h4>AI-assisted search</h4><p>Claims not in our DB get an AI answer on demand.</p></div>
+                <div class="about-card"><div class="aicon">🔬</div><h4>Evidence first</h4><p>Verdicts built around peer-reviewed studies.</p></div>
+                <div class="about-card"><div class="aicon">📚</div><h4>Myth library</h4><p>Browse myths by category, verdict, or search.</p></div>
+                <div class="about-card"><div class="aicon">👥</div><h4>Community input</h4><p>Submit myths, bookmark favourites, and vote.</p></div>
+                <div class="about-card"><div class="aicon">⚡</div><h4>AI-assisted search</h4><p>Claims not in our DB get an AI answer on demand.</p></div>
             </div>
         </div>
     </section>
