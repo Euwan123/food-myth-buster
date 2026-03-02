@@ -1,3 +1,6 @@
+// DEPRECATED: this file is no longer used by index.html; logic was moved inline.
+// You can safely delete this file or restore it if you plan to reuse these helpers.
+
 async function loadTrendingMyths() {
     const grid = document.getElementById('trendingGrid');
     

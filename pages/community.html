@@ -295,7 +295,11 @@
                 poll.total_votes = (poll.total_votes || 0) + 1;
             }
 
-            await sb.from('polls').update({ [voteField]: poll[voteField], total_votes: poll.total_votes }).eq('id', pollId);
+            // build update object without computed property syntax for consistency
+            var upd = {};
+            upd[voteField] = poll[voteField];
+            upd.total_votes = poll.total_votes;
+            await sb.from('polls').update(upd).eq('id', pollId);
 
             userVotedPolls.add(pollId);
             renderPolls();

@@ -12,6 +12,8 @@
     --footer-text: white;
     --progress-bg: #e2e8f0;
     --muted-text: #718096;
+    /* alias used throughout pages */
+    --text-muted: var(--muted-text);
     --light-text: #a0aec0;
 
     /* colors used by page-specific styles */
@@ -43,6 +45,7 @@ body.dark {
     --footer-text: #e8e6f0;
     --progress-bg: #2a2650;
     --muted-text: #8886a8;
+    --text-muted: var(--muted-text);
     --light-text: #a0aec0;
 
     /* page-specific colors in dark mode can reuse aliases */

@@ -11,7 +11,7 @@
     <style>
         /* page-specific overrides only */
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
-        header { background: rgba(255,255,255,0.9); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
+        header { background: var(--header-bg); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
         nav { display: flex; gap: 8px; align-items: center; }
@@ -112,7 +112,7 @@
                 <a href="resources.html">Resources</a>
                 <a href="contact-and-info.html">Contact & Info</a>
                 <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
-                <button id"loginBtn" class="btn-login">Login</button>
+                <button id="loginBtn" class="btn-login">Login</button>
                 <button id="themeToggle" class="btn-secondary" title="Toggle theme">🌗</button>
             </nav>
         </div>

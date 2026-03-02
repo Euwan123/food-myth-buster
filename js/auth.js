@@ -1,5 +1,6 @@
 var _authReady = false;
-var SUPABASE_URL = 'https://gyrqdwypsqdeeqzmkdze.supabase.co';
+// SUPABASE_URL was previously declared here but is provided by supabase-client.js.
+// Avoid redeclaration/const collisions in global scope.
 
 (function() {
     var style = document.createElement('style');
@@ -63,10 +64,8 @@ async function checkAuth() {
             if (!profRes.error && profRes.data) {
                 isAdmin = profRes.data.is_admin;
                 var dn = (profRes.data.display_name || '').toLowerCase();
-                if ((dn === 'admin') && !isAdmin) {
-                    await sb.from('user_profiles').update({ is_admin: true }).eq('id', session.user.id);
-                    isAdmin = true;
-                }
+                // auto-promotion based on display name was insecure and has been removed.
+                // Admin status must now be granted explicitly via the database by an existing admin or via RLS.
             }
         }
         if (loginBtn) {

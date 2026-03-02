@@ -11,7 +11,7 @@
     <style>
         /* page-specific overrides only */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        header { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
+        header { background: var(--header-bg); backdrop-filter: blur(12px); padding: 16px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); box-shadow: 0 1px 20px rgba(108,99,255,0.08); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--primary); }
         nav { display: flex; gap: 8px; align-items: center; }
@@ -246,8 +246,8 @@
             document.getElementById('heroSection').innerHTML =
                 '<section class="detail-hero">' +
                     '<div class="container"><div class="hero-inner">' +
-                        '<div class="breadcrumb"><a href="../index.html">Home</a> → <a href="browse.html">Browse</a> → <a href="browse.html?category=' + (myth.categories?.slug || '') + '">' + (myth.categories?.name || 'General') + '</a></div>' +
-                        '<div style="font-size:12px;opacity:0.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">' + (myth.categories?.icon || '') + ' ' + (myth.categories?.name || '') + '</div>' +
+                        '<div class="breadcrumb"><a href="../index.html">Home</a> → <a href="browse.html">Browse</a> → <a href="browse.html?category=' + (myth.categories ? myth.categories.slug : '') + '">' + (myth.categories ? myth.categories.name : 'General') + '</a></div>' +
+                        '<div style="font-size:12px;opacity:0.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">' + (myth.categories ? (myth.categories.icon || '') : '') + ' ' + (myth.categories ? myth.categories.name : '') + '</div>' +
                         '<h1>' + myth.title + '</h1>' +
                         '<div class="hero-meta">' +
                             '<span class="verdict-badge verdict-' + myth.verdict + '">' + verdictLabel + '</span>' +
@@ -312,6 +312,7 @@
         function loadVideo(id, embedUrl) {
             var wrapper = document.getElementById('vthumb-' + id);
             if (!wrapper) return;
+            // embedUrl comes from the database; ensure only trusted URLs are stored.
             wrapper.innerHTML = '<iframe src="' + embedUrl + '?autoplay=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen allow="autoplay"></iframe>';
         }
 
@@ -376,7 +377,7 @@
                             '<div class="sidebar-card">' +
                                 '<h3>📌 Quick Facts</h3>' +
                                 '<div class="quick-fact"><div><div class="label">Verdict</div><div class="value">' + verdictLabel + '</div></div></div>' +
-                                '<div class="quick-fact"><div><div class="label">Category</div><div class="value">' + (myth.categories?.name || 'General') + '</div></div></div>' +
+                                '<div class="quick-fact"><div><div class="label">Category</div><div class="value">' + (myth.categories ? myth.categories.name : 'General') + '</div></div></div>' +
                                 '<div class="quick-fact"><div><div class="label">Views</div><div class="value">' + (myth.views || 0) + '</div></div></div>' +
                                 '<div class="quick-fact"><div><div class="label">Studies</div><div class="value">' + papers.length + ' research paper' + (papers.length !== 1 ? 's' : '') + '</div></div></div>' +
                                 '<div class="quick-fact"><div><div class="label">Videos</div><div class="value">' + videos.length + ' video' + (videos.length !== 1 ? 's' : '') + '</div></div></div>' +
@@ -387,7 +388,7 @@
                                 '<button class="share-btn" onclick="window.open(\'https://twitter.com/intent/tweet?text=' + encodeURIComponent(myth.title) + '&url=\'+encodeURIComponent(window.location.href))">🐦 Twitter</button>' +
                             '</div>' +
                             (relatedHTML ? '<div class="sidebar-card"><h3>🔁 Related Myths</h3>' + relatedHTML + '</div>' : '') +
-                            '<a href="browse.html?category=' + (myth.categories?.slug || '') + '" style="display:block;text-align:center;text-decoration:none;padding:11px 20px;background:var(--primary);color:white;border-radius:10px;font-weight:600;font-family:\'Sora\',sans-serif;font-size:13px;transition:background 0.2s;" onmouseover="this.style.background=\'#5649e0\'" onmouseout="this.style.background=\'var(--primary)\'">More ' + (myth.categories?.name || '') + ' Myths →</a>' +
+                            '<a href="browse.html?category=' + (myth.categories ? myth.categories.slug : '') + '" style="display:block;text-align:center;text-decoration:none;padding:11px 20px;background:var(--primary);color:white;border-radius:10px;font-weight:600;font-family:\'Sora\',sans-serif;font-size:13px;transition:background 0.2s;" onmouseover="this.style.background=\'#5649e0\'" onmouseout="this.style.background=\'var(--primary)\'">More ' + (myth.categories ? myth.categories.name : '') + ' Myths →</a>' +
                         '</div>' +
                     '</div></div>' +
                 '</section>';
