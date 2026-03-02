@@ -1,379 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Myth Buster - Evidence-Based Food Myth Verification</title>
-    <meta name="description" content="Search any food claim and get evidence-based answers. Bust food myths with science.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/theme.js" data-load-before-render="true"></script>
-    <style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Home - Food Myth Buster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="js/theme.css">
+<style>
+.hero{background:linear-gradient(140deg,#1c1838 0%,#100e25 55%,#160f2b 100%);padding:80px 24px 88px;text-align:center;position:relative;overflow:hidden;}
+/* video background */
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease;z-index:0;pointer-events:none;}
+.hero-video.loaded{opacity:1;}
+/* dark overlay so text stays readable over the video */
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(140deg,rgba(28,24,56,.72) 0%,rgba(16,14,37,.55) 55%,rgba(22,15,43,.68) 100%);z-index:1;}
+/* purple glow on top */
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(124,107,255,.22),transparent);z-index:2;}
+.h-inner{position:relative;z-index:3;}
+/* mute button */
+.mute-btn{position:absolute;bottom:18px;right:20px;z-index:4;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--fb);backdrop-filter:blur(6px);transition:all .2s;display:none;}
+.mute-btn:hover{background:rgba(0,0,0,.55);color:#fff;}
+.mute-btn.visible{display:block;}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(124,107,255,.13);border:1px solid rgba(124,107,255,.3);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:22px;letter-spacing:.4px;}
+.hero h1{font-family:var(--fh);font-size:50px;font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin-bottom:14px;}
+.hero h1 span{background:linear-gradient(130deg,#b09fff,#e07cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.58);margin-bottom:36px;}
+.sw{display:flex;max-width:700px;margin:0 auto;background:rgba(255,255,255,.05);border:1px solid rgba(124,107,255,.3);border-radius:14px;overflow:hidden;backdrop-filter:blur(8px);transition:border-color .2s;}
+.sw:focus-within{border-color:rgba(124,107,255,.65);}
+.sw input{flex:1;padding:16px 22px;background:transparent;border:none;font-size:15px;color:#fff;outline:none;font-family:var(--fb);}
+.sw input::placeholder{color:rgba(255,255,255,.3);}
+.sw button{background:linear-gradient(135deg,#7c6bff,#a06bff);color:#fff;border:none;padding:16px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--fb);white-space:nowrap;transition:opacity .15s;}
+.sw button:hover{opacity:.85;}
+.h-stats{display:flex;justify-content:center;gap:36px;margin-top:36px;flex-wrap:wrap;}
+.h-stat span{font-family:var(--fh);font-size:26px;font-weight:800;color:#fff;display:block;}
+.h-stat p{font-size:12px;color:rgba(255,255,255,.48);}
+.myths-sec{padding:52px 0;}
+.fy-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.hint{font-size:12px;color:var(--t3);font-style:italic;}
+.rfbtn{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:20px;background:rgba(124,107,255,.12);border:1px solid rgba(124,107,255,.28);color:#9b8fff;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--fb);transition:all .15s;}
+.rfbtn:hover{background:rgba(124,107,255,.22);color:#fff;}
+.cat-sec{padding:52px 0;background:var(--bg2);border-top:1px solid var(--b);border-bottom:1px solid var(--b);}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;}
+.cat-card{padding:24px 18px;border-radius:var(--rl);text-align:center;cursor:pointer;transition:transform .2s,box-shadow .2s;border:1px solid var(--b);background:var(--card);}
+.cat-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.4);border-color:var(--b2);}
+.cat-card .ci{font-size:34px;margin-bottom:10px;}
+.cat-card h3{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--t);margin-bottom:3px;}
+.cat-card .cc{font-size:11px;color:var(--t3);}
+.about-sec{padding:52px 0;}
+.ab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;margin-top:24px;}
+.ab-card{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:18px 16px;}
+.ab-card .ai{font-size:28px;margin-bottom:8px;}
+.ab-card h4{font-family:var(--fh);font-size:13px;font-weight:700;margin-bottom:4px;color:var(--t);}
+.ab-card p{font-size:12px;color:var(--t3);line-height:1.55;}
+</style>
+</head><body>
+<header>
+<div class="container">
+  <a href="index.html" class="logo">&#x1F34E; Food Myth Buster</a>
+  <nav><a href="index.html" class="active">Home</a><a href="pages/browse.html" class="">Browse Myths</a><a href="pages/community.html" class="">Community</a><a href="pages/resources.html" class="">Resources</a><a href="pages/contact-and-info.html" class="">Contact &amp; Info</a>
+    <button id="adminBtn" class="btn btn-g" style="display:none;">Admin</button>
+    <button id="loginBtn" class="btn btn-p">Login</button>
+  </nav>
+</div>
+</header>
 
-        .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
-        header { background: rgba(13,11,30,0.97); backdrop-filter: blur(16px); padding: 14px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
-        header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 800; background: linear-gradient(135deg, #7c6bff, #c77dff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
-        nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-        nav a { color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s; }
-        nav a:hover { background: rgba(124,107,255,0.15); color: var(--text); }
-        .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
-        .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
-        .btn-secondary { background: rgba(124,107,255,0.12); border: 1px solid rgba(124,107,255,0.3); color: #9b8fff; border-radius: 9px; padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; min-width: 38px; }
-        .btn-secondary:hover { background: rgba(124,107,255,0.2); border-color: rgba(124,107,255,0.6); transform: translateY(-1px); }
-        .btn-secondary.active { background: rgba(124,107,255,0.25); border-color: rgba(124,107,255,0.8); }
-        .hero { background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%); padding: 80px 24px 90px; text-align: center; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E"); }
-        .hero-inner { position: relative; }
-        .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 24px; letter-spacing: 0.5px; }
-        .hero h1 { font-family: 'Sora', sans-serif; font-size: 52px; font-weight: 800; color: white; margin-bottom: 16px; letter-spacing: -1.5px; line-height: 1.1; }
-        .hero p { font-size: 18px; color: rgba(255,255,255,0.8); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
-        .search-bar { display: flex; max-width: 720px; margin: 0 auto; background: rgba(26,22,48,0.8); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25); border: 2px solid rgba(124,107,255,0.3); transition: all 0.35s; backdrop-filter: blur(8px); }
-        .search-bar:focus-within { border-color: rgba(124,107,255,0.8); box-shadow: 0 20px 60px rgba(108,99,255,0.35); }
-        .search-bar input { flex: 1; padding: 18px 24px; border: none; font-size: 16px; font-family: 'DM Sans', sans-serif; color: #e8e6f0; background: transparent; outline: none; }
-        .search-bar input::placeholder { color: rgba(232,230,240,0.4); }
-        .search-bar button { background: var(--primary); color: white; border: none; padding: 18px 32px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Sora', sans-serif; transition: background 0.2s; white-space: nowrap; }
-        .search-bar button:hover { background: var(--primary-dark); }
-        .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
-        .hero-stat-num { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; color: white; display: block; }
-        .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); }
-        .myths-section { padding: 56px 0; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-        .section-title { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 8px; }
-        .section-link { font-size: 14px; font-weight: 600; color: var(--primary); text-decoration: none; white-space: nowrap; }
-        .section-link:hover { text-decoration: underline; }
-        .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; min-height: 160px; }
-        .myth-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; }
-        .myth-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
-        .myth-card.v-TRUE::before { background: var(--true); }
-        .myth-card.v-FALSE::before { background: var(--false); }
-        .myth-card.v-PARTIAL::before { background: var(--partial); }
-        .myth-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); border-color: var(--primary); }
-        .myth-card .cat-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-bottom: 8px; }
-        .myth-card h3 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
-        .myth-card .cta { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; font-size: 12px; color: var(--text-muted); }
-        .verdict-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 11px; font-family: 'Sora', sans-serif; }
-        .verdict-TRUE { background: rgba(16,217,136,0.12); color: #10d988; border: 1px solid rgba(16,217,136,0.25); }
-        .verdict-FALSE { background: rgba(255,92,107,0.12); color: #ff5c6b; border: 1px solid rgba(255,92,107,0.25); }
-        .verdict-PARTIAL { background: rgba(255,179,71,0.12); color: #ffb347; border: 1px solid rgba(255,179,71,0.25); }
-        .pagination { display: flex; gap: 6px; align-items: center; margin-top: 20px; flex-wrap: wrap; }
-        .page-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
-        .page-btn:hover:not(.dots):not(:disabled) { border-color: var(--primary); color: var(--primary); }
-        .page-btn.active { background: #7c6bff; border-color: #7c6bff; color: white; box-shadow: 0 4px 14px rgba(124,107,255,0.35); }
-        .page-btn.dots { cursor: default; border-color: transparent; background: transparent; }
-        .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        .foryou-controls { display: flex; align-items: center; gap: 10px; }
-        .foryou-hint { font-size: 12px; color: var(--text-muted); font-style: italic; }
-        .refresh-btn { background: rgba(124,107,255,0.12); border: 1px solid rgba(124,107,255,0.3); color: #9b8fff; border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 5px; }
-        .refresh-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
-        .refresh-btn.spinning svg { animation: spinIcon 0.6s linear; }
-        @keyframes spinIcon { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .skeleton { background: linear-gradient(90deg, #1e1a3a 25%, #252047 50%, #1e1a3a 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        .skeleton-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
-        .sk-tag { height: 12px; width: 60px; margin-bottom: 12px; }
-        .sk-title { height: 16px; width: 100%; margin-bottom: 6px; }
-        .sk-title2 { height: 16px; width: 65%; margin-bottom: 14px; }
-        .sk-badge { height: 24px; width: 70px; border-radius: 20px; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeOutUp { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-8px); } }
-        .fade-out .myth-card { animation: fadeOutUp 0.16s ease both; }
-        .category-section { padding: 56px 0; background: #0f0d1e; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
-        .category-card { padding: 28px 20px; border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.25s; border: 1.5px solid; background: var(--card); }
-        .category-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
-        .category-card .icon { font-size: 40px; margin-bottom: 12px; }
-        .category-card h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-        .category-card .count { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-        .about-strip { background: #0f0d1e; padding: 64px 0; }
-        .about-strip h2 { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 14px; }
-        .about-strip p { font-size: 16px; color: var(--text-muted); line-height: 1.75; max-width: 680px; margin-bottom: 10px; }
-        .about-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 16px; margin-top: 28px; }
-        .about-card { border-radius: 16px; padding: 16px 14px; border: 1px solid var(--border); background: var(--card); text-align: left; }
-        .about-card .aicon { font-size: 26px; margin-bottom: 6px; background: rgba(124,107,255,0.12); width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-        .about-card h4 { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-        .about-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-        footer { background: #080714; border-top: 1px solid var(--border); color: var(--text-muted); padding: 28px 0; text-align: center; font-size: 13px; }
-        footer p { margin: 4px 0; }
-        .logo-footer { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 800; color: white; margin-bottom: 8px; }
-        @media (max-width: 768px) { .hero h1 { font-size: 34px; } .hero-stats { gap: 24px; } }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="logo">&#x1F34E; Food Myth Buster</div>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="pages/browse.html">Browse Myths</a>
-                <a href="pages/community.html">Community</a>
-                <a href="pages/resources.html">Resources</a>
-                <a href="pages/contact-and-info.html">Contact &amp; Info</a>
-                <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
-                <button id="loginBtn" class="btn-login" style="visibility:hidden;">Login</button>
-                <button id="themeToggle" class="btn-secondary" title="Toggle theme">☀️</button>
-            </nav>
-        </div>
-    </header>
+<section class="hero">
+  <!-- Video Background -->
+  <video
+    id="heroBg"
+    class="hero-video"
+    src="https://gyrqdwypsqdeeqzmkdze.supabase.co/storage/v1/object/sign/assets/Anime-Vid1.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtlYV8xOTAyYjBkMS03Y2E3LTRhNzMtYTU5NC0wZjczYWU5ODU3YzIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhc3NldHMvQW5pbWUtVmlkMS5tcDQiLCJpYXQiOjE3NzI0MjY1MDUsImV4cCI6MTgwMzk2MjUwNX0.cJqF95fj6Id6pKyKcF-w17QyOa8aXGhNybFNxf6NwoY"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="auto"
+  ></video>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-inner">
-                <div class="hero-eyebrow">&#x1F52C; Evidence-Based Myth Busting</div>
-                <h1>Is That Food Myth<br>True or False?</h1>
-                <p>Search any food claim and get science-backed answers instantly</p>
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder='Try "Does MSG cause headaches?"'>
-                    <button id="searchBtn">&#x1F50D; Search</button>
-                </div>
-                <div class="hero-stats">
-                    <div class="hero-stat"><span class="hero-stat-num" id="statMyths">&#x2014;</span><span class="hero-stat-label">Myths Verified</span></div>
-                    <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Science-Backed</span></div>
-                    <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Always Free</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Dark overlay for readability -->
+  <div class="hero-overlay"></div>
 
-    <section class="myths-section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-title">&#x1F525; Most Popular Myths</div>
-                <a href="pages/browse.html" class="section-link">View all &#x2192;</a>
-            </div>
-            <div id="popularGrid" class="myth-grid">
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-            </div>
-            <div id="popularPagination" class="pagination"></div>
-        </div>
-    </section>
+  <!-- Mute/Unmute button -->
+  <button class="mute-btn" id="muteBtn" onclick="toggleMute()">🔇 Unmute</button>
 
-    <section class="myths-section" style="padding-top:0;background:var(--surface);">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-title">&#x2728; For You</div>
-                <div class="foryou-controls">
-                    <span class="foryou-hint" id="foryouHint">Browse myths to personalise</span>
-                    <button class="refresh-btn" id="homeRefreshBtn" onclick="refreshForYou()">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-                        Refresh
-                    </button>
-                    <a href="pages/browse.html" class="section-link">View all &#x2192;</a>
-                </div>
-            </div>
-            <div id="foryouGrid" class="myth-grid">
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-            </div>
-            <div id="foryouPagination" class="pagination"></div>
-        </div>
-    </section>
+  <!-- Hero content -->
+  <div class="container">
+    <div class="h-inner">
+      <div class="eyebrow">&#x1F52C; Evidence-Based Myth Busting</div>
+      <h1>Is That Food Claim<br><span>True or False?</span></h1>
+      <p class="hero-sub">Search any food myth — get a science-backed answer instantly</p>
 
-    <section class="category-section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-title">Browse by Category</div>
-            </div>
-            <div id="categoryGrid" class="category-grid"></div>
-        </div>
-    </section>
+      <div class="sw">
+        <input type="text" id="si" placeholder='Try "Does MSG cause headaches?"'>
+        <button id="sb2">&#x1F50D; Search</button>
+      </div>
 
-    <section class="about-strip">
-        <div class="container">
-            <h2>What is Food Myth Buster?</h2>
-            <p>Food Myth Buster turns confusing food claims into clear, science-backed answers. Each myth page combines a verdict, detailed explanation, linked studies, and community feedback.</p>
-            <p>Browse the library, search for any claim, or submit a myth you want verified.</p>
-            <div class="about-cards">
-                <div class="about-card"><div class="aicon">🔬</div><h4>Evidence first</h4><p>Verdicts built around peer-reviewed studies.</p></div>
-                <div class="about-card"><div class="aicon">📚</div><h4>Myth library</h4><p>Browse myths by category, verdict, or search.</p></div>
-                <div class="about-card"><div class="aicon">👥</div><h4>Community input</h4><p>Submit myths, bookmark favourites, and vote.</p></div>
-                <div class="about-card"><div class="aicon">⚡</div><h4>AI-assisted search</h4><p>Claims not in our DB get an AI answer on demand.</p></div>
-            </div>
-        </div>
-    </section>
+      <div class="h-stats">
+        <div class="h-stat"><span id="sM">—</span><p>Myths Verified</p></div>
+        <div class="h-stat"><span>100%</span><p>Science-Backed</p></div>
+        <div class="h-stat"><span>Free</span><p>Always Free</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <div class="container">
-            <p class="logo-footer">&#x1F34E; Food Myth Buster</p>
-            <p>&#xA9; 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
-        </div>
-    </footer>
+<section class="myths-sec">
+<div class="container">
+  <div class="s-head">
+    <div class="s-title">&#x1F525; Most Popular</div>
+    <a href="pages/browse.html" class="s-link">View all &#x2192;</a>
+  </div>
+  <div id="pG" class="myths-grid"></div>
+  <div id="pP" class="pagination"></div>
+</div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase-client.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/theme.js"></script>
-    <script>
-        var PER_PAGE = 4;
-        var allMyths = [];
-        var popularFiltered = [];
-        var foryouFiltered = [];
-        var popularPage = 1;
-        var foryouPage = 1;
+<section class="myths-sec" style="padding-top:0">
+<div class="container">
+  <div class="s-head">
+    <div class="s-title">&#x2728; For You</div>
+    <div class="fy-bar">
+      <span class="hint" id="fyH">Browse myths to personalise</span>
+      <button class="rfbtn" onclick="doRf()">&#x21BB; Refresh</button>
+      <a href="pages/browse.html" class="s-link">View all &#x2192;</a>
+    </div>
+  </div>
+  <div id="fG" class="myths-grid"></div>
+  <div id="fP" class="pagination"></div>
+</div>
+</section>
 
-        function getPrefs() {
-            try { return JSON.parse(localStorage.getItem('fmb_prefs') || '{}'); } catch(e) { return {}; }
-        }
-        function trackClick(myth) {
-            var p = getPrefs();
-            if (!p.cats) p.cats = {};
-            if (!p.verdicts) p.verdicts = {};
-            var slug = myth.categories ? myth.categories.slug : 'general';
-            p.cats[slug] = (p.cats[slug] || 0) + 1;
-            p.verdicts[myth.verdict] = (p.verdicts[myth.verdict] || 0) + 1;
-            p.lastVisited = p.lastVisited || [];
-            if (p.lastVisited.indexOf(myth.id) === -1) p.lastVisited.unshift(myth.id);
-            if (p.lastVisited.length > 30) p.lastVisited = p.lastVisited.slice(0, 30);
-            try { localStorage.setItem('fmb_prefs', JSON.stringify(p)); } catch(e) {}
-        }
+<section class="cat-sec">
+<div class="container">
+  <div class="s-head"><div class="s-title">Browse by Category</div></div>
+  <div id="cG" class="cat-grid"></div>
+</div>
+</section>
 
-        function buildForYouPool(myths) {
-            var p = getPrefs();
-            var cats = p.cats || {};
-            var verdicts = p.verdicts || {};
-            var visited = p.lastVisited || [];
-            var hasPref = Object.keys(cats).length > 0;
-            if (!hasPref) {
-                document.getElementById('foryouHint').textContent = 'Browse myths to personalise';
-                return myths.slice().sort(function() { return Math.random() - 0.5; });
-            }
-            document.getElementById('foryouHint').textContent = 'Based on what you browse';
-            var totalC = Object.values(cats).reduce(function(a,b){return a+b;},0)||1;
-            var totalV = Object.values(verdicts).reduce(function(a,b){return a+b;},0)||1;
-            var scored = myths.map(function(m) {
-                var slug = m.categories ? m.categories.slug : 'general';
-                var score = ((cats[slug]||0)/totalC)*60 + ((verdicts[m.verdict]||0)/totalV)*30 + (visited.indexOf(m.id)===-1?10:0) + Math.random()*20;
-                return { m: m, s: score };
-            });
-            scored.sort(function(a,b){return b.s-a.s;});
-            return scored.map(function(x){return x.m;});
-        }
+<section class="about-sec">
+<div class="container">
+  <div class="s-title" style="margin-bottom:10px">What is Food Myth Buster?</div>
+  <p style="color:var(--t3);max-width:600px;font-size:15px;line-height:1.75;margin-bottom:4px;">Clear, science-backed verdicts on the food claims you see every day. Browse, search, or submit myths for review.</p>
+  <div class="ab-grid">
+    <div class="ab-card"><div class="ai">&#x1F52C;</div><h4>Evidence First</h4><p>Verdicts linked to peer-reviewed research.</p></div>
+    <div class="ab-card"><div class="ai">&#x1F4DA;</div><h4>Myth Library</h4><p>Browse by category, verdict, or search.</p></div>
+    <div class="ab-card"><div class="ai">&#x1F465;</div><h4>Community</h4><p>Submit myths, bookmark, and vote.</p></div>
+    <div class="ab-card"><div class="ai">&#x26A1;</div><h4>AI Search</h4><p>Unknown claims get AI analysis on demand.</p></div>
+  </div>
+</div>
+</section>
+<footer>
+<div class="container">
+  <p>&#x1F34E; Food Myth Buster &nbsp;&bull;&nbsp; &copy; 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
+</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script>
+var PP=4,all=[],popF=[],fyF=[],pC=1,fC=1;
 
-        async function loadData() {
-            var res = await sb.from('myths').select('*, categories(name, slug, color, icon)').order('views', { ascending: false });
-            if (!res.data) return;
-            allMyths = res.data;
-            popularFiltered = allMyths.slice();
-            foryouFiltered = buildForYouPool(allMyths);
-            renderSection('popular', 1, false);
-            renderSection('foryou', 1, false);
-            document.getElementById('statMyths').textContent = allMyths.length;
-        }
+function _bn(c,t){if(t<=7){var r=[];for(var i=1;i<=t;i++)r.push(i);return r;}var p=[1];if(c>3)p.push('...');var s=Math.max(2,c-1),e=Math.min(t-1,c+1);for(var i=s;i<=e;i++)p.push(i);if(c<t-2)p.push('...');p.push(t);return p;}
+function _mb(lbl,dis,fn){var b=document.createElement('button');b.className='page-btn';b.textContent=lbl;if(dis)b.disabled=true;else if(fn)b.onclick=fn;return b;}
+function rPag(bid,total,cur,pp,onPg){var tp=Math.ceil(total/pp);var bar=document.getElementById(bid);if(!bar)return;if(tp<=1){bar.innerHTML='';return;}bar.innerHTML='';bar.appendChild(_mb('\u2190',cur===1,function(){onPg(cur-1);}));_bn(cur,tp).forEach(function(p){if(p==='...'){var b=_mb('\u2026',false,null);b.className='page-btn dots';bar.appendChild(b);return;}var b=_mb(String(p),false,(function(pg){return function(){if(pg!==cur)onPg(pg);};})(p));if(p===cur)b.classList.add('active');bar.appendChild(b);});bar.appendChild(_mb('\u2192',cur===tp,function(){onPg(cur+1);}));}
+function rSec(gid,bid,items,cur,pp,onPg,onCard){var g=document.getElementById(gid);if(!g)return;g.classList.remove('fade-out');var sl=items.slice((cur-1)*pp,cur*pp);if(!sl.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--t3)"><div style="font-size:44px;margin-bottom:10px">\uD83D\uDD0D</div><div style="font-family:var(--fh);font-size:16px;color:var(--t2);margin-bottom:6px">No myths found</div><div>Try a different filter</div></div>';if(document.getElementById(bid))document.getElementById(bid).innerHTML='';return;}g.innerHTML='';sl.forEach(function(m,i){var c=document.createElement('div');c.className='myth-card v-'+m.verdict;c.style.animation='fiu .3s ease '+(i*.04)+'s both';c.onclick=function(){if(onCard)onCard(m);};var vl=m.verdict==='PARTIAL'?'Partial':m.verdict;var cat=m.categories||{};c.innerHTML='<div class="ctag">'+(cat.icon||'')+' '+(cat.name||'General')+'</div><h3>'+m.title+'</h3><div class="msum">'+(m.summary||'')+'</div><div class="card-ft"><span class="vbadge vb-'+m.verdict+'">'+vl+'</span><span class="vtag">\uD83D\uDC41\uFE0F '+(m.views||0)+'</span></div>';g.appendChild(c);});rPag(bid,items.length,cur,pp,onPg);}
+function aC(gid,fn){var g=document.getElementById(gid);g.classList.add('fade-out');setTimeout(function(){g.classList.remove('fade-out');fn();},155);}
 
-        function refreshForYou() {
-            var btn = document.getElementById('homeRefreshBtn');
-            btn.classList.add('spinning');
-            foryouFiltered = buildForYouPool(allMyths);
-            renderSection('foryou', 1, true);
-            setTimeout(function(){btn.classList.remove('spinning');}, 600);
-        }
 
-        function renderSection(which, page, animate) {
-            var filtered = which === 'popular' ? popularFiltered : foryouFiltered;
-            var gridId = which + 'Grid';
-            var pagId = which + 'Pagination';
-            if (which === 'popular') popularPage = page; else foryouPage = page;
-            var items = filtered.slice((page-1)*PER_PAGE, page*PER_PAGE);
-            var grid = document.getElementById(gridId);
+function _gp(){try{return JSON.parse(localStorage.getItem('fmb_p')||'{}');}catch(e){return {};}}
+function _tp(m){var p=_gp();p.c=p.c||{};p.v=p.v||{};var sl=m.categories?m.categories.slug:'g';p.c[sl]=(p.c[sl]||0)+1;p.v[m.verdict]=(p.v[m.verdict]||0)+1;p.lv=p.lv||[];if(p.lv.indexOf(m.id)===-1)p.lv.unshift(m.id);if(p.lv.length>30)p.lv=p.lv.slice(0,30);try{localStorage.setItem('fmb_p',JSON.stringify(p));}catch(e){}}
+function _fy(myths,hintId){var p=_gp();var c=p.c||{},v=p.v||{},lv=p.lv||[];if(!Object.keys(c).length){if(hintId)document.getElementById(hintId).textContent='Browse myths to personalise';return myths.slice().sort(function(){return Math.random()-.5;});}if(hintId)document.getElementById(hintId).textContent='Based on what you browse';var tc=Object.values(c).reduce(function(a,b){return a+b;},0)||1;var tv=Object.values(v).reduce(function(a,b){return a+b;},0)||1;var sc=myths.map(function(m){var sl=m.categories?m.categories.slug:'g';return{m:m,s:((c[sl]||0)/tc)*60+((v[m.verdict]||0)/tv)*30+(lv.indexOf(m.id)===-1?10:0)+Math.random()*18};});sc.sort(function(a,b){return b.s-a.s;});return sc.map(function(x){return x.m;});}
 
-            function doRender() {
-                grid.classList.remove('fade-out');
-                grid.innerHTML = '';
-                items.forEach(function(myth, i) {
-                    var card = document.createElement('div');
-                    card.className = 'myth-card v-' + myth.verdict;
-                    card.style.animation = 'fadeInUp 0.35s ease ' + (i*0.06) + 's both';
-                    card.onclick = function() { trackClick(myth); window.location.href = 'pages/detail.html?id=' + myth.id; };
-                    var vl = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
-                    card.innerHTML =
-                        '<div class="cat-tag">' + (myth.categories?myth.categories.icon||'':'') + ' ' + (myth.categories?myth.categories.name:'General') + '</div>' +
-                        '<h3>' + myth.title + '</h3>' +
-                        '<div class="cta"><span class="verdict-badge verdict-' + myth.verdict + '">' + vl + '</span><span>&#x1F441; ' + (myth.views||0) + '</span></div>';
-                    grid.appendChild(card);
-                });
-                renderPagination(which, filtered.length, page);
-            }
+function nav(m){_tp(m);window.location.href='pages/detail.html?id='+m.id;}
+function _pp(pg){aC('pG',function(){pC=pg;rSec('pG','pP',popF,pC,PP,_pp,nav);});}
+function _fp(pg){aC('fG',function(){fC=pg;rSec('fG','fP',fyF,fC,PP,_fp,nav);});}
+function doRf(){fyF=_fy(all,'fyH');aC('fG',function(){fC=1;rSec('fG','fP',fyF,fC,PP,_fp,nav);});}
+async function loadData(){
+  var r=await sb.from('myths').select('*,categories(name,slug,color,icon)').order('views',{ascending:false});
+  if(!r.data)return;
+  all=r.data;popF=all.slice();fyF=_fy(all,'fyH');
+  document.getElementById('sM').textContent=all.length;
+  rSec('pG','pP',popF,pC,PP,_pp,nav);
+  rSec('fG','fP',fyF,fC,PP,_fp,nav);
+}
+async function loadCats(){
+  var r=await sb.from('categories').select('*').order('name');
+  if(!r.data)return;
+  var g=document.getElementById('cG');
+  var items=await Promise.all(r.data.map(async function(cat){var cr=await sb.from('myths').select('id',{count:'exact',head:true}).eq('category_id',cat.id);return{cat:cat,count:cr.count||0};}));
+  items.forEach(function(item){var d=document.createElement('div');d.className='cat-card';d.onclick=function(){window.location.href='pages/browse.html?category='+item.cat.slug;};d.innerHTML='<div class="ci">'+item.cat.icon+'</div><h3 style="color:'+item.cat.color+'">'+item.cat.name+'</h3><p class="cc">'+item.count+' myths</p>';g.appendChild(d);});
+}
+document.getElementById('sb2').onclick=function(){var q=document.getElementById('si').value.trim();if(q)window.location.href='pages/search.html?q='+encodeURIComponent(q);};
+document.getElementById('si').onkeypress=function(e){if(e.key==='Enter')document.getElementById('sb2').click();};
+loadData();loadCats();
 
-            if (animate) {
-                grid.classList.add('fade-out');
-                setTimeout(doRender, 160);
-            } else { doRender(); }
-        }
+// ── Video background ──────────────────────────────────────────
+(function(){
+  var vid = document.getElementById('heroBg');
+  var muteBtn = document.getElementById('muteBtn');
+  if (!vid) return;
 
-        function renderPagination(which, total, cur) {
-            var tp = Math.ceil(total / PER_PAGE);
-            var bar = document.getElementById(which + 'Pagination');
-            if (tp <= 1) { bar.innerHTML = ''; return; }
-            var pages = buildPageNums(cur, tp);
-            bar.innerHTML = '';
-            var prev = document.createElement('button');
-            prev.className = 'page-btn'; prev.textContent = '←'; prev.disabled = cur===1;
-            prev.onclick = function(){ if(cur>1) renderSection(which, cur-1, true); };
-            bar.appendChild(prev);
-            pages.forEach(function(p) {
-                var btn = document.createElement('button');
-                if (p==='...') { btn.className='page-btn dots'; btn.textContent='…'; }
-                else {
-                    btn.className='page-btn'+(p===cur?' active':'');
-                    btn.textContent=p;
-                    btn.onclick=(function(pg){return function(){if(pg!==cur)renderSection(which,pg,true);};})(p);
-                }
-                bar.appendChild(btn);
-            });
-            var next = document.createElement('button');
-            next.className='page-btn'; next.innerHTML='&#x2192;'; next.disabled=cur===tp;
-            next.onclick=function(){if(cur<tp)renderSection(which,cur+1,true);};
-            bar.appendChild(next);
-        }
+  // Fade in once enough data loaded
+  vid.addEventListener('canplay', function(){
+    vid.classList.add('loaded');
+    muteBtn.classList.add('visible');
+  });
 
-        function buildPageNums(cur, total) {
-            if (total<=7){var r=[];for(var i=1;i<=total;i++)r.push(i);return r;}
-            var pages=[1];
-            if(cur>3)pages.push('...');
-            var s=Math.max(2,cur-1),e=Math.min(total-1,cur+1);
-            for(var i=s;i<=e;i++)pages.push(i);
-            if(cur<total-2)pages.push('...');
-            pages.push(total);
-            return pages;
-        }
+  // If src is the placeholder, hide everything gracefully
+  if (!vid.src || vid.src.indexOf('YOUR_VIDEO_URL') !== -1) {
+    vid.remove();
+    muteBtn.remove();
+  }
+})();
 
-        async function loadCategories() {
-            var res = await sb.from('categories').select('*').order('name');
-            if (!res.data) return;
-            var grid = document.getElementById('categoryGrid');
-            grid.innerHTML = '';
-            var enriched = await Promise.all(res.data.map(async function(cat) {
-                var r = await sb.from('myths').select('id',{count:'exact',head:true}).eq('category_id',cat.id);
-                return {cat:cat, count:r.count||0};
-            }));
-            enriched.forEach(function(item,i) {
-                var card = document.createElement('div');
-                card.className = 'category-card';
-                card.style.backgroundColor = item.cat.color+'12';
-                card.style.borderColor = item.cat.color+'40';
-                card.style.animationDelay = (i*0.07)+'s';
-                card.onclick = function(){ window.location.href='pages/browse.html?category='+item.cat.slug; };
-                card.innerHTML = '<div class="icon">'+item.cat.icon+'</div><h3 style="color:'+item.cat.color+'">'+item.cat.name+'</h3><p class="count">'+item.count+' myths</p>';
-                grid.appendChild(card);
-            });
-        }
-
-        document.getElementById('searchBtn').addEventListener('click', function() {
-            var q = document.getElementById('searchInput').value.trim();
-            if (q) window.location.href = 'pages/search.html?q=' + encodeURIComponent(q);
-        });
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key==='Enter') document.getElementById('searchBtn').click();
-        });
-
-        loadData();
-        loadCategories();
-    </script>
-</body>
-</html>
+function toggleMute(){
+  var vid = document.getElementById('heroBg');
+  var btn = document.getElementById('muteBtn');
+  if (!vid) return;
+  vid.muted = !vid.muted;
+  btn.textContent = vid.muted ? '🔇 Unmute' : '🔊 Mute';
+}
+</script></body></html>

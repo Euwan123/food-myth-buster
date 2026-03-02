@@ -1,6 +1,4 @@
 var _authReady = false;
-// SUPABASE_URL was previously declared here but is provided by supabase-client.js.
-// Avoid redeclaration/const collisions in global scope.
 
 (function() {
     var style = document.createElement('style');
@@ -23,7 +21,7 @@ function injectPageLoader() {
 function showLoader() {
     injectPageLoader();
     var el = document.getElementById('pageLoader');
-    if (el) { el.classList.add('show'); }
+    if (el) el.classList.add('show');
 }
 function hideLoader() {
     var el = document.getElementById('pageLoader');
@@ -63,9 +61,6 @@ async function checkAuth() {
             var profRes = await sb.from('user_profiles').select('is_admin, display_name').eq('id', session.user.id).single();
             if (!profRes.error && profRes.data) {
                 isAdmin = profRes.data.is_admin;
-                var dn = (profRes.data.display_name || '').toLowerCase();
-                // auto-promotion based on display name was insecure and has been removed.
-                // Admin status must now be granted explicitly via the database by an existing admin or via RLS.
             }
         }
         if (loginBtn) {
@@ -74,8 +69,12 @@ async function checkAuth() {
             loginBtn.onclick = function() { showLoader(); window.location.href = (isRoot ? 'pages/' : '') + 'profile.html'; };
         }
         if (adminBtn) {
-            if (isAdmin) { adminBtn.style.display = 'inline-block'; adminBtn.onclick = function() { showLoader(); window.location.href = (isRoot ? 'pages/' : '') + 'admin.html'; }; }
-            else { adminBtn.style.display = 'none'; }
+            if (isAdmin) {
+                adminBtn.style.display = 'inline-block';
+                adminBtn.onclick = function() { showLoader(); window.location.href = (isRoot ? 'pages/' : '') + 'admin.html'; };
+            } else {
+                adminBtn.style.display = 'none';
+            }
         }
     } else {
         if (loginBtn) {
