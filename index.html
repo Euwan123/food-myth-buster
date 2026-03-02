@@ -117,24 +117,55 @@
         </div>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-inner">
-                <div class="hero-eyebrow">&#x1F52C; Evidence-Based Myth Busting</div>
-                <h1>Is That Food Myth<br>True or False?</h1>
-                <p>Search any food claim and get science-backed answers instantly</p>
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder='Try "Does MSG cause headaches?"'>
-                    <button id="searchBtn">&#x1F50D; Search</button>
-                </div>
-                <div class="hero-stats">
-                    <div class="hero-stat"><span class="hero-stat-num" id="statMyths">&#x2014;</span><span class="hero-stat-label">Myths Verified</span></div>
-                    <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Science-Backed</span></div>
-                    <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Always Free</span></div>
-                </div>
+<section class="hero">
+    <!-- Video Background -->
+    <video
+        id="heroBg"
+        class="hero-video"
+        src="https://gyrqdwypsqdeeqzmkdze.supabase.co/storage/v1/object/public/assets/Anime-Vid1.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+    ></video>
+
+    <!-- Overlay -->
+    <div class="hero-overlay"></div>
+
+    <!-- Mute / Unmute -->
+    <button class="mute-btn" id="muteBtn" onclick="toggleMute()">🔇 Unmute</button>
+
+    <div class="container">
+        <div class="hero-inner">
+            <div class="hero-eyebrow">&#x1F52C; Evidence-Based Myth Busting</div>
+            <h1>Is That Food Myth<br>True or False?</h1>
+            <p>Search any food claim and get science-backed answers instantly</p>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder='Try "Does MSG cause headaches?"'>
+                <button id="searchBtn">&#x1F50D; Search</button>
+            </div>
+
+            <div class="hero-stats">
+                <div class="hero-stat"><span class="hero-stat-num" id="statMyths">&#x2014;</span><span class="hero-stat-label">Myths Verified</span></div>
+                <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Science-Backed</span></div>
+                <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Always Free</span></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+    // Mute/unmute button functionality
+    const video = document.getElementById('heroBg');
+    const muteBtn = document.getElementById('muteBtn');
+
+    function toggleMute() {
+        video.muted = !video.muted;
+        muteBtn.textContent = video.muted ? '🔇 Unmute' : '🔊 Mute';
+    }
+</script>
 
     <section class="myths-section">
         <div class="container">
