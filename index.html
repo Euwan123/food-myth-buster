@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/theme.js" data-load-before-render="true"></script>
     <style>
-
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
         header { background: rgba(13,11,30,0.97); backdrop-filter: blur(16px); padding: 14px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
@@ -23,9 +22,54 @@
         .btn-secondary { background: rgba(124,107,255,0.12); border: 1px solid rgba(124,107,255,0.3); color: #9b8fff; border-radius: 9px; padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; min-width: 38px; }
         .btn-secondary:hover { background: rgba(124,107,255,0.2); border-color: rgba(124,107,255,0.6); transform: translateY(-1px); }
         .btn-secondary.active { background: rgba(124,107,255,0.25); border-color: rgba(124,107,255,0.8); }
-        .hero { background: linear-gradient(135deg, #6c63ff 0%, #9b59b6 60%, #764ba2 100%); padding: 80px 24px 90px; text-align: center; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E"); }
-        .hero-inner { position: relative; }
+
+        .hero {
+            position: relative;
+            height: 560px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(108,99,255,0.82) 0%, rgba(118,75,162,0.85) 100%);
+            z-index: 1;
+        }
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+        .hero-inner { text-align: center; }
+        .mute-btn {
+            position: absolute;
+            bottom: 16px;
+            right: 20px;
+            z-index: 3;
+            background: rgba(0,0,0,0.45);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.2s;
+        }
+        .mute-btn:hover { background: rgba(0,0,0,0.65); }
+
         .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 24px; letter-spacing: 0.5px; }
         .hero h1 { font-family: 'Sora', sans-serif; font-size: 52px; font-weight: 800; color: white; margin-bottom: 16px; letter-spacing: -1.5px; line-height: 1.1; }
         .hero p { font-size: 18px; color: rgba(255,255,255,0.8); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
@@ -38,6 +82,7 @@
         .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
         .hero-stat-num { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; color: white; display: block; }
         .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); }
+
         .myths-section { padding: 56px 0; }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
         .section-title { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 8px; }
@@ -97,7 +142,7 @@
         footer { background: #080714; border-top: 1px solid var(--border); color: var(--text-muted); padding: 28px 0; text-align: center; font-size: 13px; }
         footer p { margin: 4px 0; }
         .logo-footer { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 800; color: white; margin-bottom: 8px; }
-        @media (max-width: 768px) { .hero h1 { font-size: 34px; } .hero-stats { gap: 24px; } }
+        @media (max-width: 768px) { .hero { height: 480px; } .hero h1 { font-size: 34px; } .hero-stats { gap: 24px; } }
     </style>
 </head>
 <body>
@@ -112,60 +157,41 @@
                 <a href="pages/contact-and-info.html">Contact &amp; Info</a>
                 <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
                 <button id="loginBtn" class="btn-login" style="visibility:hidden;">Login</button>
-                <button id="themeToggle" class="btn-secondary" title="Toggle theme">☀️</button>
+                <button id="themeToggle" class="btn-secondary" title="Toggle theme">&#x2600;&#xFE0F;</button>
             </nav>
         </div>
     </header>
 
-<section class="hero">
-    <!-- Video Background -->
-    <video
-        id="heroBg"
-        class="hero-video"
-        src="https://gyrqdwypsqdeeqzmkdze.supabase.co/storage/v1/object/public/assets/Anime-Vid1.mp4"
-        autoplay
-        loop
-        muted
-        playsinline
-        preload="auto"
-    ></video>
-
-    <!-- Overlay -->
-    <div class="hero-overlay"></div>
-
-    <!-- Mute / Unmute -->
-    <button class="mute-btn" id="muteBtn" onclick="toggleMute()">🔇 Unmute</button>
-
-    <div class="container">
-        <div class="hero-inner">
-            <div class="hero-eyebrow">&#x1F52C; Evidence-Based Myth Busting</div>
-            <h1>Is That Food Myth<br>True or False?</h1>
-            <p>Search any food claim and get science-backed answers instantly</p>
-
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder='Try "Does MSG cause headaches?"'>
-                <button id="searchBtn">&#x1F50D; Search</button>
-            </div>
-
-            <div class="hero-stats">
-                <div class="hero-stat"><span class="hero-stat-num" id="statMyths">&#x2014;</span><span class="hero-stat-label">Myths Verified</span></div>
-                <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Science-Backed</span></div>
-                <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Always Free</span></div>
+    <section class="hero">
+        <video
+            id="heroBg"
+            class="hero-video"
+            src="https://gyrqdwypsqdeeqzmkdze.supabase.co/storage/v1/object/public/assets/Anime-Vid1.mp4"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="auto"
+        ></video>
+        <div class="hero-overlay"></div>
+        <button class="mute-btn" id="muteBtn" onclick="toggleMute()">&#x1F507; Unmute</button>
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-eyebrow">&#x1F52C; Evidence-Based Myth Busting</div>
+                <h1>Is That Food Myth<br>True or False?</h1>
+                <p>Search any food claim and get science-backed answers instantly</p>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder='Try "Does MSG cause headaches?"'>
+                    <button id="searchBtn">&#x1F50D; Search</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat"><span class="hero-stat-num" id="statMyths">&#x2014;</span><span class="hero-stat-label">Myths Verified</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Science-Backed</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Always Free</span></div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-
-<script>
-    // Mute/unmute button functionality
-    const video = document.getElementById('heroBg');
-    const muteBtn = document.getElementById('muteBtn');
-
-    function toggleMute() {
-        video.muted = !video.muted;
-        muteBtn.textContent = video.muted ? '🔇 Unmute' : '🔊 Mute';
-    }
-</script>
+    </section>
 
     <section class="myths-section">
         <div class="container">
@@ -241,6 +267,14 @@
     <script src="js/auth.js"></script>
     <script src="js/theme.js"></script>
     <script>
+        var video = document.getElementById('heroBg');
+        var muteBtn = document.getElementById('muteBtn');
+
+        function toggleMute() {
+            video.muted = !video.muted;
+            muteBtn.textContent = video.muted ? '🔇 Unmute' : '🔊 Mute';
+        }
+
         var PER_PAGE = 4;
         var allMyths = [];
         var popularFiltered = [];
@@ -251,6 +285,7 @@
         function getPrefs() {
             try { return JSON.parse(localStorage.getItem('fmb_prefs') || '{}'); } catch(e) { return {}; }
         }
+
         function trackClick(myth) {
             var p = getPrefs();
             if (!p.cats) p.cats = {};
@@ -399,6 +434,7 @@
             var q = document.getElementById('searchInput').value.trim();
             if (q) window.location.href = 'pages/search.html?q=' + encodeURIComponent(q);
         });
+
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key==='Enter') document.getElementById('searchBtn').click();
         });
