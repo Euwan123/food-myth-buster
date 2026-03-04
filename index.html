@@ -43,32 +43,47 @@
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(108,99,255,0.82) 0%, rgba(118,75,162,0.85) 100%);
+            background: linear-gradient(135deg, rgba(80,60,200,0.55) 0%, rgba(100,50,140,0.60) 100%);
             z-index: 1;
         }
+        .hero-inner h1 { text-shadow: 0 2px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.7); }
+        .hero-inner p { text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
+        .hero-eyebrow { text-shadow: none; }
+        .hero-stat-num, .hero-stat-label { text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
         .hero .container {
             position: relative;
             z-index: 2;
             width: 100%;
         }
         .hero-inner { text-align: center; }
-        .mute-btn {
+        .volume-btn {
             position: absolute;
-            bottom: 16px;
+            bottom: 18px;
             right: 20px;
             z-index: 3;
-            background: rgba(0,0,0,0.45);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
+            background: rgba(124,107,255,0.18);
+            border: 1px solid rgba(124,107,255,0.45);
+            color: rgba(255,255,255,0.92);
+            padding: 7px 16px 7px 12px;
+            border-radius: 24px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             font-family: 'DM Sans', sans-serif;
-            transition: background 0.2s;
+            transition: all 0.22s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            backdrop-filter: blur(10px);
         }
-        .mute-btn:hover { background: rgba(0,0,0,0.65); }
+        .volume-btn:hover {
+            background: rgba(124,107,255,0.38);
+            border-color: rgba(124,107,255,0.8);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 18px rgba(124,107,255,0.3);
+        }
+        .volume-btn svg { flex-shrink: 0; transition: transform 0.2s; }
+        .volume-btn:hover svg { transform: scale(1.12); }
 
         .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 24px; letter-spacing: 0.5px; }
         .hero h1 { font-family: 'Sora', sans-serif; font-size: 52px; font-weight: 800; color: white; margin-bottom: 16px; letter-spacing: -1.5px; line-height: 1.1; }
@@ -174,7 +189,14 @@
             preload="auto"
         ></video>
         <div class="hero-overlay"></div>
-        <button class="mute-btn" id="muteBtn" onclick="toggleMute()">&#x1F507; Unmute</button>
+        <button class="volume-btn" id="muteBtn" onclick="toggleMute()">
+            <svg id="volIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <line x1="23" y1="9" x2="17" y2="15" class="x1"/>
+                <line x1="17" y1="9" x2="23" y2="15" class="x2"/>
+            </svg>
+            <span id="volLabel">Unmute</span>
+        </button>
         <div class="container">
             <div class="hero-inner">
                 <div class="hero-eyebrow">&#x1F52C; Evidence-Based Myth Busting</div>
@@ -269,10 +291,21 @@
     <script>
         var video = document.getElementById('heroBg');
         var muteBtn = document.getElementById('muteBtn');
+        var volLabel = document.getElementById('volLabel');
+        var volIcon = document.getElementById('volIcon');
+
+        var ICON_MUTED = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+        var ICON_LOUD  = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
 
         function toggleMute() {
             video.muted = !video.muted;
-            muteBtn.textContent = video.muted ? '🔇 Unmute' : '🔊 Mute';
+            if (video.muted) {
+                volIcon.innerHTML = ICON_MUTED;
+                volLabel.textContent = 'Unmute';
+            } else {
+                volIcon.innerHTML = ICON_LOUD;
+                volLabel.textContent = 'Mute';
+            }
         }
 
         var PER_PAGE = 4;
