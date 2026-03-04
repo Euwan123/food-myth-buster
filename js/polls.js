@@ -1,5 +1,4 @@
-// DEPRECATED: community.html embeds poll logic directly and no script tag loads this file.
-// Keep only if you intend to re-use these functions elsewhere.
+
 
 async function loadPolls() {
     const container = document.getElementById('pollsContainer');

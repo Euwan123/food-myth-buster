@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/theme.js" data-load-before-render="true"></script>
     <style>
-        /* community-specific overrides only */
+        
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
         header { background: rgba(13,11,30,0.97); backdrop-filter: blur(16px); padding: 14px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
@@ -299,7 +299,6 @@
                 poll.total_votes = (poll.total_votes || 0) + 1;
             }
 
-            // build update object without computed property syntax for consistency
             var upd = {};
             upd[voteField] = poll[voteField];
             upd.total_votes = poll.total_votes;

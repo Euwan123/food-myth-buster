@@ -56,7 +56,6 @@ function initTheme() {
     }
 }
 
-// Apply theme immediately before page renders to prevent flash
 (function() {
     var stored = localStorage.getItem(themePreferenceKey) || 'system';
     var isDark = stored === 'dark' || (stored === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);

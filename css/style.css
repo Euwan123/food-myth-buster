@@ -1,5 +1,5 @@
 :root {
-    /* light theme defaults */
+    
     --bg-color: #ffffff;
     --text-color: #2d3748;
     --header-bg: #edf2f7;
@@ -12,11 +12,10 @@
     --footer-text: white;
     --progress-bg: #e2e8f0;
     --muted-text: #718096;
-    /* alias used throughout pages */
+    
     --text-muted: var(--muted-text);
     --light-text: #a0aec0;
 
-    /* colors used by page-specific styles */
     --primary: #667eea;
     --primary-dark: #5568d3;
     --purple-soft: #f0eeff;
@@ -24,14 +23,12 @@
     --false: #ff5c6b;
     --partial: #ffb347;
 
-    /* alias names for backwards compatibility */
     --surface: var(--bg-color);
     --card: var(--card-bg);
     --text: var(--text-color);
     --border: var(--border-color);
 }
 
-/* dark theme overrides applied via body.dark */
 body.dark {
     --bg-color: #0d0b1e;
     --text-color: #e8e6f0;
@@ -48,7 +45,6 @@ body.dark {
     --text-muted: var(--muted-text);
     --light-text: #a0aec0;
 
-    /* page-specific colors in dark mode can reuse aliases */
     --primary: #667eea;
     --primary-dark: #5568d3;
     --purple-soft: rgba(124,107,255,0.12);
@@ -56,7 +52,6 @@ body.dark {
     --false: #ff5c6b;
     --partial: #ffb347;
 
-    /* maintain alias mapping */
     --surface: var(--bg-color);
     --card: var(--card-bg);
     --text: var(--text-color);
@@ -69,15 +64,11 @@ body.dark {
     box-sizing: border-box;
 }
 
-/* remove default list numbering which was previously visible in some places */
 ul, ol {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-
-/* global typography and interactions */
-
 
 body {
     font-family: 'DM Sans', sans-serif;
@@ -269,7 +260,7 @@ nav a:hover {
 }
 
 .myth-card .cta {
-    color: #718096;
+    color: var(--text-muted);
     font-size: 14px;
 }
 
@@ -328,7 +319,7 @@ footer p {
 .loading {
     text-align: center;
     padding: 40px;
-    color: #718096;
+    color: var(--text-muted);
 }
 
 .polls, .discussions, .resources {
@@ -362,7 +353,7 @@ footer p {
 .poll-card h3 {
     font-size: 20px;
     margin-bottom: 20px;
-    color: #2d3748;
+    color: var(--text);
 }
 
 .poll-options {
@@ -420,7 +411,7 @@ footer p {
 .discussion-item h4 {
     font-size: 18px;
     margin-bottom: 10px;
-    color: #2d3748;
+    color: var(--text);
 }
 
 .resources-grid {
@@ -446,7 +437,7 @@ footer p {
 .resource-card h3 {
     font-size: 20px;
     margin-bottom: 15px;
-    color: #2d3748;
+    color: var(--text);
 }
 
 .resource-card p {

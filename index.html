@@ -1,27 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Myth Buster - Evidence-Based Food Myth Verification</title>
-    <meta name="description" content="Search any food claim and get evidence-based answers. Bust food myths with science.">
+    <meta name="description"
+        content="Search any food claim and get evidence-based answers. Bust food myths with science.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/theme.js" data-load-before-render="true"></script>
     <style>
-        .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
-        header { background: rgba(13,11,30,0.97); backdrop-filter: blur(16px); padding: 14px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
-        header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 800; background: linear-gradient(135deg, #7c6bff, #c77dff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
-        nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-        nav a { color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s; }
-        nav a:hover { background: rgba(124,107,255,0.15); color: var(--text); }
-        .btn-login { background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
-        .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
-        .btn-secondary { background: rgba(124,107,255,0.12); border: 1px solid rgba(124,107,255,0.3); color: #9b8fff; border-radius: 9px; padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; min-width: 38px; }
-        .btn-secondary:hover { background: rgba(124,107,255,0.2); border-color: rgba(124,107,255,0.6); transform: translateY(-1px); }
-        .btn-secondary.active { background: rgba(124,107,255,0.25); border-color: rgba(124,107,255,0.8); }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            background: rgba(13, 11, 30, 0.97);
+            backdrop-filter: blur(16px);
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7c6bff, #c77dff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        nav a:hover {
+            background: rgba(124, 107, 255, 0.15);
+            color: var(--text);
+        }
+
+        .btn-login {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-login:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: rgba(124, 107, 255, 0.12);
+            border: 1px solid rgba(124, 107, 255, 0.3);
+            color: #9b8fff;
+            border-radius: 9px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 38px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(124, 107, 255, 0.2);
+            border-color: rgba(124, 107, 255, 0.6);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary.active {
+            background: rgba(124, 107, 255, 0.25);
+            border-color: rgba(124, 107, 255, 0.8);
+        }
 
         .hero {
             position: relative;
@@ -31,6 +123,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .hero-video {
             position: absolute;
             inset: 0;
@@ -40,30 +133,49 @@
             object-position: center;
             z-index: 0;
         }
+
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(80,60,200,0.55) 0%, rgba(100,50,140,0.60) 100%);
+            background: linear-gradient(135deg, rgba(80, 60, 200, 0.55) 0%, rgba(100, 50, 140, 0.60) 100%);
             z-index: 1;
         }
-        .hero-inner h1 { text-shadow: 0 2px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.7); }
-        .hero-inner p { text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
-        .hero-eyebrow { text-shadow: none; }
-        .hero-stat-num, .hero-stat-label { text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
+
+        .hero-inner h1 {
+            text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-inner p {
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-eyebrow {
+            text-shadow: none;
+        }
+
+        .hero-stat-num,
+        .hero-stat-label {
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
         .hero .container {
             position: relative;
             z-index: 2;
             width: 100%;
         }
-        .hero-inner { text-align: center; }
+
+        .hero-inner {
+            text-align: center;
+        }
+
         .volume-btn {
             position: absolute;
             bottom: 18px;
             right: 20px;
             z-index: 3;
-            background: rgba(124,107,255,0.18);
-            border: 1px solid rgba(124,107,255,0.45);
-            color: rgba(255,255,255,0.92);
+            background: rgba(124, 107, 255, 0.18);
+            border: 1px solid rgba(124, 107, 255, 0.45);
+            color: rgba(255, 255, 255, 0.92);
             padding: 7px 16px 7px 12px;
             border-radius: 24px;
             font-size: 13px;
@@ -76,90 +188,576 @@
             gap: 7px;
             backdrop-filter: blur(10px);
         }
+
         .volume-btn:hover {
-            background: rgba(124,107,255,0.38);
-            border-color: rgba(124,107,255,0.8);
+            background: rgba(124, 107, 255, 0.38);
+            border-color: rgba(124, 107, 255, 0.8);
             transform: translateY(-1px);
-            box-shadow: 0 4px 18px rgba(124,107,255,0.3);
+            box-shadow: 0 4px 18px rgba(124, 107, 255, 0.3);
         }
-        .volume-btn svg { flex-shrink: 0; transition: transform 0.2s; }
-        .volume-btn:hover svg { transform: scale(1.12); }
 
-        .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 24px; letter-spacing: 0.5px; }
-        .hero h1 { font-family: 'Sora', sans-serif; font-size: 52px; font-weight: 800; color: white; margin-bottom: 16px; letter-spacing: -1.5px; line-height: 1.1; }
-        .hero p { font-size: 18px; color: rgba(255,255,255,0.8); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
-        .search-bar { display: flex; max-width: 720px; margin: 0 auto; background: rgba(26,22,48,0.8); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25); border: 2px solid rgba(124,107,255,0.3); transition: all 0.35s; backdrop-filter: blur(8px); }
-        .search-bar:focus-within { border-color: rgba(124,107,255,0.8); box-shadow: 0 20px 60px rgba(108,99,255,0.35); }
-        .search-bar input { flex: 1; padding: 18px 24px; border: none; font-size: 16px; font-family: 'DM Sans', sans-serif; color: #e8e6f0; background: transparent; outline: none; }
-        .search-bar input::placeholder { color: rgba(232,230,240,0.4); }
-        .search-bar button { background: var(--primary); color: white; border: none; padding: 18px 32px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Sora', sans-serif; transition: background 0.2s; white-space: nowrap; }
-        .search-bar button:hover { background: var(--primary-dark); }
-        .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
-        .hero-stat-num { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; color: white; display: block; }
-        .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); }
+        .volume-btn svg {
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
 
-        .myths-section { padding: 56px 0; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-        .section-title { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 8px; }
-        .section-link { font-size: 14px; font-weight: 600; color: var(--primary); text-decoration: none; white-space: nowrap; }
-        .section-link:hover { text-decoration: underline; }
-        .myth-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; min-height: 160px; }
-        .myth-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; }
-        .myth-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
-        .myth-card.v-TRUE::before { background: var(--true); }
-        .myth-card.v-FALSE::before { background: var(--false); }
-        .myth-card.v-PARTIAL::before { background: var(--partial); }
-        .myth-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); border-color: var(--primary); }
-        .myth-card .cat-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-bottom: 8px; }
-        .myth-card h3 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
-        .myth-card .cta { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; font-size: 12px; color: var(--text-muted); }
-        .verdict-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 11px; font-family: 'Sora', sans-serif; }
-        .verdict-TRUE { background: rgba(16,217,136,0.12); color: #10d988; border: 1px solid rgba(16,217,136,0.25); }
-        .verdict-FALSE { background: rgba(255,92,107,0.12); color: #ff5c6b; border: 1px solid rgba(255,92,107,0.25); }
-        .verdict-PARTIAL { background: rgba(255,179,71,0.12); color: #ffb347; border: 1px solid rgba(255,179,71,0.25); }
-        .pagination { display: flex; gap: 6px; align-items: center; margin-top: 20px; flex-wrap: wrap; }
-        .page-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
-        .page-btn:hover:not(.dots):not(:disabled) { border-color: var(--primary); color: var(--primary); }
-        .page-btn.active { background: #7c6bff; border-color: #7c6bff; color: white; box-shadow: 0 4px 14px rgba(124,107,255,0.35); }
-        .page-btn.dots { cursor: default; border-color: transparent; background: transparent; }
-        .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        .foryou-controls { display: flex; align-items: center; gap: 10px; }
-        .foryou-hint { font-size: 12px; color: var(--text-muted); font-style: italic; }
-        .refresh-btn { background: rgba(124,107,255,0.12); border: 1px solid rgba(124,107,255,0.3); color: #9b8fff; border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 5px; }
-        .refresh-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
-        .refresh-btn.spinning svg { animation: spinIcon 0.6s linear; }
-        @keyframes spinIcon { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .skeleton { background: linear-gradient(90deg, #1e1a3a 25%, #252047 50%, #1e1a3a 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        .skeleton-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
-        .sk-tag { height: 12px; width: 60px; margin-bottom: 12px; }
-        .sk-title { height: 16px; width: 100%; margin-bottom: 6px; }
-        .sk-title2 { height: 16px; width: 65%; margin-bottom: 14px; }
-        .sk-badge { height: 24px; width: 70px; border-radius: 20px; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeOutUp { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-8px); } }
-        .fade-out .myth-card { animation: fadeOutUp 0.16s ease both; }
-        .category-section { padding: 56px 0; background: #0f0d1e; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
-        .category-card { padding: 28px 20px; border-radius: 16px; text-align: center; cursor: pointer; transition: all 0.25s; border: 1.5px solid; background: var(--card); }
-        .category-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
-        .category-card .icon { font-size: 40px; margin-bottom: 12px; }
-        .category-card h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-        .category-card .count { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-        .about-strip { background: #0f0d1e; padding: 64px 0; }
-        .about-strip h2 { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 14px; }
-        .about-strip p { font-size: 16px; color: var(--text-muted); line-height: 1.75; max-width: 680px; margin-bottom: 10px; }
-        .about-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 16px; margin-top: 28px; }
-        .about-card { border-radius: 16px; padding: 16px 14px; border: 1px solid var(--border); background: var(--card); text-align: left; }
-        .about-card .aicon { font-size: 26px; margin-bottom: 6px; background: rgba(124,107,255,0.12); width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-        .about-card h4 { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-        .about-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-        footer { background: #080714; border-top: 1px solid var(--border); color: var(--text-muted); padding: 28px 0; text-align: center; font-size: 13px; }
-        footer p { margin: 4px 0; }
-        .logo-footer { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 800; color: white; margin-bottom: 8px; }
-        @media (max-width: 768px) { .hero { height: 480px; } .hero h1 { font-size: 34px; } .hero-stats { gap: 24px; } }
+        .volume-btn:hover svg {
+            transform: scale(1.12);
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 52px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 16px;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-bar {
+            display: flex;
+            max-width: 720px;
+            margin: 0 auto;
+            background: rgba(26, 22, 48, 0.8);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            border: 2px solid rgba(124, 107, 255, 0.3);
+            transition: all 0.35s;
+            backdrop-filter: blur(8px);
+        }
+
+        .search-bar:focus-within {
+            border-color: rgba(124, 107, 255, 0.8);
+            box-shadow: 0 20px 60px rgba(108, 99, 255, 0.35);
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 18px 24px;
+            border: none;
+            font-size: 16px;
+            font-family: 'DM Sans', sans-serif;
+            color: #e8e6f0;
+            background: transparent;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: rgba(232, 230, 240, 0.4);
+        }
+
+        .search-bar button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px 32px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Sora', sans-serif;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .search-bar button:hover {
+            background: var(--primary-dark);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat-num {
+            font-family: 'Sora', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .myths-section {
+            padding: 56px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .section-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-link {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .section-link:hover {
+            text-decoration: underline;
+        }
+
+        .myth-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            min-height: 160px;
+        }
+
+        .myth-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .myth-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+        }
+
+        .myth-card.v-TRUE::before {
+            background: var(--true);
+        }
+
+        .myth-card.v-FALSE::before {
+            background: var(--false);
+        }
+
+        .myth-card.v-PARTIAL::before {
+            background: var(--partial);
+        }
+
+        .myth-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+            border-color: var(--primary);
+        }
+
+        .myth-card .cat-tag {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .myth-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .myth-card .cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 14px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .verdict-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 11px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .verdict-TRUE {
+            background: rgba(16, 217, 136, 0.12);
+            color: #10d988;
+            border: 1px solid rgba(16, 217, 136, 0.25);
+        }
+
+        .verdict-FALSE {
+            background: rgba(255, 92, 107, 0.12);
+            color: #ff5c6b;
+            border: 1px solid rgba(255, 92, 107, 0.25);
+        }
+
+        .verdict-PARTIAL {
+            background: rgba(255, 179, 71, 0.12);
+            color: #ffb347;
+            border: 1px solid rgba(255, 179, 71, 0.25);
+        }
+
+        .pagination {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .page-btn:hover:not(.dots):not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .page-btn.active {
+            background: #7c6bff;
+            border-color: #7c6bff;
+            color: white;
+            box-shadow: 0 4px 14px rgba(124, 107, 255, 0.35);
+        }
+
+        .page-btn.dots {
+            cursor: default;
+            border-color: transparent;
+            background: transparent;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .foryou-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .foryou-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .refresh-btn {
+            background: rgba(124, 107, 255, 0.12);
+            border: 1px solid rgba(124, 107, 255, 0.3);
+            color: #9b8fff;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .refresh-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .refresh-btn.spinning svg {
+            animation: spinIcon 0.6s linear;
+        }
+
+        @keyframes spinIcon {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #1e1a3a 25%, #252047 50%, #1e1a3a 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .skeleton-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+        }
+
+        .sk-tag {
+            height: 12px;
+            width: 60px;
+            margin-bottom: 12px;
+        }
+
+        .sk-title {
+            height: 16px;
+            width: 100%;
+            margin-bottom: 6px;
+        }
+
+        .sk-title2 {
+            height: 16px;
+            width: 65%;
+            margin-bottom: 14px;
+        }
+
+        .sk-badge {
+            height: 24px;
+            width: 70px;
+            border-radius: 20px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOutUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+        }
+
+        .fade-out .myth-card {
+            animation: fadeOutUp 0.16s ease both;
+        }
+
+        .category-section {
+            padding: 56px 0;
+            background: #0f0d1e;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .category-card {
+            padding: 28px 20px;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s;
+            border: 1.5px solid;
+            background: var(--card);
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card .icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .category-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .category-card .count {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .about-strip {
+            background: #0f0d1e;
+            padding: 64px 0;
+        }
+
+        .about-strip h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .about-strip p {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.75;
+            max-width: 680px;
+            margin-bottom: 10px;
+        }
+
+        .about-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .about-card {
+            border-radius: 16px;
+            padding: 16px 14px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            text-align: left;
+        }
+
+        .about-card .aicon {
+            font-size: 26px;
+            margin-bottom: 6px;
+            background: rgba(124, 107, 255, 0.12);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-card h4 {
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .about-card p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        footer {
+            background: #080714;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 28px 0;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        footer p {
+            margin: 4px 0;
+        }
+
+        .logo-footer {
+            font-family: 'Sora', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 480px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .hero-stats {
+                gap: 24px;
+            }
+        }
     </style>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -178,22 +776,16 @@
     </header>
 
     <section class="hero">
-        <video
-            id="heroBg"
-            class="hero-video"
-            src="https://gyrqdwypsqdeeqzmkdze.supabase.co/storage/v1/object/public/assets/Anime-Vid1.mp4"
-            autoplay
-            loop
-            muted
-            playsinline
-            preload="auto"
-        ></video>
+        <video id="heroBg" class="hero-video"
+            src="https://gyrqdwypsqdeeqzmkdze.supabase.co/storage/v1/object/public/assets/Anime-Vid1.mp4" autoplay loop
+            muted playsinline preload="auto"></video>
         <div class="hero-overlay"></div>
         <button class="volume-btn" id="muteBtn" onclick="toggleMute()">
-            <svg id="volIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                <line x1="23" y1="9" x2="17" y2="15" class="x1"/>
-                <line x1="17" y1="9" x2="23" y2="15" class="x2"/>
+            <svg id="volIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                <line x1="23" y1="9" x2="17" y2="15" class="x1" />
+                <line x1="17" y1="9" x2="23" y2="15" class="x2" />
             </svg>
             <span id="volLabel">Unmute</span>
         </button>
@@ -207,9 +799,12 @@
                     <button id="searchBtn">&#x1F50D; Search</button>
                 </div>
                 <div class="hero-stats">
-                    <div class="hero-stat"><span class="hero-stat-num" id="statMyths">&#x2014;</span><span class="hero-stat-label">Myths Verified</span></div>
-                    <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Science-Backed</span></div>
-                    <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Always Free</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num" id="statMyths">&#x2014;</span><span
+                            class="hero-stat-label">Myths Verified</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num">100%</span><span
+                            class="hero-stat-label">Science-Backed</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Always
+                            Free</span></div>
                 </div>
             </div>
         </div>
@@ -222,10 +817,30 @@
                 <a href="pages/browse.html" class="section-link">View all &#x2192;</a>
             </div>
             <div id="popularGrid" class="myth-grid">
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
+                <div class="skeleton-card">
+                    <div class="skeleton sk-tag"></div>
+                    <div class="skeleton sk-title"></div>
+                    <div class="skeleton sk-title2"></div>
+                    <div class="skeleton sk-badge"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton sk-tag"></div>
+                    <div class="skeleton sk-title"></div>
+                    <div class="skeleton sk-title2"></div>
+                    <div class="skeleton sk-badge"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton sk-tag"></div>
+                    <div class="skeleton sk-title"></div>
+                    <div class="skeleton sk-title2"></div>
+                    <div class="skeleton sk-badge"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton sk-tag"></div>
+                    <div class="skeleton sk-title"></div>
+                    <div class="skeleton sk-title2"></div>
+                    <div class="skeleton sk-badge"></div>
+                </div>
             </div>
             <div id="popularPagination" class="pagination"></div>
         </div>
@@ -238,17 +853,42 @@
                 <div class="foryou-controls">
                     <span class="foryou-hint" id="foryouHint">Browse myths to personalise</span>
                     <button class="refresh-btn" id="homeRefreshBtn" onclick="refreshForYou()">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 4 23 10 17 10" />
+                            <polyline points="1 20 1 14 7 14" />
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                        </svg>
                         Refresh
                     </button>
                     <a href="pages/browse.html" class="section-link">View all &#x2192;</a>
                 </div>
             </div>
             <div id="foryouGrid" class="myth-grid">
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
-                <div class="skeleton-card"><div class="skeleton sk-tag"></div><div class="skeleton sk-title"></div><div class="skeleton sk-title2"></div><div class="skeleton sk-badge"></div></div>
+                <div class="skeleton-card">
+                    <div class="skeleton sk-tag"></div>
+                    <div class="skeleton sk-title"></div>
+                    <div class="skeleton sk-title2"></div>
+                    <div class="skeleton sk-badge"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton sk-tag"></div>
+                    <div class="skeleton sk-title"></div>
+                    <div class="skeleton sk-title2"></div>
+                    <div class="skeleton sk-badge"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton sk-tag"></div>
+                    <div class="skeleton sk-title"></div>
+                    <div class="skeleton sk-title2"></div>
+                    <div class="skeleton sk-badge"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton sk-tag"></div>
+                    <div class="skeleton sk-title"></div>
+                    <div class="skeleton sk-title2"></div>
+                    <div class="skeleton sk-badge"></div>
+                </div>
             </div>
             <div id="foryouPagination" class="pagination"></div>
         </div>
@@ -266,13 +906,25 @@
     <section class="about-strip">
         <div class="container">
             <h2>What is Food Myth Buster?</h2>
-            <p>Food Myth Buster turns confusing food claims into clear, science-backed answers. Each myth page combines a verdict, detailed explanation, linked studies, and community feedback.</p>
+            <p>Food Myth Buster turns confusing food claims into clear, science-backed answers. Each myth page combines
+                a verdict, detailed explanation, linked studies, and community feedback.</p>
             <p>Browse the library, search for any claim, or submit a myth you want verified.</p>
             <div class="about-cards">
-                <div class="about-card"><div class="aicon">🔬</div><h4>Evidence first</h4><p>Verdicts built around peer-reviewed studies.</p></div>
-                <div class="about-card"><div class="aicon">📚</div><h4>Myth library</h4><p>Browse myths by category, verdict, or search.</p></div>
-                <div class="about-card"><div class="aicon">👥</div><h4>Community input</h4><p>Submit myths, bookmark favourites, and vote.</p></div>
-                <div class="about-card"><div class="aicon">⚡</div><h4>AI-assisted search</h4><p>Claims not in our DB get an AI answer on demand.</p></div>
+                <div class="about-card">
+                    <div class="aicon">🔬</div>
+                    <h4>Evidence first</h4>
+                    <p>Verdicts built around peer-reviewed studies.</p>
+                </div>
+                <div class="about-card">
+                    <div class="aicon">📚</div>
+                    <h4>Myth library</h4>
+                    <p>Browse myths by category, verdict, or search.</p>
+                </div>
+                <div class="about-card">
+                    <div class="aicon">👥</div>
+                    <h4>Community input</h4>
+                    <p>Submit myths, bookmark favourites, and vote.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -295,7 +947,7 @@
         var volIcon = document.getElementById('volIcon');
 
         var ICON_MUTED = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
-        var ICON_LOUD  = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
+        var ICON_LOUD = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
 
         function toggleMute() {
             video.muted = !video.muted;
@@ -316,7 +968,7 @@
         var foryouPage = 1;
 
         function getPrefs() {
-            try { return JSON.parse(localStorage.getItem('fmb_prefs') || '{}'); } catch(e) { return {}; }
+            try { return JSON.parse(localStorage.getItem('fmb_prefs') || '{}'); } catch (e) { return {}; }
         }
 
         function trackClick(myth) {
@@ -329,7 +981,7 @@
             p.lastVisited = p.lastVisited || [];
             if (p.lastVisited.indexOf(myth.id) === -1) p.lastVisited.unshift(myth.id);
             if (p.lastVisited.length > 30) p.lastVisited = p.lastVisited.slice(0, 30);
-            try { localStorage.setItem('fmb_prefs', JSON.stringify(p)); } catch(e) {}
+            try { localStorage.setItem('fmb_prefs', JSON.stringify(p)); } catch (e) { }
         }
 
         function buildForYouPool(myths) {
@@ -340,18 +992,18 @@
             var hasPref = Object.keys(cats).length > 0;
             if (!hasPref) {
                 document.getElementById('foryouHint').textContent = 'Browse myths to personalise';
-                return myths.slice().sort(function() { return Math.random() - 0.5; });
+                return myths.slice().sort(function () { return Math.random() - 0.5; });
             }
             document.getElementById('foryouHint').textContent = 'Based on what you browse';
-            var totalC = Object.values(cats).reduce(function(a,b){return a+b;},0)||1;
-            var totalV = Object.values(verdicts).reduce(function(a,b){return a+b;},0)||1;
-            var scored = myths.map(function(m) {
+            var totalC = Object.values(cats).reduce(function (a, b) { return a + b; }, 0) || 1;
+            var totalV = Object.values(verdicts).reduce(function (a, b) { return a + b; }, 0) || 1;
+            var scored = myths.map(function (m) {
                 var slug = m.categories ? m.categories.slug : 'general';
-                var score = ((cats[slug]||0)/totalC)*60 + ((verdicts[m.verdict]||0)/totalV)*30 + (visited.indexOf(m.id)===-1?10:0) + Math.random()*20;
+                var score = ((cats[slug] || 0) / totalC) * 60 + ((verdicts[m.verdict] || 0) / totalV) * 30 + (visited.indexOf(m.id) === -1 ? 10 : 0) + Math.random() * 20;
                 return { m: m, s: score };
             });
-            scored.sort(function(a,b){return b.s-a.s;});
-            return scored.map(function(x){return x.m;});
+            scored.sort(function (a, b) { return b.s - a.s; });
+            return scored.map(function (x) { return x.m; });
         }
 
         async function loadData() {
@@ -370,7 +1022,7 @@
             btn.classList.add('spinning');
             foryouFiltered = buildForYouPool(allMyths);
             renderSection('foryou', 1, true);
-            setTimeout(function(){btn.classList.remove('spinning');}, 600);
+            setTimeout(function () { btn.classList.remove('spinning'); }, 600);
         }
 
         function renderSection(which, page, animate) {
@@ -378,22 +1030,22 @@
             var gridId = which + 'Grid';
             var pagId = which + 'Pagination';
             if (which === 'popular') popularPage = page; else foryouPage = page;
-            var items = filtered.slice((page-1)*PER_PAGE, page*PER_PAGE);
+            var items = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
             var grid = document.getElementById(gridId);
 
             function doRender() {
                 grid.classList.remove('fade-out');
                 grid.innerHTML = '';
-                items.forEach(function(myth, i) {
+                items.forEach(function (myth, i) {
                     var card = document.createElement('div');
                     card.className = 'myth-card v-' + myth.verdict;
-                    card.style.animation = 'fadeInUp 0.35s ease ' + (i*0.06) + 's both';
-                    card.onclick = function() { trackClick(myth); window.location.href = 'pages/detail.html?id=' + myth.id; };
+                    card.style.animation = 'fadeInUp 0.35s ease ' + (i * 0.06) + 's both';
+                    card.onclick = function () { trackClick(myth); window.location.href = 'pages/detail.html?id=' + myth.id; };
                     var vl = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
                     card.innerHTML =
-                        '<div class="cat-tag">' + (myth.categories?myth.categories.icon||'':'') + ' ' + (myth.categories?myth.categories.name:'General') + '</div>' +
+                        '<div class="cat-tag">' + (myth.categories ? myth.categories.icon || '' : '') + ' ' + (myth.categories ? myth.categories.name : 'General') + '</div>' +
                         '<h3>' + myth.title + '</h3>' +
-                        '<div class="cta"><span class="verdict-badge verdict-' + myth.verdict + '">' + vl + '</span><span>&#x1F441; ' + (myth.views||0) + '</span></div>';
+                        '<div class="cta"><span class="verdict-badge verdict-' + myth.verdict + '">' + vl + '</span><span>&#x1F441; ' + (myth.views || 0) + '</span></div>';
                     grid.appendChild(card);
                 });
                 renderPagination(which, filtered.length, page);
@@ -412,32 +1064,32 @@
             var pages = buildPageNums(cur, tp);
             bar.innerHTML = '';
             var prev = document.createElement('button');
-            prev.className = 'page-btn'; prev.textContent = '←'; prev.disabled = cur===1;
-            prev.onclick = function(){ if(cur>1) renderSection(which, cur-1, true); };
+            prev.className = 'page-btn'; prev.textContent = '←'; prev.disabled = cur === 1;
+            prev.onclick = function () { if (cur > 1) renderSection(which, cur - 1, true); };
             bar.appendChild(prev);
-            pages.forEach(function(p) {
+            pages.forEach(function (p) {
                 var btn = document.createElement('button');
-                if (p==='...') { btn.className='page-btn dots'; btn.textContent='…'; }
+                if (p === '...') { btn.className = 'page-btn dots'; btn.textContent = '…'; }
                 else {
-                    btn.className='page-btn'+(p===cur?' active':'');
-                    btn.textContent=p;
-                    btn.onclick=(function(pg){return function(){if(pg!==cur)renderSection(which,pg,true);};})(p);
+                    btn.className = 'page-btn' + (p === cur ? ' active' : '');
+                    btn.textContent = p;
+                    btn.onclick = (function (pg) { return function () { if (pg !== cur) renderSection(which, pg, true); }; })(p);
                 }
                 bar.appendChild(btn);
             });
             var next = document.createElement('button');
-            next.className='page-btn'; next.innerHTML='&#x2192;'; next.disabled=cur===tp;
-            next.onclick=function(){if(cur<tp)renderSection(which,cur+1,true);};
+            next.className = 'page-btn'; next.innerHTML = '&#x2192;'; next.disabled = cur === tp;
+            next.onclick = function () { if (cur < tp) renderSection(which, cur + 1, true); };
             bar.appendChild(next);
         }
 
         function buildPageNums(cur, total) {
-            if (total<=7){var r=[];for(var i=1;i<=total;i++)r.push(i);return r;}
-            var pages=[1];
-            if(cur>3)pages.push('...');
-            var s=Math.max(2,cur-1),e=Math.min(total-1,cur+1);
-            for(var i=s;i<=e;i++)pages.push(i);
-            if(cur<total-2)pages.push('...');
+            if (total <= 7) { var r = []; for (var i = 1; i <= total; i++)r.push(i); return r; }
+            var pages = [1];
+            if (cur > 3) pages.push('...');
+            var s = Math.max(2, cur - 1), e = Math.min(total - 1, cur + 1);
+            for (var i = s; i <= e; i++)pages.push(i);
+            if (cur < total - 2) pages.push('...');
             pages.push(total);
             return pages;
         }
@@ -447,33 +1099,34 @@
             if (!res.data) return;
             var grid = document.getElementById('categoryGrid');
             grid.innerHTML = '';
-            var enriched = await Promise.all(res.data.map(async function(cat) {
-                var r = await sb.from('myths').select('id',{count:'exact',head:true}).eq('category_id',cat.id);
-                return {cat:cat, count:r.count||0};
+            var enriched = await Promise.all(res.data.map(async function (cat) {
+                var r = await sb.from('myths').select('id', { count: 'exact', head: true }).eq('category_id', cat.id);
+                return { cat: cat, count: r.count || 0 };
             }));
-            enriched.forEach(function(item,i) {
+            enriched.forEach(function (item, i) {
                 var card = document.createElement('div');
                 card.className = 'category-card';
-                card.style.backgroundColor = item.cat.color+'12';
-                card.style.borderColor = item.cat.color+'40';
-                card.style.animationDelay = (i*0.07)+'s';
-                card.onclick = function(){ window.location.href='pages/browse.html?category='+item.cat.slug; };
-                card.innerHTML = '<div class="icon">'+item.cat.icon+'</div><h3 style="color:'+item.cat.color+'">'+item.cat.name+'</h3><p class="count">'+item.count+' myths</p>';
+                card.style.backgroundColor = item.cat.color + '12';
+                card.style.borderColor = item.cat.color + '40';
+                card.style.animationDelay = (i * 0.07) + 's';
+                card.onclick = function () { window.location.href = 'pages/browse.html?category=' + item.cat.slug; };
+                card.innerHTML = '<div class="icon">' + item.cat.icon + '</div><h3 style="color:' + item.cat.color + '">' + item.cat.name + '</h3><p class="count">' + item.count + ' myths</p>';
                 grid.appendChild(card);
             });
         }
 
-        document.getElementById('searchBtn').addEventListener('click', function() {
+        document.getElementById('searchBtn').addEventListener('click', function () {
             var q = document.getElementById('searchInput').value.trim();
             if (q) window.location.href = 'pages/search.html?q=' + encodeURIComponent(q);
         });
 
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key==='Enter') document.getElementById('searchBtn').click();
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') document.getElementById('searchBtn').click();
         });
 
         loadData();
         loadCategories();
     </script>
 </body>
+
 </html>
