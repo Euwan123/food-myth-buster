@@ -22,13 +22,15 @@ nav a:hover{background:rgba(124,107,255,0.15);color:var(--text);}
 .mobile-nav.open{display:flex;}
 .mobile-nav a,.mobile-nav button{display:block;padding:13px 16px;border-radius:10px;color:var(--text);text-decoration:none;font-size:15px;font-weight:500;text-align:left;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;transition:background 0.2s;}
 .mobile-nav a:hover{background:rgba(124,107,255,0.12);}
-.profile-cover-wrap{position:relative;height:200px;background:linear-gradient(135deg,#1a1040 0%,#0f0d20 100%);overflow:hidden;cursor:pointer;}
-.profile-cover-wrap img.cover-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
-.cover-hover{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background 0.2s;display:flex;align-items:center;justify-content:center;}
-.profile-cover-wrap:hover .cover-hover{background:rgba(0,0,0,0.35);}
-.cover-hint{opacity:0;font-size:13px;font-weight:600;color:white;background:rgba(0,0,0,0.5);padding:8px 18px;border-radius:20px;transition:opacity 0.2s;display:flex;align-items:center;gap:7px;}
-.profile-cover-wrap:hover .cover-hint{opacity:1;}
-.profile-hero{background:linear-gradient(to bottom,#12102a,#0f0d1e);padding:0 0 28px;}
+.profile-hero{
+    background:linear-gradient(to bottom,#12102a,#0f0d1e);
+    background-size:cover;
+    background-position:center;
+    padding:120px 0 28px; /* taller to make room for cover */
+    position:relative;
+}
+.cover-edit-btn{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.5);color:white;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;}
+.cover-edit-btn:hover{background:rgba(0,0,0,0.7);}
 .hero-row{display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;padding:0 24px;}
 .av-wrap{position:relative;width:88px;height:88px;flex-shrink:0;margin-top:-44px;}
 .av-ring{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#7c6bff,#9b59b6);border:4px solid #0f0d1e;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:white;font-family:'Sora',sans-serif;overflow:hidden;}
@@ -193,7 +195,7 @@ function render() {
     var dn = (profile && profile.display_name) || (u.user_metadata && u.user_metadata.full_name) || u.email.split('@')[0];
     var letter = dn.charAt(0).toUpperCase();
     var avatarHTML = (profile && profile.avatar_url) ? '<img src="' + profile.avatar_url + '" alt="avatar">' : letter;
-    var coverHTML = (profile && profile.cover_photo) ? '<img class="cover-img" src="' + profile.cover_photo + '" alt="cover">' : '';
+    var coverUrl = (profile && profile.cover_photo) ? profile.cover_photo : '';
     var isAdmin = (u.user_metadata && u.user_metadata.role === 'admin') || (profile && profile.is_admin);
     var joinDate = new Date(u.created_at).toLocaleDateString('en-US', {year:'numeric',month:'long'});
     var approved = submissions.filter(function(s){return s.status === 'APPROVED';}).length;
@@ -204,11 +206,8 @@ function render() {
     }).join('');
 
     var html =
-        '<div class="profile-cover-wrap" onclick="document.getElementById(\'coverInput\').click()" title="Change cover photo">' +
-            coverHTML +
-            '<div class="cover-hover"><div class="cover-hint">&#x1F4F7; Change Cover Photo</div></div>' +
-        '</div>' +
-        '<div class="profile-hero">' +
+        '<div class="profile-hero" ' + (coverUrl ? 'style="background-image:url(' + coverUrl + ');"' : '') + '>' +
+            '<button class="cover-edit-btn" onclick="document.getElementById(\'coverInput\').click()" title="Change cover photo">&#x1F4F7;</button>' +
             '<div class="hero-row">' +
                 '<div class="av-wrap">' +
                     '<div class="av-ring">' + avatarHTML + '</div>' +
@@ -349,27 +348,19 @@ async function uploadCover(input) {
     if (file.size > 5242880) { alert('Cover image must be under 5MB'); return; }
     var ext = file.name.split('.').pop();
     var path = currentUser.id + '/cover.' + ext;
-    var res = await sb.storage.from('avatars').upload(path, file, {upsert: true});
+    var res = await sb.storage.from('covers').upload(path, file, {upsert: true});
     if (res.error) { alert('Upload failed: ' + res.error.message); return; }
-    var url = SUPABASE_URL + '/storage/v1/object/public/avatars/' + path + '?t=' + Date.now();
+    var url = SUPABASE_URL + '/storage/v1/object/public/covers/' + path + '?t=' + Date.now();
     await sb.from('user_profiles').upsert({id: currentUser.id, cover_photo: url}, {onConflict: 'id'});
     if (!profile) profile = {};
     profile.cover_photo = url;
-    var wrap = document.querySelector('.profile-cover-wrap');
-    if (wrap) {
-        var existing = wrap.querySelector('.cover-img');
-        if (existing) { existing.src = url; }
-        else {
-            var img = document.createElement('img');
-            img.className = 'cover-img'; img.src = url; img.alt = 'cover';
-            wrap.insertBefore(img, wrap.firstChild);
-        }
+    var hero = document.querySelector('.profile-hero');
+    if (hero) {
+        hero.style.backgroundImage = 'url(' + url + ')';
     }
 }
 
-async function saveProfile() {
-    var btn = document.getElementById('saveBtn');
-    var nameVal = (document.getElementById('editName').value || '').trim();
+    async function saveProfile() {
     var bioVal = document.getElementById('editBio').value.trim();
     var bdayVal = document.getElementById('editBirthday').value;
     var genderVal = document.getElementById('editGender').value;

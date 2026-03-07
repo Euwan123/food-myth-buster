@@ -180,6 +180,7 @@
     <script src="../js/auth.js"></script>
     <script src="../js/theme.js"></script>
     <script>
+        const ANTHROPIC_KEY = '<YOUR_API_KEY_HERE>';
         var urlParams = new URLSearchParams(window.location.search);
         var currentQuery = urlParams.get('q') || '';
         var allResults = [];
@@ -187,6 +188,11 @@
         var activeCategories = [];
 
         document.getElementById('searchInput').value = currentQuery;
+        var _del;
+        document.getElementById('searchInput').addEventListener('input', function() {
+            clearTimeout(_del);
+            _del = setTimeout(function(){ document.getElementById('searchBtn').click(); }, 300);
+        });
 
         async function loadCategories() {
             var res = await sb.from('categories').select('*').order('name');
@@ -302,7 +308,7 @@
             try {
                 var response = await fetch('https://api.anthropic.com/v1/messages', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'x-api-key': ANTHROPIC_KEY },
                     body: JSON.stringify({
                         model: 'claude-sonnet-4-20250514',
                         max_tokens: 1000,
