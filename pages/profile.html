@@ -922,13 +922,10 @@
             </select>
           </div>
           <div class="form-group"><label>Country</label>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <select id="editCountry" onchange="updateFlag(this)">
-                <option value="">Select country</option>
-                ${countryOptions}
-              </select>
-              <span id="flagPreview" style="font-size:1.2em;line-height:1.3;"></span>
-            </div>
+            <select id="editCountry" onchange="updateFlag(this)">
+              <option value="">Select country</option>
+              ${countryOptions}
+            </select>
           </div>
           <button class="save-btn" id="saveBtn" onclick="saveProfile()">Save Changes</button>
         </div>
@@ -947,9 +944,6 @@
   </div>`;
 
       document.getElementById('appRoot').innerHTML = html;
-      // ensure flag preview shows current selection
-      var countryEl = document.getElementById('editCountry');
-      if (countryEl) updateFlag(countryEl);
     }
 
     function renderBookmarks() {
@@ -1004,11 +998,8 @@
     }
 
     function updateFlag(sel) {
-      if (!sel) return;
       var opt = sel.options[sel.selectedIndex];
-      var flag = opt && opt.dataset && opt.dataset.flag ? opt.dataset.flag : '';
-      var prev = document.getElementById('flagPreview');
-      if (prev) prev.textContent = flag;
+      document.getElementById('editName'); 
     }
 
     async function saveProfile() {

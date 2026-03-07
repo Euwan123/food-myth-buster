@@ -184,7 +184,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
-    <!-- theme already included in head -->
+    <script src="../js/theme.js"></script>
     <script>
         var pollsData = [];
         var userVotedPolls = new Set();
@@ -223,8 +223,6 @@
 
             pollsData.forEach(function(poll, idx) {
                 var total = poll.total_votes || (poll.votes1 + poll.votes2 + (poll.votes3 || 0) + (poll.votes4 || 0));
-                // cache total_votes for rows that lack it
-                poll.total_votes = total;
                 var options = [
                     { text: poll.option1, votes: poll.votes1 },
                     { text: poll.option2, votes: poll.votes2 },
@@ -298,7 +296,6 @@
             var poll = pollsData.find(function(p) { return p.id === pollId; });
             if (poll) {
                 poll[voteField] = (poll[voteField] || 0) + 1;
-                // ensure total_votes exists (older rows may not have it)
                 poll.total_votes = (poll.total_votes || 0) + 1;
             }
 

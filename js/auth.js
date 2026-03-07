@@ -119,9 +119,4 @@ window.addEventListener('message', function(e) {
     if (e.data === 'auth:success') { closeAuthOverlay(); window.location.reload(); }
 });
 
-// re-run when the Supabase auth state changes (e.g. after magic link)
-sb.auth.onAuthStateChange(function(event, sess) {
-    if (_authReady) checkAuth();
-});
-
 checkAuth();
