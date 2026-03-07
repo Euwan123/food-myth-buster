@@ -66,6 +66,8 @@
         .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 10px; }
         .card-top h3 { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 700; line-height: 1.35; color: var(--text); flex: 1; }
         .card-top h3 mark { background: #fff3cd; color: var(--text); border-radius: 3px; padding: 0 2px; }
+        /* make highlights readable in dark mode */
+        body.dark .card-top h3 mark { background: rgba(255,255,255,0.1); color: var(--text); border-radius: 3px; padding: 0 2px; }
         .verdict-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; font-family: 'Sora', sans-serif; white-space: nowrap; flex-shrink: 0; }
         .pill-TRUE { background: #d1fae5; color: #065f46; border: 1.5px solid #6ee7b7; }
         .pill-FALSE { background: #fee2e2; color: #7f1d1d; border: 1.5px solid #fca5a5; }

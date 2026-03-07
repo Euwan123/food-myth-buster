@@ -710,6 +710,23 @@
             border-color: var(--primary);
             color: var(--primary);
         }
+        /* dark-theme share hover keeps the text light for legibility */
+        body.dark .share-btn:hover {
+            color: var(--text);
+            border-color: var(--primary);
+        }
+        /* ensure share button text stays high contrast in dark mode */
+        body.dark .share-btn { color: var(--text); }
+        /* text label for category in quick facts/sidebar */
+        .category-label {
+            font-size:12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        /* dark-mode highlight for any <mark> elements in this page as well */
+        body.dark .card-top h3 mark { background: rgba(255,255,255,0.1); color: var(--text); }
 
         .related-myth {
             display: flex;
@@ -970,7 +987,7 @@
                 '<section class="detail-hero">' +
                 '<div class="container"><div class="hero-inner">' +
                 '<div class="breadcrumb"><a href="../index.html">Home</a> → <a href="browse.html">Browse</a> → <a href="browse.html?category=' + (myth.categories ? myth.categories.slug : '') + '">' + (myth.categories ? myth.categories.name : 'General') + '</a></div>' +
-                '<div style="font-size:12px;opacity:0.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">' + (myth.categories ? (myth.categories.icon || '') : '') + ' ' + (myth.categories ? myth.categories.name : '') + '</div>' +
+                '<div class="category-label">' + (myth.categories ? (myth.categories.icon || '') : '') + ' ' + (myth.categories ? myth.categories.name : '') + '</div>' +
                 '<h1>' + myth.title + '</h1>' +
                 '<div class="hero-meta">' +
                 '<span class="verdict-badge verdict-' + myth.verdict + '">' + verdictLabel + '</span>' +
