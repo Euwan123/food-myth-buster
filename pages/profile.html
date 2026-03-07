@@ -1,1029 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>My Profile - Food Myth Buster</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-  <style>
-    
-    ::-webkit-scrollbar {
-      width: 6px
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--surface)
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #3a3560;
-      border-radius: 3px
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    header {
-      background: rgba(13, 11, 30, 0.97);
-      backdrop-filter: blur(16px);
-      padding: 14px 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid var(--border);
-    }
-
-    header .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      font-family: 'Sora', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #7c6bff, #c77dff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-decoration: none;
-    }
-
-    nav {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      padding: 7px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-
-    nav a:hover {
-      background: rgba(124, 107, 255, 0.15);
-      color: var(--text);
-    }
-
-    .btn-login {
-      background: linear-gradient(135deg, #7c6bff, #9b6bff);
-      color: white;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 9px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'DM Sans', sans-serif;
-    }
-
-    .btn-login:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(124, 107, 255, 0.4);
-    }
-
-    .profile-hero {
-      background: linear-gradient(135deg, #1a1530 0%, #0f0d20 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 48px 24px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .profile-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 30% 50%, rgba(124, 107, 255, 0.12), transparent 60%);
-    }
-
-    .hero-content {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      flex-wrap: wrap;
-    }
-
-    .avatar-wrap {
-      position: relative;
-      width: 96px;
-      height: 96px;
-      flex-shrink: 0;
-    }
-
-    .avatar-ring {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #7c6bff, #9b59b6);
-      border: 3px solid rgba(124, 107, 255, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 36px;
-      font-weight: 800;
-      color: white;
-      font-family: 'Sora', sans-serif;
-      overflow: hidden;
-    }
-
-    .avatar-ring img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-
-    .avatar-edit-btn {
-      position: absolute;
-      bottom: 2px;
-      right: 2px;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #7c6bff;
-      border: 2px solid var(--surface);
-      color: white;
-      font-size: 13px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .avatar-edit-btn:hover {
-      background: #6254e8;
-      transform: scale(1.1);
-    }
-
-    #avatarInput {
-      display: none;
-    }
-
-    .hero-text h1 {
-      font-family: 'Sora', sans-serif;
-      font-size: 26px;
-      font-weight: 800;
-      color: white;
-      margin-bottom: 4px;
-      letter-spacing: -0.5px;
-    }
-
-    .hero-text .email {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-
-    .hero-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .hero-badge {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 3px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .hero-badge.admin {
-      background: rgba(255, 215, 0, 0.15);
-      border-color: rgba(255, 215, 0, 0.3);
-      color: #ffd700;
-    }
-
-    .logout-btn {
-      margin-left: auto;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.7);
-      padding: 8px 18px;
-      border-radius: 9px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      transition: all 0.2s;
-    }
-
-    .logout-btn:hover {
-      background: rgba(255, 92, 107, 0.15);
-      border-color: rgba(255, 92, 107, 0.3);
-      color: #ff5c6b;
-    }
-
-    .stats-strip {
-      background: #0f0d1e;
-      border-bottom: 1px solid var(--border);
-      margin-top: -36px;
-      position: relative;
-      z-index: 10;
-      border-radius: 20px 20px 0 0;
-    }
-
-    .stats-strip .container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .stat-item {
-      padding: 22px 20px;
-      text-align: center;
-      border-right: 1px solid var(--border);
-    }
-
-    .stat-item:last-child {
-      border-right: none;
-    }
-
-    .stat-num {
-      font-family: 'Sora', sans-serif;
-      font-size: 24px;
-      font-weight: 800;
-      color: #7c6bff;
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 2px;
-    }
-
-    .profile-layout {
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 24px;
-      padding: 28px 0 60px;
-      align-items: start;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 20px;
-    }
-
-    .tab-btn {
-      padding: 10px 20px;
-      border: none;
-      background: transparent;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: all 0.2s;
-      font-family: 'DM Sans', sans-serif;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .tab-btn:hover {
-      color: var(--text);
-    }
-
-    .tab-btn.active {
-      color: #7c6bff;
-      border-bottom-color: #7c6bff;
-    }
-
-    .tab-count {
-      background: rgba(124, 107, 255, 0.15);
-      color: #7c6bff;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 20px;
-    }
-
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
-    .myth-bcard {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-      overflow: hidden;
-      animation: fadeIn 0.3s ease both;
-    }
-
-    .myth-bcard::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-    }
-
-    .myth-bcard.v-TRUE::before {
-      background: var(--true);
-    }
-
-    .myth-bcard.v-FALSE::before {
-      background: var(--false);
-    }
-
-    .myth-bcard.v-PARTIAL::before {
-      background: var(--partial);
-    }
-
-    .myth-bcard:hover {
-      border-color: #3a3560;
-      background: #1a1730;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .myth-bcard-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 6px;
-    }
-
-    .myth-bcard-title {
-      font-family: 'Sora', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      flex: 1;
-      line-height: 1.4;
-    }
-
-    .myth-bcard-meta {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .remove-bm {
-      background: none;
-      border: none;
-      font-size: 15px;
-      cursor: pointer;
-      padding: 2px 5px;
-      border-radius: 6px;
-      color: var(--text-muted);
-      transition: all 0.2s;
-      opacity: 0;
-    }
-
-    .myth-bcard:hover .remove-bm {
-      opacity: 1;
-    }
-
-    .remove-bm:hover {
-      background: rgba(255, 92, 107, 0.15);
-      color: var(--false);
-    }
-
-    .verdict-badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: 700;
-      font-size: 10px;
-      font-family: 'Sora', sans-serif;
-    }
-
-    .verdict-TRUE {
-      background: rgba(16, 217, 136, 0.12);
-      color: #10d988;
-      border: 1px solid rgba(16, 217, 136, 0.25);
-    }
-
-    .verdict-FALSE {
-      background: rgba(255, 92, 107, 0.12);
-      color: #ff5c6b;
-      border: 1px solid rgba(255, 92, 107, 0.25);
-    }
-
-    .verdict-PARTIAL {
-      background: rgba(255, 179, 71, 0.12);
-      color: #ffb347;
-      border: 1px solid rgba(255, 179, 71, 0.25);
-    }
-
-    .sub-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 12px;
-      animation: fadeIn 0.3s ease both;
-    }
-
-    .status-pill {
-      font-size: 10px;
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .status-PENDING {
-      background: rgba(255, 179, 71, 0.12);
-      color: #ffb347;
-      border: 1px solid rgba(255, 179, 71, 0.25);
-    }
-
-    .status-APPROVED {
-      background: rgba(16, 217, 136, 0.12);
-      color: #10d988;
-      border: 1px solid rgba(16, 217, 136, 0.25);
-    }
-
-    .status-REJECTED {
-      background: rgba(255, 92, 107, 0.12);
-      color: #ff5c6b;
-      border: 1px solid rgba(255, 92, 107, 0.25);
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 50px 20px;
-      background: var(--card);
-      border-radius: 14px;
-      border: 1px dashed var(--border);
-    }
-
-    .empty-state .emoji {
-      font-size: 44px;
-      margin-bottom: 10px;
-    }
-
-    .empty-state h3 {
-      font-family: 'Sora', sans-serif;
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-
-    .empty-state p {
-      color: var(--text-muted);
-      font-size: 13px;
-      margin-bottom: 16px;
-    }
-
-    .empty-state a {
-      display: inline-block;
-      padding: 9px 20px;
-      background: #7c6bff;
-      color: white;
-      border-radius: 9px;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .sidebar-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-
-    .sidebar-card-title {
-      font-family: 'Sora', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .account-row {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .account-row:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .account-label {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 2px;
-    }
-
-    .account-value {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-      word-break: break-all;
-    }
-
-    .edit-section {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 16px;
-    }
-
-    .edit-section h3 {
-      font-family: 'Sora', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 10px 14px;
-      background: #0d0b1e;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      font-size: 13px;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      transition: border-color 0.2s;
-      outline: none;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: #7c6bff;
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 72px;
-    }
-
-    .form-group select option {
-      background: #1a1530;
-    }
-
-    .save-btn {
-      width: 100%;
-      padding: 11px;
-      border-radius: 9px;
-      border: none;
-      background: linear-gradient(135deg, #7c6bff, #9b6bff);
-      color: white;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      transition: all 0.2s;
-      margin-top: 4px;
-    }
-
-    .save-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(124, 107, 255, 0.35);
-    }
-
-    .save-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .alert {
-      padding: 10px 14px;
-      border-radius: 9px;
-      font-size: 13px;
-      margin-bottom: 12px;
-    }
-
-    .alert-success {
-      background: rgba(16, 217, 136, 0.1);
-      border: 1px solid rgba(16, 217, 136, 0.2);
-      color: #10d988;
-    }
-
-    .alert-error {
-      background: rgba(255, 92, 107, 0.1);
-      border: 1px solid rgba(255, 92, 107, 0.2);
-      color: #ff5c6b;
-    }
-
-    .not-logged-in {
-      text-align: center;
-      padding: 100px 20px;
-    }
-
-    .not-logged-in h2 {
-      font-family: 'Sora', sans-serif;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .not-logged-in p {
-      color: var(--text-muted);
-      margin-bottom: 20px;
-    }
-
-    .not-logged-in button {
-      padding: 12px 26px;
-      background: #7c6bff;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: 'Sora', sans-serif;
-    }
-
-    footer {
-      background: #080714;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 24px 0;
-      text-align: center;
-      font-size: 13px;
-    }
-
-    footer p {
-      margin: 3px 0;
-    }
-
-    .flag-row {
-      display: flex;
-      gap: 8px;
-    }
-
-    .flag-row input {
-      width: 80px;
-    }
-
-    .flag-row input+input {
-      flex: 1;
-    }
-
-    @media(max-width:900px) {
-      .profile-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-strip .container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .stat-item:nth-child(2) {
-        border-right: none;
-      }
-
-      .hero-content {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .logout-btn {
-        margin-left: 0;
-      }
-    }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>My Profile - Food Myth Buster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/theme.js" data-load-before-render="true"></script>
+<style>
+.container{max-width:1300px;margin:0 auto;padding:0 24px;}
+header{background:rgba(13,11,30,0.97);backdrop-filter:blur(16px);padding:14px 0;position:sticky;top:0;z-index:1000;border-bottom:1px solid var(--border);}
+header .container{display:flex;justify-content:space-between;align-items:center;gap:12px;}
+.logo{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;background:linear-gradient(135deg,#7c6bff,#c77dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+nav{display:flex;gap:8px;align-items:center;}
+nav a{color:var(--text-muted);text-decoration:none;padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;transition:all 0.2s;}
+nav a:hover{background:rgba(124,107,255,0.15);color:var(--text);}
+.btn-login{background:var(--primary);color:white;border:none;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.btn-secondary{background:rgba(124,107,255,0.12);border:1px solid rgba(124,107,255,0.3);color:#9b8fff;border-radius:9px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.3s;display:inline-flex;align-items:center;min-width:38px;}
+.hamburger{display:none;background:none;border:1.5px solid var(--border);border-radius:8px;padding:7px 10px;cursor:pointer;color:var(--text);font-size:18px;line-height:1;}
+.mobile-nav{display:none;position:fixed;inset:0;top:57px;background:rgba(13,11,30,0.98);backdrop-filter:blur(16px);z-index:999;flex-direction:column;padding:20px 24px;gap:4px;border-top:1px solid var(--border);}
+.mobile-nav.open{display:flex;}
+.mobile-nav a,.mobile-nav button{display:block;padding:13px 16px;border-radius:10px;color:var(--text);text-decoration:none;font-size:15px;font-weight:500;text-align:left;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;transition:background 0.2s;}
+.mobile-nav a:hover{background:rgba(124,107,255,0.12);}
+.profile-cover-wrap{position:relative;height:200px;background:linear-gradient(135deg,#1a1040 0%,#0f0d20 100%);overflow:hidden;cursor:pointer;}
+.profile-cover-wrap img.cover-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+.cover-hover{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background 0.2s;display:flex;align-items:center;justify-content:center;}
+.profile-cover-wrap:hover .cover-hover{background:rgba(0,0,0,0.35);}
+.cover-hint{opacity:0;font-size:13px;font-weight:600;color:white;background:rgba(0,0,0,0.5);padding:8px 18px;border-radius:20px;transition:opacity 0.2s;display:flex;align-items:center;gap:7px;}
+.profile-cover-wrap:hover .cover-hint{opacity:1;}
+.profile-hero{background:linear-gradient(to bottom,#12102a,#0f0d1e);padding:0 0 28px;}
+.hero-row{display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;padding:0 24px;}
+.av-wrap{position:relative;width:88px;height:88px;flex-shrink:0;margin-top:-44px;}
+.av-ring{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#7c6bff,#9b59b6);border:4px solid #0f0d1e;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:white;font-family:'Sora',sans-serif;overflow:hidden;}
+.av-ring img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.av-edit{position:absolute;bottom:2px;right:2px;width:26px;height:26px;border-radius:50%;background:#7c6bff;border:2px solid #0f0d1e;color:white;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.av-edit:hover{background:#6254e8;}
+.hero-text{flex:1;padding-bottom:4px;}
+.hero-text h1{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:white;margin-bottom:4px;}
+.hero-text .hemail{color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:8px;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.hbadge{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);padding:3px 12px;border-radius:20px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.8);}
+.hbadge.admin{background:rgba(255,215,0,0.15);border-color:rgba(255,215,0,0.3);color:#ffd700;}
+.logout-btn{margin-left:auto;align-self:flex-start;margin-top:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);padding:7px 16px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.logout-btn:hover{background:rgba(255,92,107,0.15);border-color:rgba(255,92,107,0.3);color:#ff5c6b;}
+.stats-strip{background:#0f0d1e;border-bottom:1px solid var(--border);}
+.stats-strip .container{display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{padding:18px;text-align:center;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-n{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#7c6bff;display:block;}
+.stat-l{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.4px;margin-top:2px;}
+.profile-body{display:grid;grid-template-columns:1fr 290px;gap:24px;padding:28px 0 60px;}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.tab-btn{padding:10px 18px;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:#7c6bff;border-bottom-color:#7c6bff;}
+.tab-count{background:rgba(124,107,255,0.15);color:#7c6bff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:20px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.myth-bcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;animation:fadeInUp 0.3s ease both;}
+.myth-bcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
+.myth-bcard.v-TRUE::before{background:var(--true);}
+.myth-bcard.v-FALSE::before{background:var(--false);}
+.myth-bcard.v-PARTIAL::before{background:var(--partial);}
+.myth-bcard:hover{border-color:#3a3560;}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.bcard-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;}
+.bcard-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;flex:1;line-height:1.4;}
+.rm-bm{background:none;border:none;font-size:14px;cursor:pointer;padding:2px 5px;border-radius:6px;color:var(--text-muted);transition:all 0.2s;opacity:0;}
+.myth-bcard:hover .rm-bm{opacity:1;}
+.rm-bm:hover{background:rgba(255,92,107,0.15);color:var(--false);}
+.bcard-meta{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--text-muted);}
+.verdict-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-weight:700;font-size:11px;font-family:'Sora',sans-serif;}
+.verdict-TRUE{background:rgba(16,217,136,0.12);color:#10d988;border:1px solid rgba(16,217,136,0.25);}
+.verdict-FALSE{background:rgba(255,92,107,0.12);color:#ff5c6b;border:1px solid rgba(255,92,107,0.25);}
+.verdict-PARTIAL{background:rgba(255,179,71,0.12);color:#ffb347;border:1px solid rgba(255,179,71,0.25);}
+.sub-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:10px;animation:fadeInUp 0.3s ease both;}
+.status-pill{font-size:10px;padding:3px 10px;border-radius:999px;font-weight:700;white-space:nowrap;}
+.s-PENDING{background:rgba(255,179,71,0.12);color:#ffb347;border:1px solid rgba(255,179,71,0.25);}
+.s-APPROVED{background:rgba(16,217,136,0.12);color:#10d988;border:1px solid rgba(16,217,136,0.25);}
+.s-REJECTED{background:rgba(255,92,107,0.12);color:#ff5c6b;border:1px solid rgba(255,92,107,0.25);}
+.empty-state{text-align:center;padding:48px 20px;background:var(--card);border-radius:14px;border:1px dashed var(--border);}
+.empty-state .ei{font-size:40px;margin-bottom:10px;}
+.empty-state h3{font-family:'Sora',sans-serif;font-size:16px;margin-bottom:6px;}
+.empty-state p{color:var(--text-muted);font-size:13px;margin-bottom:14px;}
+.empty-state a{display:inline-block;padding:8px 18px;background:#7c6bff;color:white;border-radius:9px;text-decoration:none;font-size:13px;font-weight:600;}
+.sidebar-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;}
+.sc-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+.edit-form h3{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;margin-bottom:14px;}
+.fg{margin-bottom:12px;}
+.fg label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:5px;}
+.fg input,.fg select,.fg textarea{width:100%;padding:9px 12px;background:#0d0b1e;border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;transition:border-color 0.2s;outline:none;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:#7c6bff;}
+.fg textarea{resize:vertical;min-height:68px;}
+.fg select option{background:#1a1530;}
+.fg small{font-size:11px;color:var(--text-muted);display:block;margin-top:3px;}
+.save-btn{width:100%;padding:10px;border-radius:9px;border:none;background:linear-gradient(135deg,#7c6bff,#9b6bff);color:white;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;margin-top:4px;}
+.save-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,107,255,0.35);}
+.save-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.alert{padding:9px 12px;border-radius:8px;font-size:13px;margin-bottom:10px;}
+.a-ok{background:rgba(16,217,136,0.1);border:1px solid rgba(16,217,136,0.2);color:#10d988;}
+.a-err{background:rgba(255,92,107,0.1);border:1px solid rgba(255,92,107,0.2);color:#ff5c6b;}
+.not-in{text-align:center;padding:100px 20px;}
+.not-in h2{font-family:'Sora',sans-serif;font-size:22px;margin-bottom:10px;}
+.not-in p{color:var(--text-muted);margin-bottom:20px;}
+.not-in button{padding:12px 26px;background:#7c6bff;color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;}
+footer{background:#080714;border-top:1px solid var(--border);color:var(--text-muted);padding:24px 0;text-align:center;font-size:13px;}
+footer p{margin:3px 0;}
+.footer-links{display:flex;justify-content:center;gap:18px;margin-top:10px;flex-wrap:wrap;}
+.footer-links a{color:var(--text-muted);text-decoration:none;font-size:12px;transition:color 0.2s;}
+.footer-links a:hover{color:#9b8fff;}
+@media(max-width:900px){.profile-body{grid-template-columns:1fr;}.stats-strip .container{grid-template-columns:repeat(2,1fr);}.stat-item:nth-child(2){border-right:none;}.hero-row{flex-direction:column;align-items:flex-start;}.logout-btn{margin-left:0;}.hamburger{display:block;}.nav-links{display:none;}}
+</style>
 </head>
-
 <body>
-  <header>
-    <div class="container">
-      <a href="../index.html" class="logo">&#x1F34E; Food Myth Buster</a>
-      <nav>
-        <a href="../index.html">Home</a>
-        <a href="browse.html">Browse</a>
-        <a href="community.html">Community</a>
-        <a href="resources.html">Resources</a>
-        <a href="contact-and-info.html">Contact &amp; Info</a>
-        <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
-        <button id="loginBtn" class="btn-login">Login</button>
-        <button id="themeToggle" class="btn-secondary" title="Toggle theme">🌗</button>
-      </nav>
-    </div>
-  </header>
-  <div id="appRoot">
-    <div style="display:flex;align-items:center;justify-content:center;min-height:60vh;">
-      <div style="font-size:40px;animation:spin 1s linear infinite;">&#x1F534;</div>
+<header>
+  <div class="container">
+    <a href="../index.html" class="logo">&#x1F34E; Food Myth Buster</a>
+    <nav class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="browse.html">Browse Myths</a>
+      <a href="community.html">Community</a>
+      <a href="resources.html">Resources</a>
+      <a href="contact-and-info.html">Contact &amp; Info</a>
+      <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
+      <button id="loginBtn" class="btn-login" style="visibility:hidden;">Login</button>
+      <button id="themeToggle" class="btn-secondary">&#x1F319;</button>
+    </nav>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">&#x2630;</button>
+  </div>
+</header>
+<div class="mobile-nav" id="mobileNav">
+  <a href="../index.html">&#x1F3E0; Home</a>
+  <a href="browse.html">&#x1F4DA; Browse Myths</a>
+  <a href="community.html">&#x1F465; Community</a>
+  <a href="resources.html">&#x1F4DA; Resources</a>
+</div>
+
+<div id="appRoot"><div style="display:flex;align-items:center;justify-content:center;min-height:60vh;font-size:36px;">&#x23F3;</div></div>
+
+<footer>
+  <div class="container">
+    <p style="font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:white;margin-bottom:8px;">&#x1F34E; Food Myth Buster</p>
+    <p>&#xA9; 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="browse.html">Browse Myths</a>
+      <a href="community.html">Community</a>
+      <a href="tos.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://github.com/Euwan123" target="_blank">&#x1F4BB; GitHub</a>
+      <a href="https://discord.com/channels/1265864190883532872/1459706565308190865" target="_blank">&#x1F4AC; Discord</a>
     </div>
   </div>
-  <footer>
-    <div class="container">
-      <p>&#x1F34E; Food Myth Buster &nbsp;&bull;&nbsp; &copy; 2026 Mapua Malayan Colleges Mindanao</p>
-    </div>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../js/supabase-client.js"></script>
-  <script src="../js/auth.js"></script>
-  <script src="../js/theme.js"></script>
-  <script>
-    var SB_URL = 'https://gyrqdwypsqdeeqzmkdze.supabase.co';
-    var currentUser = null, profile = null, bookmarks = [], submissions = [], votes = [];
-    var COUNTRIES = [
-      { f: '🇵🇭', n: 'Philippines' }, { f: '🇺🇸', n: 'United States' }, { f: '🇬🇧', n: 'United Kingdom' },
-      { f: '🇯🇵', n: 'Japan' }, { f: '🇰🇷', n: 'South Korea' }, { f: '🇨🇳', n: 'China' }, { f: '🇸🇬', n: 'Singapore' },
-      { f: '🇦🇺', n: 'Australia' }, { f: '🇨🇦', n: 'Canada' }, { f: '🇩🇪', n: 'Germany' }, { f: '🇫🇷', n: 'France' },
-      { f: '🇧🇷', n: 'Brazil' }, { f: '🇮🇳', n: 'India' }, { f: '🇲🇾', n: 'Malaysia' }, { f: '🇮🇩', n: 'Indonesia' },
-      { f: '🇹🇭', n: 'Thailand' }, { f: '🇻🇳', n: 'Vietnam' }, { f: '🇮🇹', n: 'Italy' }, { f: '🇪🇸', n: 'Spain' },
-      { f: '🇲🇽', n: 'Mexico' }, { f: '🇿🇦', n: 'South Africa' }, { f: '🇳🇬', n: 'Nigeria' }, { f: '🇪🇬', n: 'Egypt' },
-      { f: '🇦🇷', n: 'Argentina' }, { f: '🇨🇱', n: 'Chile' }, { f: '🇺🇦', n: 'Ukraine' }, { f: '🇵🇱', n: 'Poland' },
-      { f: '🇸🇪', n: 'Sweden' }, { f: '🇳🇴', n: 'Norway' }, { f: '🇳🇿', n: 'New Zealand' },
-    ];
+</footer>
 
-    async function init() {
-      var s = await sb.auth.getSession();
-      if (!s.data.session) { showNotLoggedIn(); return; }
-      currentUser = s.data.session.user;
-      await loadAll();
-    }
+<input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="uploadAvatar(this)">
+<input type="file" id="coverInput" accept="image/*" style="display:none" onchange="uploadCover(this)">
 
-    async function loadAll() {
-      var [bRes, sRes, vRes, pRes] = await Promise.all([
-        sb.from('bookmarks').select('*,myths(id,title,verdict,views,categories(name,slug,icon))').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
-        sb.from('myth_submissions').select('*,categories(name,icon)').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/theme.js"></script>
+<script>
+var currentUser = null, profile = null, bookmarks = [], submissions = [], votes = [];
+var COUNTRIES = [
+    {f:'🇵🇭',n:'Philippines'},{f:'🇺🇸',n:'United States'},{f:'🇬🇧',n:'United Kingdom'},
+    {f:'🇯🇵',n:'Japan'},{f:'🇰🇷',n:'South Korea'},{f:'🇨🇳',n:'China'},{f:'🇸🇬',n:'Singapore'},
+    {f:'🇦🇺',n:'Australia'},{f:'🇨🇦',n:'Canada'},{f:'🇩🇪',n:'Germany'},{f:'🇫🇷',n:'France'},
+    {f:'🇧🇷',n:'Brazil'},{f:'🇮🇳',n:'India'},{f:'🇲🇾',n:'Malaysia'},{f:'🇮🇩',n:'Indonesia'},
+    {f:'🇹🇭',n:'Thailand'},{f:'🇻🇳',n:'Vietnam'},{f:'🇮🇹',n:'Italy'},{f:'🇪🇸',n:'Spain'},
+    {f:'🇲🇽',n:'Mexico'},{f:'🇿🇦',n:'South Africa'},{f:'🇳🇬',n:'Nigeria'},{f:'🇦🇷',n:'Argentina'},{f:'🇳🇿',n:'New Zealand'}
+];
+
+async function init() {
+    var s = await sb.auth.getSession();
+    if (!s.data.session) { showNotLoggedIn(); return; }
+    currentUser = s.data.session.user;
+    var [bRes, sRes, vRes, pRes] = await Promise.all([
+        sb.from('bookmarks').select('*,myths(id,title,verdict,views,categories(name,slug,icon))').eq('user_id', currentUser.id).order('created_at', {ascending:false}),
+        sb.from('myth_submissions').select('*,categories(name,icon)').eq('user_id', currentUser.id).order('created_at', {ascending:false}),
         sb.from('myth_votes').select('myth_id,vote,myths(title)').eq('user_id', currentUser.id),
         sb.from('user_profiles').select('*').eq('id', currentUser.id).single()
-      ]);
-      bookmarks = (bRes.data || []).filter(function (b) { return b.myths; });
-      submissions = sRes.data || [];
-      votes = vRes.data || [];
-      profile = pRes.data || null;
-      render();
-    }
+    ]);
+    bookmarks = (bRes.data || []).filter(function(b){return b.myths;});
+    submissions = sRes.data || [];
+    votes = vRes.data || [];
+    profile = pRes.data || null;
+    render();
+}
 
-    function getLevel(n) {
-      if (n >= 200) return { label: '🌟 Legend', cls: 'level-legend', prog: 100, next: null };
-      if (n >= 100) return { label: '🥇 Gold', cls: 'level-gold', prog: Math.round((n - 100) / 100 * 100), next: 200 };
-      if (n >= 30) return { label: '🥈 Silver', cls: 'level-silver', prog: Math.round((n - 30) / 70 * 100), next: 100 };
-      return { label: '🥉 Bronze', cls: 'level-bronze', prog: Math.round(n / 30 * 100), next: 30 };
-    }
+function render() {
+    var u = currentUser;
+    var dn = (profile && profile.display_name) || (u.user_metadata && u.user_metadata.full_name) || u.email.split('@')[0];
+    var letter = dn.charAt(0).toUpperCase();
+    var avatarHTML = (profile && profile.avatar_url) ? '<img src="' + profile.avatar_url + '" alt="avatar">' : letter;
+    var coverHTML = (profile && profile.cover_photo) ? '<img class="cover-img" src="' + profile.cover_photo + '" alt="cover">' : '';
+    var isAdmin = (u.user_metadata && u.user_metadata.role === 'admin') || (profile && profile.is_admin);
+    var joinDate = new Date(u.created_at).toLocaleDateString('en-US', {year:'numeric',month:'long'});
+    var approved = submissions.filter(function(s){return s.status === 'APPROVED';}).length;
+    var flag = (profile && profile.country_flag) || '';
 
-    function render() {
-      var u = currentUser;
-      var dn = (profile && profile.display_name) || u.user_metadata && u.user_metadata.full_name || u.email.split('@')[0];
-      var avatarLetter = dn.charAt(0).toUpperCase();
-      var avatarSrc = profile && profile.avatar_url ? profile.avatar_url : null;
-      var isAdmin = (u.user_metadata && u.user_metadata.role === 'admin') || (profile && profile.is_admin);
-      var joinDate = new Date(u.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-      var level = getLevel(submissions.length * 10 + bookmarks.length * 2);
-      var approved = submissions.filter(function (s) { return s.status === 'APPROVED'; }).length;
-      var flagEmoji = profile && profile.country_flag ? profile.country_flag : '';
-      var countryName = profile && profile.country ? profile.country : '';
+    var countryOpts = COUNTRIES.map(function(c) {
+        return '<option value="' + c.n + '" data-flag="' + c.f + '"' + (profile && profile.country === c.n ? ' selected' : '') + '>' + c.f + ' ' + c.n + '</option>';
+    }).join('');
 
-      var avatarHTML = avatarSrc
-        ? '<img src="' + avatarSrc + '" alt="avatar">'
-        : '<span style="font-size:36px;font-weight:800;font-family:Sora,sans-serif;">' + avatarLetter + '</span>';
+    var html =
+        '<div class="profile-cover-wrap" onclick="document.getElementById(\'coverInput\').click()" title="Change cover photo">' +
+            coverHTML +
+            '<div class="cover-hover"><div class="cover-hint">&#x1F4F7; Change Cover Photo</div></div>' +
+        '</div>' +
+        '<div class="profile-hero">' +
+            '<div class="hero-row">' +
+                '<div class="av-wrap">' +
+                    '<div class="av-ring">' + avatarHTML + '</div>' +
+                    '<button class="av-edit" onclick="document.getElementById(\'avatarInput\').click()" title="Change avatar">&#x1F4F7;</button>' +
+                '</div>' +
+                '<div class="hero-text">' +
+                    '<h1>' + dn + ' ' + flag + '</h1>' +
+                    '<div class="hemail">' + u.email + '</div>' +
+                    '<div class="hero-badges">' +
+                        '<span class="hbadge">Since ' + joinDate + '</span>' +
+                        '<span class="hbadge ' + (isAdmin ? 'admin' : '') + '">' + (isAdmin ? '&#x26A1; Admin' : '&#x1F464; Member') + '</span>' +
+                    '</div>' +
+                '</div>' +
+                '<button class="logout-btn" onclick="handleLogout()">Sign Out</button>' +
+            '</div>' +
+        '</div>' +
+        '<div class="stats-strip"><div class="container">' +
+            '<div class="stat-item"><span class="stat-n">' + bookmarks.length + '</span><span class="stat-l">Bookmarks</span></div>' +
+            '<div class="stat-item"><span class="stat-n">' + submissions.length + '</span><span class="stat-l">Submitted</span></div>' +
+            '<div class="stat-item"><span class="stat-n">' + approved + '</span><span class="stat-l">Approved</span></div>' +
+            '<div class="stat-item"><span class="stat-n">' + votes.length + '</span><span class="stat-l">Votes Cast</span></div>' +
+        '</div></div>' +
+        '<div style="background:#0f0d1e;border-top:1px solid var(--border);">' +
+            '<div class="container"><div class="profile-body">' +
+                '<div>' +
+                    '<div class="tabs">' +
+                        '<button class="tab-btn active" onclick="switchTab(\'bookmarks\',this)">&#x1F516; Bookmarks <span class="tab-count">' + bookmarks.length + '</span></button>' +
+                        '<button class="tab-btn" onclick="switchTab(\'submissions\',this)">&#x1F4EC; Submissions <span class="tab-count">' + submissions.length + '</span></button>' +
+                        '<button class="tab-btn" onclick="switchTab(\'votes\',this)">&#x1F44D; Votes <span class="tab-count">' + votes.length + '</span></button>' +
+                    '</div>' +
+                    '<div id="tab-bookmarks" class="tab-panel active">' + renderBookmarks() + '</div>' +
+                    '<div id="tab-submissions" class="tab-panel">' + renderSubmissions() + '</div>' +
+                    '<div id="tab-votes" class="tab-panel">' + renderVotes() + '</div>' +
+                '</div>' +
+                '<aside>' +
+                    '<div class="sidebar-card edit-form">' +
+                        '<h3>&#x270F;&#xFE0F; Edit Profile</h3>' +
+                        '<div id="editAlert"></div>' +
+                        '<div class="fg"><label>Display Name</label><input type="text" id="editName" value="' + dn + '" maxlength="32"><small>Cannot use "Admin" as name</small></div>' +
+                        '<div class="fg"><label>Bio</label><textarea id="editBio" placeholder="Tell us about yourself...">' + ((profile && profile.bio) || '') + '</textarea></div>' +
+                        '<div class="fg"><label>Birthday</label><input type="date" id="editBirthday" value="' + ((profile && profile.birthday) || '') + '"></div>' +
+                        '<div class="fg"><label>Gender</label><select id="editGender"><option value="">Prefer not to say</option>' +
+                            ['Male','Female','Non-binary','Genderfluid','Agender','Transgender','Other'].map(function(g){ return '<option' + (profile && profile.gender === g ? ' selected' : '') + '>' + g + '</option>'; }).join('') +
+                        '</select></div>' +
+                        '<div class="fg"><label>Country</label><select id="editCountry"><option value="">Select country</option>' + countryOpts + '</select></div>' +
+                        '<button class="save-btn" id="saveBtn" onclick="saveProfile()">Save Changes</button>' +
+                    '</div>' +
+                    '<div class="sidebar-card">' +
+                        '<div class="sc-title">&#x1F465; Find Users</div>' +
+                        '<a href="users.html" style="display:block;padding:10px 14px;background:rgba(124,107,255,0.1);border:1px solid rgba(124,107,255,0.25);border-radius:9px;text-decoration:none;color:#9b8fff;font-size:13px;font-weight:600;text-align:center;">Search Users &#x2192;</a>' +
+                    '</div>' +
+                '</aside>' +
+            '</div></div>' +
+        '</div>';
 
-      var countryOptions = COUNTRIES.map(function (c) {
-        var sel = countryName === c.n ? ' selected' : '';
-        return '<option value="' + c.n + '" data-flag="' + c.f + '"' + sel + '>' + c.f + ' ' + c.n + '</option>';
-      }).join('');
+    document.getElementById('appRoot').innerHTML = html;
+}
 
-      var html = `
-  <section class="profile-hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="avatar-wrap">
-          <div class="avatar-ring">${avatarHTML}</div>
-          <button class="avatar-edit-btn" onclick="document.getElementById('avatarInput').click()" title="Change photo">&#x1F4F7;</button>
-          <input type="file" id="avatarInput" accept="image/*" onchange="uploadAvatar(this)">
-        </div>
-        <div class="hero-text">
-          <h1>${dn} ${flagEmoji}</h1>
-          <div class="email">${u.email}</div>
-          <div class="hero-badges">
-            <span class="hero-badge">Since ${joinDate}</span>
-            <span class="hero-badge ${isAdmin ? 'admin' : ''}">${isAdmin ? '⚡ Admin' : '👤 Member'}</span>
-            <span class="hero-badge">${level.label}</span>
-            ${countryName ? '<span class="hero-badge">' + flagEmoji + ' ' + countryName + '</span>' : ''}
-          </div>
-        </div>
-        <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
-      </div>
-    </div>
-  </section>
-
-  <div class="stats-strip">
-    <div class="container">
-      <div class="stat-item"><span class="stat-num">${bookmarks.length}</span><span class="stat-label">Bookmarks</span></div>
-      <div class="stat-item"><span class="stat-num">${submissions.length}</span><span class="stat-label">Submitted</span></div>
-      <div class="stat-item"><span class="stat-num">${approved}</span><span class="stat-label">Approved</span></div>
-      <div class="stat-item"><span class="stat-num">${votes.length}</span><span class="stat-label">Votes Cast</span></div>
-    </div>
-  </div>
-
-  <div style="background:#0f0d1e;border-top:1px solid var(--border);">
-    <div class="container"><div class="profile-layout">
-      <div>
-        <div class="tabs">
-          <button class="tab-btn active" onclick="switchTab('bookmarks',this)">🔖 Bookmarks <span class="tab-count">${bookmarks.length}</span></button>
-          <button class="tab-btn" onclick="switchTab('submissions',this)">📬 Submissions <span class="tab-count">${submissions.length}</span></button>
-          <button class="tab-btn" onclick="switchTab('votes',this)">👍 Votes <span class="tab-count">${votes.length}</span></button>
-        </div>
-        <div id="tab-bookmarks" class="tab-panel active">${renderBookmarks()}</div>
-        <div id="tab-submissions" class="tab-panel">${renderSubmissions()}</div>
-        <div id="tab-votes" class="tab-panel">${renderVotes()}</div>
-      </div>
-      <aside>
-        <div class="edit-section">
-          <h3>✏️ Edit Profile</h3>
-          <div id="editAlert"></div>
-          <div class="form-group"><label>Display Name</label>
-            <input type="text" id="editName" value="${dn}" placeholder="Your name" maxlength="32">
-            <small style="font-size:11px;color:var(--text-muted);margin-top:4px;display:block;">Cannot use "Admin" as display name</small>
-          </div>
-          <div class="form-group"><label>Bio</label>
-            <textarea id="editBio" placeholder="Tell us about yourself...">${profile && profile.bio ? profile.bio : ''}</textarea>
-          </div>
-          <div class="form-group"><label>Birthday</label>
-            <input type="date" id="editBirthday" value="${profile && profile.birthday ? profile.birthday : ''}">
-          </div>
-          <div class="form-group"><label>Gender</label>
-            <select id="editGender">
-              <option value="">Prefer not to say</option>
-              <option value="Male" ${profile && profile.gender === 'Male' ? 'selected' : ''}>Male</option>
-              <option value="Female" ${profile && profile.gender === 'Female' ? 'selected' : ''}>Female</option>
-              <option value="Non-binary" ${profile && profile.gender === 'Non-binary' ? 'selected' : ''}>Non-binary</option>
-              <option value="Genderfluid" ${profile && profile.gender === 'Genderfluid' ? 'selected' : ''}>Genderfluid</option>
-              <option value="Agender" ${profile && profile.gender === 'Agender' ? 'selected' : ''}>Agender</option>
-              <option value="Transgender" ${profile && profile.gender === 'Transgender' ? 'selected' : ''}>Transgender</option>
-              <option value="Other" ${profile && profile.gender === 'Other' ? 'selected' : ''}>Other / Prefer to self-describe</option>
-            </select>
-          </div>
-          <div class="form-group"><label>Country</label>
-            <select id="editCountry" onchange="updateFlag(this)">
-              <option value="">Select country</option>
-              ${countryOptions}
-            </select>
-          </div>
-          <button class="save-btn" id="saveBtn" onclick="saveProfile()">Save Changes</button>
-        </div>
-
-        <div class="sidebar-card">
-          <div class="sidebar-card-title">📈 Progress — ${level.label}</div>
-          ${level.next ? `<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:6px;"><span>To next level</span><span>${level.prog}%</span></div><div style="height:7px;background:#1a1730;border-radius:7px;overflow:hidden;"><div style="height:100%;width:${level.prog}%;background:linear-gradient(90deg,#7c6bff,#c77dff);border-radius:7px;transition:width 0.8s ease;"></div></div>` : '<p style="font-size:12px;color:var(--text-muted);">Max level reached! 🏆</p>'}
-        </div>
-
-        <div class="sidebar-card">
-          <div class="sidebar-card-title">🔍 Find Users</div>
-          <a href="users.html" style="display:block;padding:10px 14px;background:rgba(124,107,255,0.1);border:1px solid rgba(124,107,255,0.25);border-radius:9px;text-decoration:none;color:#9b8fff;font-size:13px;font-weight:600;text-align:center;">Search Users →</a>
-        </div>
-      </aside>
-    </div></div>
-  </div>`;
-
-      document.getElementById('appRoot').innerHTML = html;
-    }
-
-    function renderBookmarks() {
-      if (!bookmarks.length) return '<div class="empty-state"><div class="emoji">🔖</div><h3>No bookmarks</h3><p>Save myths to find them here.</p><a href="browse.html">Browse →</a></div>';
-      return bookmarks.map(function (bm, i) {
+function renderBookmarks() {
+    if (!bookmarks.length) return '<div class="empty-state"><div class="ei">&#x1F516;</div><h3>No bookmarks yet</h3><p>Save myths to find them here.</p><a href="browse.html">Browse Myths</a></div>';
+    return bookmarks.map(function(bm, i) {
         var m = bm.myths; var vl = m.verdict === 'PARTIAL' ? 'Partial' : m.verdict;
-        return '<div class="myth-bcard v-' + m.verdict + '" style="animation-delay:' + (i * 0.04) + 's"><div class="myth-bcard-top"><div class="myth-bcard-title" onclick="go(\'detail.html?id=' + m.id + '\')">' + m.title + '</div><div style="display:flex;gap:5px;align-items:center;flex-shrink:0;"><span class="verdict-badge verdict-' + m.verdict + '">' + vl + '</span><button class="remove-bm" onclick="removeBm(' + bm.id + ',this)">&#x2715;</button></div></div><div class="myth-bcard-meta"><span style="color:#7c6bff;font-size:10px;font-weight:700;text-transform:uppercase;">' + ((m.categories && m.categories.icon) || '') + ' ' + (m.categories && m.categories.name || 'General') + '</span><span>&#x1F441; ' + (m.views || 0) + '</span></div></div>';
-      }).join('');
-    }
-    function renderSubmissions() {
-      if (!submissions.length) return '<div class="empty-state"><div class="emoji">📬</div><h3>No submissions</h3><p>Submit food myths for verification.</p><a href="community.html">Submit →</a></div>';
-      var statusMsg = { PENDING: '⏳ Awaiting review', APPROVED: '✅ Approved!', REJECTED: '❌ Not added' };
-      return submissions.map(function (s, i) {
+        return '<div class="myth-bcard v-' + m.verdict + '" style="animation-delay:' + (i*0.04) + 's">' +
+            '<div class="bcard-top">' +
+                '<div class="bcard-title" onclick="go(\'detail.html?id=' + m.id + '\')">' + m.title + '</div>' +
+                '<div style="display:flex;gap:4px;align-items:center;flex-shrink:0;">' +
+                    '<span class="verdict-badge verdict-' + m.verdict + '">' + vl + '</span>' +
+                    '<button class="rm-bm" onclick="removeBm(' + bm.id + ',this)">&#x2715;</button>' +
+                '</div>' +
+            '</div>' +
+            '<div class="bcard-meta"><span style="color:#7c6bff;font-size:10px;font-weight:700;text-transform:uppercase;">' + ((m.categories && m.categories.icon) || '') + ' ' + ((m.categories && m.categories.name) || 'General') + '</span><span>&#x1F441; ' + (m.views || 0) + '</span></div>' +
+        '</div>';
+    }).join('');
+}
+
+function renderSubmissions() {
+    if (!submissions.length) return '<div class="empty-state"><div class="ei">&#x1F4EC;</div><h3>No submissions yet</h3><p>Submit food myths for the community.</p><a href="community.html">Submit a Myth</a></div>';
+    var msg = {PENDING:'&#x23F3; Awaiting review', APPROVED:'&#x2705; Approved!', REJECTED:'&#x274C; Not added'};
+    return submissions.map(function(s, i) {
         var st = s.status || 'PENDING';
-        return '<div class="sub-card" style="animation-delay:' + (i * 0.04) + 's"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;"><div style="font-family:Sora,sans-serif;font-size:14px;font-weight:700;flex:1;line-height:1.4;">' + s.myth_text + '</div><span class="status-pill status-' + st + '">' + st + '</span></div><div style="font-size:11px;color:var(--text-muted);">' + (s.categories ? s.categories.icon + ' ' + s.categories.name : 'General') + (s.suggested_verdict ? ' &bull; ' + s.suggested_verdict : '') + '</div><div style="margin-top:8px;font-size:12px;color:var(--text-muted);">' + statusMsg[st] + '</div></div>';
-      }).join('');
+        return '<div class="sub-card" style="animation-delay:' + (i*0.04) + 's">' +
+            '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;">' +
+                '<div style="font-family:Sora,sans-serif;font-size:14px;font-weight:700;flex:1;line-height:1.4;">' + s.myth_text + '</div>' +
+                '<span class="status-pill s-' + st + '">' + st + '</span>' +
+            '</div>' +
+            '<div style="font-size:11px;color:var(--text-muted);">' + ((s.categories && s.categories.icon + ' ' + s.categories.name) || 'General') + (s.suggested_verdict ? ' &bull; ' + s.suggested_verdict : '') + '</div>' +
+            '<div style="margin-top:6px;font-size:12px;color:var(--text-muted);">' + (msg[st] || '') + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function renderVotes() {
+    if (!votes.length) return '<div class="empty-state"><div class="ei">&#x1F44D;</div><h3>No votes yet</h3><p>Vote on myths to record your opinion.</p><a href="browse.html">Browse Myths</a></div>';
+    return votes.map(function(v, i) {
+        return '<div class="myth-bcard" style="animation-delay:' + (i*0.04) + 's;cursor:default;">' +
+            '<div class="bcard-top">' +
+                '<div class="bcard-title" style="cursor:pointer;" onclick="go(\'detail.html?id=' + v.myth_id + '\')">' + (v.myths ? v.myths.title : 'Unknown myth') + '</div>' +
+                '<span style="font-size:18px;">' + (v.vote === 'up' ? '&#x1F44D;' : '&#x1F44E;') + '</span>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function switchTab(n, btn) {
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+    btn.classList.add('active');
+    document.getElementById('tab-' + n).classList.add('active');
+}
+
+function go(url) { window.location.href = url; }
+
+async function removeBm(id, btn) {
+    btn.textContent = '...';
+    var r = await sb.from('bookmarks').delete().eq('id', id);
+    if (!r.error) { bookmarks = bookmarks.filter(function(b){return b.id !== id;}); document.getElementById('tab-bookmarks').innerHTML = renderBookmarks(); }
+}
+
+async function uploadAvatar(input) {
+    if (!input.files || !input.files[0]) return;
+    var file = input.files[0];
+    if (file.size > 2097152) { alert('Image must be under 2MB'); return; }
+    var ext = file.name.split('.').pop();
+    var path = currentUser.id + '/avatar.' + ext;
+    var res = await sb.storage.from('avatars').upload(path, file, {upsert: true});
+    if (res.error) { alert('Upload failed: ' + res.error.message); return; }
+    var url = SUPABASE_URL + '/storage/v1/object/public/avatars/' + path + '?t=' + Date.now();
+    await sb.from('user_profiles').upsert({id: currentUser.id, avatar_url: url}, {onConflict: 'id'});
+    if (!profile) profile = {};
+    profile.avatar_url = url;
+    var ring = document.querySelector('.av-ring');
+    if (ring) ring.innerHTML = '<img src="' + url + '" alt="avatar">';
+}
+
+async function uploadCover(input) {
+    if (!input.files || !input.files[0]) return;
+    var file = input.files[0];
+    if (file.size > 5242880) { alert('Cover image must be under 5MB'); return; }
+    var ext = file.name.split('.').pop();
+    var path = currentUser.id + '/cover.' + ext;
+    var res = await sb.storage.from('avatars').upload(path, file, {upsert: true});
+    if (res.error) { alert('Upload failed: ' + res.error.message); return; }
+    var url = SUPABASE_URL + '/storage/v1/object/public/avatars/' + path + '?t=' + Date.now();
+    await sb.from('user_profiles').upsert({id: currentUser.id, cover_photo: url}, {onConflict: 'id'});
+    if (!profile) profile = {};
+    profile.cover_photo = url;
+    var wrap = document.querySelector('.profile-cover-wrap');
+    if (wrap) {
+        var existing = wrap.querySelector('.cover-img');
+        if (existing) { existing.src = url; }
+        else {
+            var img = document.createElement('img');
+            img.className = 'cover-img'; img.src = url; img.alt = 'cover';
+            wrap.insertBefore(img, wrap.firstChild);
+        }
     }
-    function renderVotes() {
-      if (!votes.length) return '<div class="empty-state"><div class="emoji">👍</div><h3>No votes yet</h3><p>Visit myth pages and vote.</p><a href="browse.html">Browse →</a></div>';
-      return votes.map(function (v, i) {
-        return '<div class="myth-bcard" style="animation-delay:' + (i * 0.04) + 's;cursor:default;"><div class="myth-bcard-top"><div class="myth-bcard-title" style="cursor:pointer;" onclick="go(\'detail.html?id=' + v.myth_id + '\')">' + (v.myths ? v.myths.title : 'Unknown myth') + '</div><span style="font-size:20px;">' + (v.vote === 'up' ? '👍' : '👎') + '</span></div></div>';
-      }).join('');
-    }
+}
 
-    function switchTab(n, btn) {
-      document.querySelectorAll('.tabs .tab-btn').forEach(function (b) { b.classList.remove('active'); });
-      document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
-      btn.classList.add('active');
-      document.getElementById('tab-' + n).classList.add('active');
-    }
-    function go(url) { window.location.href = url; }
+async function saveProfile() {
+    var btn = document.getElementById('saveBtn');
+    var nameVal = (document.getElementById('editName').value || '').trim();
+    var bioVal = document.getElementById('editBio').value.trim();
+    var bdayVal = document.getElementById('editBirthday').value;
+    var genderVal = document.getElementById('editGender').value;
+    var countryEl = document.getElementById('editCountry');
+    var countryVal = countryEl.value;
+    var flagVal = countryVal ? (countryEl.options[countryEl.selectedIndex].getAttribute('data-flag') || '') : '';
+    var alertEl = document.getElementById('editAlert');
 
-    async function removeBm(id, btn) {
-      btn.textContent = '…';
-      var r = await sb.from('bookmarks').delete().eq('id', id);
-      if (!r.error) { bookmarks = bookmarks.filter(function (b) { return b.id !== id; }); document.getElementById('tab-bookmarks').innerHTML = renderBookmarks(); }
-    }
+    if (nameVal.toLowerCase() === 'admin') { alertEl.innerHTML = '<div class="alert a-err">Display name cannot be "Admin".</div>'; return; }
+    if (nameVal.length < 2) { alertEl.innerHTML = '<div class="alert a-err">Name must be at least 2 characters.</div>'; return; }
 
-    async function uploadAvatar(input) {
-      if (!input.files || !input.files[0]) return;
-      var file = input.files[0];
-      if (file.size > 2097152) { alert('Image must be under 2MB'); return; }
-      var ext = file.name.split('.').pop();
-      var path = currentUser.id + '/avatar.' + ext;
-      var res = await sb.storage.from('avatars').upload(path, file, { upsert: true });
-      if (res.error) { alert('Upload failed: ' + res.error.message); return; }
-      var url = 'https://gyrqdwypsqdeeqzmkdze.supabase.co/storage/v1/object/public/avatars/' + path + '?t=' + Date.now();
-      await sb.from('user_profiles').upsert({ id: currentUser.id, avatar_url: url }, { onConflict: 'id' });
-      profile = profile || {}; profile.avatar_url = url;
-      var ring = document.querySelector('.avatar-ring');
-      if (ring) ring.innerHTML = '<img src="' + url + '" alt="avatar">';
-    }
-
-    function updateFlag(sel) {
-      var opt = sel.options[sel.selectedIndex];
-      document.getElementById('editName'); 
-    }
-
-    async function saveProfile() {
-      var btn = document.getElementById('saveBtn');
-      var nameVal = (document.getElementById('editName').value || '').trim();
-      var bioVal = document.getElementById('editBio').value.trim();
-      var bdayVal = document.getElementById('editBirthday').value;
-      var genderVal = document.getElementById('editGender').value;
-      var countryEl = document.getElementById('editCountry');
-      var countryVal = countryEl.value;
-      var flagVal = countryEl.value ? countryEl.options[countryEl.selectedIndex].dataset.flag || '' : '';
-      var alertEl = document.getElementById('editAlert');
-
-      if (nameVal.toLowerCase() === 'admin') {
-        alertEl.innerHTML = '<div class="alert alert-error">Display name cannot be "Admin".</div>';
-        return;
-      }
-      if (nameVal.length < 2) {
-        alertEl.innerHTML = '<div class="alert alert-error">Name must be at least 2 characters.</div>';
-        return;
-      }
-
-      btn.disabled = true; btn.textContent = 'Saving…';
-      var res = await sb.from('user_profiles').upsert({
+    btn.disabled = true; btn.textContent = 'Saving...';
+    var res = await sb.from('user_profiles').upsert({
         id: currentUser.id,
         display_name: nameVal,
         bio: bioVal,
@@ -1032,28 +391,38 @@
         country: countryVal || null,
         country_flag: flagVal || null,
         updated_at: new Date().toISOString()
-      }, { onConflict: 'id' });
-      btn.disabled = false; btn.textContent = 'Save Changes';
-      if (res.error) {
-        alertEl.innerHTML = '<div class="alert alert-error">Error: ' + res.error.message + '</div>';
-      } else {
-        alertEl.innerHTML = '<div class="alert alert-success">✓ Saved!</div>';
-        profile = Object.assign(profile || {}, { display_name: nameVal, bio: bioVal, birthday: bdayVal, gender: genderVal, country: countryVal, country_flag: flagVal });
-        setTimeout(function () { alertEl.innerHTML = ''; }, 2500);
-      }
+    }, {onConflict: 'id'});
+    btn.disabled = false; btn.textContent = 'Save Changes';
+    if (res.error) {
+        alertEl.innerHTML = '<div class="alert a-err">Error: ' + res.error.message + '</div>';
+    } else {
+        alertEl.innerHTML = '<div class="alert a-ok">&#x2713; Saved!</div>';
+        if (!profile) profile = {};
+        Object.assign(profile, {display_name: nameVal, bio: bioVal, birthday: bdayVal, gender: genderVal, country: countryVal, country_flag: flagVal});
+        setTimeout(function(){alertEl.innerHTML='';}, 2500);
     }
+}
 
-    async function handleLogout() {
-      await sb.auth.signOut();
-      window.location.href = '../index.html';
-    }
+async function handleLogout() {
+    await sb.auth.signOut();
+    window.location.href = '../index.html';
+}
 
-    function showNotLoggedIn() {
-      document.getElementById('appRoot').innerHTML = '<div class="not-logged-in"><div style="font-size:60px;margin-bottom:12px;">🔒</div><h2>Sign in to view your profile</h2><p>Your bookmarks, submissions, and activity are saved here.</p><button onclick="openAuthOverlay()">Sign In / Register</button></div>';
-    }
+function showNotLoggedIn() {
+    document.getElementById('appRoot').innerHTML = '<div class="not-in"><div style="font-size:56px;margin-bottom:12px;">&#x1F512;</div><h2>Sign in to view your profile</h2><p>Your bookmarks, submissions, and activity are saved here.</p><button onclick="openAuthOverlay()">Sign In / Register</button></div>';
+}
 
-    init();
-  </script>
+function toggleMobileNav() {
+    document.getElementById('mobileNav').classList.toggle('open');
+}
+
+document.addEventListener('click', function(e) {
+    var nav = document.getElementById('mobileNav');
+    var btn = document.getElementById('hamburgerBtn');
+    if (nav && nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) nav.classList.remove('open');
+});
+
+init();
+</script>
 </body>
-
 </html>

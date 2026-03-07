@@ -23,6 +23,7 @@ function showLoader() {
     var el = document.getElementById('pageLoader');
     if (el) el.classList.add('show');
 }
+
 function hideLoader() {
     var el = document.getElementById('pageLoader');
     if (el) el.classList.remove('show');
@@ -76,6 +77,11 @@ async function checkAuth() {
                 adminBtn.style.display = 'none';
             }
         }
+        var mobileLoginBtn = document.getElementById('mobileLoginBtn');
+        if (mobileLoginBtn) {
+            mobileLoginBtn.textContent = 'My Profile';
+            mobileLoginBtn.onclick = function() { showLoader(); window.location.href = (isRoot ? 'pages/' : '') + 'profile.html'; };
+        }
     } else {
         if (loginBtn) {
             loginBtn.textContent = 'Login';
@@ -94,7 +100,6 @@ function openAuthOverlay() {
     var existing = document.getElementById('authOverlay');
     var isRoot = !window.location.pathname.includes('/pages/');
     var src = isRoot ? 'pages/login.html' : 'login.html';
-
     if (!existing) {
         var overlay = document.createElement('div');
         overlay.id = 'authOverlay';
@@ -103,11 +108,8 @@ function openAuthOverlay() {
         document.body.appendChild(overlay);
         existing = overlay;
         overlay.addEventListener('click', function(e) { if (e.target === overlay) closeAuthOverlay(); });
-    } else {
-        var frame = existing.querySelector('iframe');
-        if (frame && frame.src.indexOf(src) === -1) frame.src = src;
-        existing.style.display = 'flex';
     }
+    existing.style.display = 'flex';
 }
 
 function closeAuthOverlay() {

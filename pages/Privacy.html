@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Privacy Policy - Food Myth Buster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/theme.js" data-load-before-render="true"></script>
+<style>
+.container{max-width:1300px;margin:0 auto;padding:0 24px;}
+header{background:rgba(13,11,30,0.97);backdrop-filter:blur(16px);padding:14px 0;position:sticky;top:0;z-index:1000;border-bottom:1px solid var(--border);}
+header .container{display:flex;justify-content:space-between;align-items:center;}
+.logo{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;background:linear-gradient(135deg,#7c6bff,#c77dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+nav{display:flex;gap:8px;align-items:center;}
+nav a{color:var(--text-muted);text-decoration:none;padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;transition:all 0.2s;}
+nav a:hover{background:rgba(124,107,255,0.15);color:var(--text);}
+.btn-login{background:var(--primary);color:white;border:none;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.btn-secondary{background:rgba(124,107,255,0.12);border:1px solid rgba(124,107,255,0.3);color:#9b8fff;border-radius:9px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.3s;display:inline-flex;align-items:center;justify-content:center;min-width:38px;}
+.hamburger{display:none;background:none;border:1.5px solid var(--border);border-radius:8px;padding:7px 10px;cursor:pointer;color:var(--text);font-size:18px;line-height:1;}
+.mobile-nav{display:none;position:fixed;inset:0;top:57px;background:rgba(13,11,30,0.98);backdrop-filter:blur(16px);z-index:999;flex-direction:column;padding:20px 24px;gap:4px;border-top:1px solid var(--border);}
+.mobile-nav.open{display:flex;}
+.mobile-nav a,.mobile-nav button{display:block;padding:13px 16px;border-radius:10px;color:var(--text);text-decoration:none;font-size:15px;font-weight:500;text-align:left;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;transition:background 0.2s;}
+.mobile-nav a:hover{background:rgba(124,107,255,0.12);}
+.page-hero{background:linear-gradient(135deg,#6c63ff 0%,#9b59b6 60%,#764ba2 100%);padding:64px 24px;text-align:center;}
+.page-hero h1{font-family:'Sora',sans-serif;font-size:40px;font-weight:800;color:white;margin-bottom:10px;letter-spacing:-1px;}
+.page-hero p{color:rgba(255,255,255,0.8);font-size:16px;}
+.doc-section{padding:52px 0 80px;}
+.doc-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px;max-width:820px;margin:0 auto;}
+.doc-card h2{font-family:'Sora',sans-serif;font-size:17px;font-weight:700;margin:28px 0 10px;color:var(--text);}
+.doc-card h2:first-of-type{margin-top:0;}
+.doc-card p,.doc-card li{font-size:15px;color:var(--text-muted);line-height:1.75;margin-bottom:8px;}
+.doc-card ul{padding-left:20px;list-style:disc;margin-bottom:10px;}
+.last-updated{font-size:12px;color:var(--text-muted);margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+footer{background:#080714;border-top:1px solid var(--border);color:var(--text-muted);padding:28px 0;text-align:center;font-size:13px;}
+footer p{margin:4px 0;}
+.footer-links{display:flex;justify-content:center;gap:18px;margin-top:12px;flex-wrap:wrap;}
+.footer-links a{color:var(--text-muted);text-decoration:none;font-size:12px;transition:color 0.2s;}
+.footer-links a:hover{color:#9b8fff;}
+@media(max-width:768px){nav{display:none;}.hamburger{display:block;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a href="../index.html" class="logo">&#x1F34E; Food Myth Buster</a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="browse.html">Browse Myths</a>
+      <a href="community.html">Community</a>
+      <button id="adminBtn" class="btn-login" style="display:none;">Admin</button>
+      <button id="loginBtn" class="btn-login" style="visibility:hidden;">Login</button>
+      <button id="themeToggle" class="btn-secondary">&#x2600;&#xFE0F;</button>
+    </nav>
+    <button class="hamburger" id="hamburgerBtn" onclick="document.getElementById('mobileNav').classList.toggle('open')">&#x2630;</button>
+  </div>
+</header>
+<div class="mobile-nav" id="mobileNav">
+  <a href="../index.html">&#x1F3E0; Home</a>
+  <a href="browse.html">&#x1F4DA; Browse Myths</a>
+  <a href="community.html">&#x1F465; Community</a>
+  <button id="mobileLoginBtn" class="btn-login" style="margin-top:8px;width:100%;" onclick="openAuthOverlay()">Login</button>
+</div>
+
+<section class="page-hero">
+  <h1>&#x1F512; Privacy Policy</h1>
+  <p>How we collect, use, and protect your information.</p>
+</section>
+
+<section class="doc-section">
+  <div class="container">
+    <div class="doc-card">
+      <div class="last-updated">Last updated: January 2026 &nbsp;&bull;&nbsp; Food Myth Buster &nbsp;&bull;&nbsp; Mapua Malayan Colleges Mindanao</div>
+      <h2>1. Information We Collect</h2>
+      <ul>
+        <li><strong>Account info:</strong> Email and display name when you register</li>
+        <li><strong>Profile data:</strong> Optional info you add — bio, country, gender, birthday</li>
+        <li><strong>Usage data:</strong> Myths you view, bookmark, vote on, or submit</li>
+        <li><strong>Preferences:</strong> Browsing preferences stored locally in your browser (localStorage)</li>
+      </ul>
+      <h2>2. How We Use Your Information</h2>
+      <ul>
+        <li>Operate and improve the Site</li>
+        <li>Personalise your "For You" myth recommendations</li>
+        <li>Display contributions on leaderboards</li>
+        <li>Review and respond to myth submissions</li>
+      </ul>
+      <h2>3. Data Storage</h2>
+      <p>Account data is stored securely using Supabase with encrypted storage and authentication. We do not store payment information — the Site is entirely free.</p>
+      <h2>4. What We Don't Do</h2>
+      <ul>
+        <li>We do not sell your personal data to third parties</li>
+        <li>We do not display advertisements</li>
+        <li>We do not use tracking cookies beyond what is needed for authentication</li>
+        <li>We do not share your email address publicly</li>
+      </ul>
+      <h2>5. Your Rights</h2>
+      <ul>
+        <li>Edit or delete your profile at any time from your Profile page</li>
+        <li>Request account deletion by contacting us directly</li>
+        <li>Clear local preferences by clearing your browser's localStorage</li>
+      </ul>
+      <h2>6. Third-Party Services</h2>
+      <ul>
+        <li><strong>Supabase</strong> — authentication and database</li>
+        <li><strong>Anthropic Claude</strong> — AI analysis for search</li>
+        <li><strong>Google Fonts</strong> — typography</li>
+      </ul>
+      <h2>7. Cookies</h2>
+      <p>We use session cookies only for authentication. No advertising or tracking cookies are used.</p>
+      <h2>8. Changes</h2>
+      <p>We may update this Policy from time to time. Changes will be posted here with an updated date.</p>
+      <h2>9. Contact</h2>
+      <p>Questions? <a href="mailto:3yoowan28@gmail.com" style="color:var(--primary);">3yoowan28@gmail.com</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p style="font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:white;margin-bottom:8px;">&#x1F34E; Food Myth Buster</p>
+    <p>&#xA9; 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="browse.html">Browse Myths</a>
+      <a href="community.html">Community</a>
+      <a href="resources.html">Resources</a>
+      <a href="tos.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://github.com/Euwan123" target="_blank">&#x1F4BB; GitHub</a>
+      <a href="https://discord.com/channels/1265864190883532872/1459706565308190865" target="_blank">&#x1F4AC; Discord</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/theme.js"></script>
+</body>
+</html>

@@ -742,18 +742,76 @@
             margin-bottom: 8px;
         }
 
+        .hamburger {
+            display: none;
+            background: none;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 10px;
+            cursor: pointer;
+            color: var(--text);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            inset: 0;
+            top: 57px;
+            background: rgba(13,11,30,0.98);
+            backdrop-filter: blur(16px);
+            z-index: 999;
+            flex-direction: column;
+            padding: 20px 24px;
+            gap: 4px;
+            border-top: 1px solid var(--border);
+        }
+
+        .mobile-nav.open { display: flex; }
+
+        .mobile-nav a, .mobile-nav button {
+            display: block;
+            padding: 13px 16px;
+            border-radius: 10px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .mobile-nav a:hover { background: rgba(124,107,255,0.12); }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: #9b8fff; }
+
         @media (max-width: 768px) {
-            .hero {
-                height: 480px;
-            }
-
-            .hero h1 {
-                font-size: 34px;
-            }
-
-            .hero-stats {
-                gap: 24px;
-            }
+            .hero { height: 480px; }
+            .hero h1 { font-size: 34px; }
+            .hero-stats { gap: 24px; }
+            nav { display: none; }
+            .hamburger { display: block; }
         }
     </style>
 </head>
@@ -772,8 +830,18 @@
                 <button id="loginBtn" class="btn-login" style="visibility:hidden;">Login</button>
                 <button id="themeToggle" class="btn-secondary" title="Toggle theme">&#x2600;&#xFE0F;</button>
             </nav>
+            <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">&#x2630;</button>
         </div>
     </header>
+
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">&#x1F3E0; Home</a>
+        <a href="pages/browse.html">&#x1F4DA; Browse Myths</a>
+        <a href="pages/community.html">&#x1F465; Community</a>
+        <a href="pages/resources.html">&#x1F4DA; Resources</a>
+        <a href="pages/contact-and-info.html">&#x1F4EC; Contact &amp; Info</a>
+        <button id="mobileLoginBtn" class="btn-login" style="margin-top:8px;width:100%;text-align:center;" onclick="openAuthOverlay()">Login</button>
+    </div>
 
     <section class="hero">
         <video id="heroBg" class="hero-video"
@@ -933,6 +1001,15 @@
         <div class="container">
             <p class="logo-footer">&#x1F34E; Food Myth Buster</p>
             <p>&#xA9; 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="pages/browse.html">Browse Myths</a>
+                <a href="pages/community.html">Community</a>
+                <a href="pages/resources.html">Resources</a>
+                <a href="pages/tos.html">Terms of Service</a>
+                <a href="pages/privacy.html">Privacy Policy</a>
+                <a href="https://github.com/Euwan123" target="_blank">&#x1F4BB; GitHub</a>
+                <a href="https://discord.com/channels/1265864190883532872/1459706565308190865" target="_blank">&#x1F4AC; Discord</a>
+            </div>
         </div>
     </footer>
 
@@ -1126,6 +1203,17 @@
 
         loadData();
         loadCategories();
+
+        function toggleMobileNav() {
+            document.getElementById('mobileNav').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            var nav = document.getElementById('mobileNav');
+            var btn = document.getElementById('hamburgerBtn');
+            if (nav && nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) {
+                nav.classList.remove('open');
+            }
+        });
     </script>
 </body>
 
