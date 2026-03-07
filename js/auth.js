@@ -45,6 +45,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function checkAuth() {
+    const { data: { session } } = await sb.auth.getSession();
+    const loginBtn = document.getElementById('loginBtn');
+    const adminBtn = document.getElementById('adminBtn');
+    if (!loginBtn) return;
     var session = null;
     try {
         var res = await sb.auth.getSession();
@@ -55,7 +59,24 @@ async function checkAuth() {
     var adminBtn = document.getElementById('adminBtn');
     var isRoot = !window.location.pathname.includes('/pages/');
 
+    const isRoot = !window.location.pathname.includes('/pages/');
+
     if (session) {
+        loginBtn.textContent = 'Profile';
+        loginBtn.className = 'btn-login';
+        loginBtn.onclick = () => {
+            const base = isRoot ? 'pages/' : '';
+            window.location.href = base + 'profile.html';
+        };
+        if (adminBtn) {
+            const user = session.user;
+            const isAdmin = user && user.user_metadata && user.user_metadata.role === 'admin';
+            if (isAdmin) {
+                adminBtn.style.display = 'inline-block';
+                adminBtn.onclick = () => {
+                    const base = isRoot ? 'pages/' : '';
+                    window.location.href = base + 'admin.html';
+                };
         var isAdmin = session.user.user_metadata && session.user.user_metadata.role === 'admin';
         if (!isAdmin) {
             var profRes = await sb.from('user_profiles').select('is_admin, display_name').eq('id', session.user.id).single();
@@ -77,11 +98,17 @@ async function checkAuth() {
             }
         }
     } else {
+<<<<<<< HEAD
+        loginBtn.textContent = 'Login';
+        loginBtn.className = 'btn-login';
+        loginBtn.onclick = openAuthOverlay;
+=======
         if (loginBtn) {
             loginBtn.textContent = 'Login';
             loginBtn.style.visibility = 'visible';
             loginBtn.onclick = openAuthOverlay;
         }
+>>>>>>> 35aa964cc2b98d34b8b163adf4ef82d59587463e
         if (adminBtn) adminBtn.style.display = 'none';
     }
 
@@ -106,6 +133,40 @@ function openAuthOverlay() {
     existing.style.display = 'flex';
 }
 
+<<<<<<< HEAD
+function openAuthOverlay() {
+    var existing = document.getElementById('authOverlay');
+    var isRoot = !window.location.pathname.includes('/pages/');
+    var src = isRoot ? 'pages/login.html' : 'login.html';
+
+    if (!existing) {
+        var overlay = document.createElement('div');
+        overlay.id = 'authOverlay';
+        overlay.className = 'auth-overlay';
+        overlay.innerHTML =
+            '<div class="auth-overlay-inner">' +
+                '<button type="button" class="auth-overlay-close" aria-label="Close login" onclick="closeAuthOverlay()">×</button>' +
+                '<iframe class="auth-overlay-frame" src="' + src + '" loading="lazy"></iframe>' +
+            '</div>';
+        document.body.appendChild(overlay);
+        existing = overlay;
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) closeAuthOverlay();
+        });
+    } else {
+        var frame = existing.querySelector('iframe');
+        if (frame && frame.src.indexOf(src) === -1) frame.src = src;
+    }
+
+    existing.classList.add('open');
+}
+
+function closeAuthOverlay() {
+    var overlay = document.getElementById('authOverlay');
+    if (overlay) overlay.classList.remove('open');
+}
+
+=======
 function closeAuthOverlay() {
     var o = document.getElementById('authOverlay');
     if (o) o.style.display = 'none';
@@ -115,4 +176,5 @@ window.addEventListener('message', function(e) {
     if (e.data === 'auth:success') { closeAuthOverlay(); window.location.reload(); }
 });
 
+>>>>>>> 35aa964cc2b98d34b8b163adf4ef82d59587463e
 checkAuth();
