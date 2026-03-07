@@ -76,7 +76,7 @@
             <div id="signupForm" style="display:none">
                 <div class="form-group"><label>Full Name</label><input type="text" id="signupName" placeholder="Your name"></div>
                 <div class="form-group"><label>Email Address</label><input type="email" id="signupEmail" placeholder="you@example.com"></div>
-                <div class="form-group"><label>Password</label><input type="password" id="signupPassword" placeholder="At least 8 characters + upper/lowercase and a number"></div>
+                <div class="form-group"><label>Password</label><input type="password" id="signupPassword" placeholder="At least 8 characters, including upper+lowercase & a number"><small style="font-size:11px;color:var(--text-muted);display:block;margin-top:4px;">Must be 8+ characters and include upper case, lower case and a number.</small></div>
                 <button class="auth-submit" id="signupBtn" onclick="handleSignup()">Create Account</button>
                 <div class="divider">or</div>
                 <p class="alt-link">Already have an account? <a href="#" onclick="switchTab('login')">Login</a></p>
@@ -90,7 +90,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
-    <script src="../js/theme.js"></script>
+    <!-- theme already included in head -->
     <script>
         sb.auth.getSession().then(function(res) { if (res.data.session) window.location.href = '../index.html'; });
 

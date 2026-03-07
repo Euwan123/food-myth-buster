@@ -186,15 +186,25 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
-    <script src="../js/theme.js"></script>
+    <!-- theme already included in head -->
     <script>
         var allMythsData = [];
         var categoriesData = [];
 
         async function initAdmin() {
             var session = await sb.auth.getSession();
+            var isAdmin = false;
+            if (session.data.session) {
+                isAdmin = session.data.session.user.user_metadata?.role === 'admin';
+                if (!isAdmin) {
+                    var profRes = await sb.from('user_profiles').select('is_admin').eq('id', session.data.session.user.id).single();
+                    if (!profRes.error && profRes.data) {
+                        isAdmin = profRes.data.is_admin;
+                    }
+                }
+            }
 
-            if (!session.data.session || session.data.session.user.user_metadata?.role !== 'admin') {
+            if (!isAdmin) {
                 document.body.innerHTML =
                     '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:DM Sans,sans-serif;color:#4b5563;">' +
                         '<div style="max-width:320px;text-align:center;padding:24px;border-radius:16px;border:1px solid #e5e7eb;background:var(--card);">' +

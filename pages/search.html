@@ -178,9 +178,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/auth.js"></script>
-    <script src="../js/theme.js"></script>
+    <!-- theme already loaded in head -->
     <script>
-        var urlParams = new URLSearchParams(window.location.search);
+// TODO: replace with your real key or inject from server
+    const ANTHROPIC_KEY = '<YOUR_API_KEY_HERE>'; // x-api-key header for Claude
+
+    var urlParams = new URLSearchParams(window.location.search);
         var currentQuery = urlParams.get('q') || '';
         var allResults = [];
         var activeVerdicts = [];
@@ -302,7 +305,7 @@
             try {
                 var response = await fetch('https://api.anthropic.com/v1/messages', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'x-api-key': ANTHROPIC_KEY },
                     body: JSON.stringify({
                         model: 'claude-sonnet-4-20250514',
                         max_tokens: 1000,
@@ -371,6 +374,13 @@
             window.history.pushState({}, '', '?q=' + encodeURIComponent(q));
             runSearch(q);
         });
+        // debounce input in case we decide to enable live-search
+        var _searchTimeout;
+        document.getElementById('searchInput').addEventListener('input', function() {
+            clearTimeout(_searchTimeout);
+            _searchTimeout = setTimeout(function() { document.getElementById('searchBtn').click(); }, 300);
+        });
+
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') document.getElementById('searchBtn').click();
         });

@@ -540,7 +540,8 @@
         }
 
         .skeleton {
-            background: linear-gradient(90deg, #1e1a3a 25%, #252047 50%, #1e1a3a 75%);
+            /* use theme variables so skeletons look correct in light/dark */
+            background: linear-gradient(90deg, var(--surface) 25%, var(--card) 50%, var(--surface) 75%);
             background-size: 200% 100%;
             animation: shimmer 1.4s infinite;
             border-radius: 8px;
@@ -939,7 +940,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-client.js"></script>
     <script src="js/auth.js"></script>
-    <script src="js/theme.js"></script>
+    <!-- theme.js already loaded in head -->
     <script>
         var video = document.getElementById('heroBg');
         var muteBtn = document.getElementById('muteBtn');
