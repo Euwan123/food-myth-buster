@@ -1079,7 +1079,7 @@
                     (p.description ? '<p class="paper-description">' + p.description + '</p>' : '') +
                     (p.url ? '<a class="paper-link" href="' + p.url + '" target="_blank" rel="noopener">📄 Read Study →</a>' : '') +
                     '</div>';
-            }).join('') + buildEvidenceHierarchyHTML();
+            }).join('') + buildEvidenceHierarchyHTML(papers);
         }
 
         function buildVideosHTML(videos) {
@@ -1266,15 +1266,54 @@
             return '<span class="study-quality-badge ' + qt.cls + '">' + qt.icon + ' ' + qt.label + '</span>';
         }
 
-        function buildEvidenceHierarchyHTML() {
+        function buildEvidenceHierarchyHTML(papers) {
+            var TIERS = [
+                { keys: ['meta-analysis'],                                         label: 'Meta-Analysis',     color: 'rgba(124,107,255,', textColor: '#9b8fff' },
+                { keys: ['systematic-review','systematic review'],                 label: 'Systematic Review', color: 'rgba(90,180,255,',  textColor: '#5ab4ff' },
+                { keys: ['rct','randomized controlled trial'],                     label: 'RCT',               color: 'rgba(16,217,136,',  textColor: '#10d988' },
+                { keys: ['cohort','cohort study'],                                 label: 'Cohort Study',      color: 'rgba(255,179,71,',  textColor: '#ffb347' },
+                { keys: ['observational'],                                         label: 'Observational',     color: 'rgba(255,140,148,', textColor: '#ff8c94' },
+                { keys: ['case-study','case study'],                               label: 'Case Study',        color: 'rgba(180,180,200,', textColor: '#a0a0b8' }
+            ];
+
+            var counts = {};
+            TIERS.forEach(function(t) { counts[t.label] = 0; });
+
+            papers.forEach(function(p) {
+                var key = (p.study_type || '').toLowerCase().trim();
+                TIERS.forEach(function(t) {
+                    if (t.keys.indexOf(key) !== -1) counts[t.label]++;
+                });
+            });
+
+            var total = papers.length || 1;
+            var hasAny = TIERS.some(function(t) { return counts[t.label] > 0; });
+
+            var rows = TIERS.map(function(t, i) {
+                var count = counts[t.label];
+                var pct = hasAny ? Math.round((count / total) * 100) : 0;
+                var isLast = i === TIERS.length - 1;
+                var dimmed = hasAny && count === 0;
+                var barBg = count > 0 ? t.color + '0.5)' : 'rgba(255,255,255,0.05)';
+                var labelStyle = dimmed ? 'opacity:0.35' : '';
+                var countChip = count > 0
+                    ? '<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:6px;background:' + t.color + '0.12);color:' + t.textColor + ';margin-left:auto">' + count + ' paper' + (count !== 1 ? 's' : '') + ' · ' + pct + '%</span>'
+                    : '<span style="font-size:10px;color:rgba(255,255,255,0.2);margin-left:auto">none</span>';
+                return '<div class="eh-row" style="' + (isLast ? 'margin-bottom:0' : '') + (dimmed ? ';opacity:0.4' : '') + '">' +
+                    '<div class="eh-bar" style="width:' + (count > 0 ? pct : 4) + '%;min-width:4px;background:' + barBg + '"></div>' +
+                    '<div class="eh-label" style="' + labelStyle + '">' + t.label + '</div>' +
+                    countChip +
+                    '</div>';
+            }).join('');
+
+            var subtitle = hasAny
+                ? 'Based on ' + total + ' paper' + (total !== 1 ? 's' : '') + ' linked to this myth'
+                : 'No study types recorded yet';
+
             return '<div class="evidence-hierarchy">' +
-                '<div class="evidence-hierarchy-title">Evidence Strength Hierarchy</div>' +
-                '<div class="eh-row"><div class="eh-bar" style="width:100%;background:rgba(124,107,255,0.4)"></div><div class="eh-label">Meta-Analysis</div><div class="eh-strength" style="background:rgba(124,107,255,0.12);color:#9b8fff">Highest</div></div>' +
-                '<div class="eh-row"><div class="eh-bar" style="width:83%;background:rgba(90,180,255,0.4)"></div><div class="eh-label">Systematic Review</div><div class="eh-strength" style="background:rgba(90,180,255,0.1);color:#5ab4ff">Very High</div></div>' +
-                '<div class="eh-row"><div class="eh-bar" style="width:66%;background:rgba(16,217,136,0.4)"></div><div class="eh-label">RCT</div><div class="eh-strength" style="background:rgba(16,217,136,0.1);color:#10d988">High</div></div>' +
-                '<div class="eh-row"><div class="eh-bar" style="width:49%;background:rgba(255,179,71,0.4)"></div><div class="eh-label">Cohort Study</div><div class="eh-strength" style="background:rgba(255,179,71,0.1);color:#ffb347">Moderate</div></div>' +
-                '<div class="eh-row"><div class="eh-bar" style="width:32%;background:rgba(255,140,148,0.4)"></div><div class="eh-label">Observational</div><div class="eh-strength" style="background:rgba(255,140,148,0.1);color:#ff8c94">Lower</div></div>' +
-                '<div class="eh-row" style="margin-bottom:0"><div class="eh-bar" style="width:15%;background:rgba(180,180,200,0.2)"></div><div class="eh-label">Case Study</div><div class="eh-strength" style="background:rgba(180,180,200,0.06);color:#a0a0b8">Lowest</div></div>' +
+                '<div class="evidence-hierarchy-title">Evidence Breakdown</div>' +
+                '<div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">' + subtitle + '</div>' +
+                rows +
                 '</div>';
         }
 
