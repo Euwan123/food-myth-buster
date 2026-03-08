@@ -448,68 +448,98 @@
             transform: translateY(-1px);
         }
 
-        .study-quality-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 3px 9px;
-            border-radius: 7px;
-            font-size: 10px;
-            font-weight: 700;
+        .myth-stats-card {
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .myth-stats-card h3 {
             font-family: 'Sora', sans-serif;
-            letter-spacing: 0.2px;
-            flex-shrink: 0;
-        }
-
-        .sqb-meta      { background: rgba(124,107,255,0.12); color: #9b8fff; border: 1px solid rgba(124,107,255,0.25); }
-        .sqb-systematic{ background: rgba(90,180,255,0.12);  color: #5ab4ff; border: 1px solid rgba(90,180,255,0.25); }
-        .sqb-rct       { background: rgba(16,217,136,0.12);  color: #10d988; border: 1px solid rgba(16,217,136,0.25); }
-        .sqb-cohort    { background: rgba(255,179,71,0.12);   color: #ffb347; border: 1px solid rgba(255,179,71,0.25); }
-        .sqb-obs       { background: rgba(255,92,107,0.12);   color: #ff8c94; border: 1px solid rgba(255,92,107,0.25); }
-        .sqb-case      { background: rgba(180,180,200,0.08);  color: #a0a0b8; border: 1px solid rgba(180,180,200,0.18); }
-
-        .evidence-hierarchy {
-            margin-top: 20px;
-            padding: 16px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-        }
-
-        .evidence-hierarchy-title {
-            font-size: 10px;
+            font-size: 15px;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 16px;
         }
 
-        .eh-row {
+        .stat-row {
+            margin-bottom: 14px;
+        }
+
+        .stat-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-label-row {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
-        .eh-bar {
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .stat-track {
             height: 7px;
-            border-radius: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 20px;
+            overflow: hidden;
         }
 
-        .eh-label {
+        .stat-fill {
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .stat-meta {
             font-size: 11px;
             color: var(--text-muted);
-            white-space: nowrap;
+            margin-top: 4px;
         }
 
-        .eh-strength {
+        .stat-numbers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-number-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            text-align: center;
+        }
+
+        .stat-number-val {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+            display: block;
+        }
+
+        .stat-number-label {
             font-size: 10px;
-            font-weight: 700;
-            margin-left: auto;
-            padding: 1px 7px;
-            border-radius: 6px;
-            white-space: nowrap;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
         }
 
         .videos-section {
@@ -1070,7 +1100,6 @@
                     '<div class="paper-number">' + (i + 1) + '</div>' +
                     '<div class="paper-title">' + p.title + '</div>' +
                     (p.year ? '<div class="paper-year">' + p.year + '</div>' : '') +
-                    getQualityBadgeHTML(p) +
                     '</div>' +
                     '<div class="paper-meta">' +
                     (p.authors ? '<span class="paper-authors">by ' + p.authors + '</span>' : '') +
@@ -1079,7 +1108,7 @@
                     (p.description ? '<p class="paper-description">' + p.description + '</p>' : '') +
                     (p.url ? '<a class="paper-link" href="' + p.url + '" target="_blank" rel="noopener">📄 Read Study →</a>' : '') +
                     '</div>';
-            }).join('') + buildEvidenceHierarchyHTML(papers);
+            }).join('');
         }
 
         function buildVideosHTML(videos) {
@@ -1172,14 +1201,7 @@
                 '</div>' +
                 '</div>' +
                 '<div>' +
-                '<div class="sidebar-card">' +
-                '<h3>📌 Quick Facts</h3>' +
-                '<div class="quick-fact"><div><div class="label">Verdict</div><div class="value">' + verdictLabel + '</div></div></div>' +
-                '<div class="quick-fact"><div><div class="label">Category</div><div class="value">' + (myth.categories ? myth.categories.name : 'General') + '</div></div></div>' +
-                '<div class="quick-fact"><div><div class="label">Views</div><div class="value">' + (myth.views || 0) + '</div></div></div>' +
-                '<div class="quick-fact"><div><div class="label">Studies</div><div class="value">' + papers.length + ' research paper' + (papers.length !== 1 ? 's' : '') + '</div></div></div>' +
-                '<div class="quick-fact"><div><div class="label">Videos</div><div class="value">' + videos.length + ' video' + (videos.length !== 1 ? 's' : '') + '</div></div></div>' +
-                '</div>' +
+                buildMythStatsHTML(myth, papers, videos, upVotes, downVotes) +
                 '<div class="sidebar-card">' +
                 '<h3>🔗 Share</h3>' +
                 '<button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href);this.textContent=\'✅ Copied!\'">📋 Copy Link</button>' +
@@ -1239,83 +1261,80 @@
                 '<div class="error-state"><div style="font-size:64px;margin-bottom:16px;">😕</div><h2>Oops!</h2><p style="color:var(--text-muted);margin-bottom:24px;">' + msg + '</p><a href="browse.html" style="display:inline-block;padding:12px 24px;background:var(--primary);color:white;border-radius:10px;text-decoration:none;font-weight:600;">Browse All Myths</a></div>';
         }
 
+        function buildMythStatsHTML(myth, papers, videos, upVotes, downVotes) {
+            var totalVotes = upVotes + downVotes;
+            var helpfulPct = totalVotes > 0 ? Math.round(upVotes / totalVotes * 100) : null;
+
+            var createdAt = myth.created_at ? new Date(myth.created_at) : null;
+            var updatedAt = myth.updated_at ? new Date(myth.updated_at) : null;
+            var now = new Date();
+            var daysSinceUpdate = updatedAt ? Math.floor((now - updatedAt) / (1000 * 60 * 60 * 24)) : null;
+            var daysSinceCreated = createdAt ? Math.floor((now - createdAt) / (1000 * 60 * 60 * 24)) : null;
+
+            var freshness = null;
+            var freshnessColor = '#10d988';
+            if (daysSinceUpdate !== null) {
+                if (daysSinceUpdate <= 30)        { freshness = 'Recently updated';  freshnessColor = '#10d988'; }
+                else if (daysSinceUpdate <= 180)  { freshness = 'Updated ' + Math.floor(daysSinceUpdate / 30) + ' months ago'; freshnessColor = '#ffb347'; }
+                else                              { freshness = 'Updated ' + Math.floor(daysSinceUpdate / 365) + 'y+ ago'; freshnessColor = '#ff8c94'; }
+            }
+
+            var viewsBar = Math.min(100, Math.round((myth.views || 0) / 500 * 100));
+
+            var rows = '';
+
+            if (helpfulPct !== null) {
+                var helpColor = helpfulPct >= 70 ? '#10d988' : helpfulPct >= 40 ? '#ffb347' : '#ff5c6b';
+                rows +=
+                    '<div class="stat-row">' +
+                    '<div class="stat-label-row"><span class="stat-label">👍 Helpfulness</span><span class="stat-value" style="color:' + helpColor + '">' + helpfulPct + '%</span></div>' +
+                    '<div class="stat-track"><div class="stat-fill" style="width:' + helpfulPct + '%;background:' + helpColor + '"></div></div>' +
+                    '<div class="stat-meta">' + upVotes + ' found helpful · ' + downVotes + ' did not</div>' +
+                    '</div>';
+            } else {
+                rows +=
+                    '<div class="stat-row">' +
+                    '<div class="stat-label-row"><span class="stat-label">👍 Helpfulness</span><span class="stat-value" style="color:var(--text-muted)">No votes yet</span></div>' +
+                    '<div class="stat-track"><div class="stat-fill" style="width:0%"></div></div>' +
+                    '</div>';
+            }
+
+            rows +=
+                '<div class="stat-row">' +
+                '<div class="stat-label-row"><span class="stat-label">👁 Popularity</span><span class="stat-value">' + (myth.views || 0).toLocaleString() + ' views</span></div>' +
+                '<div class="stat-track"><div class="stat-fill" style="width:' + viewsBar + '%;background:linear-gradient(90deg,#7c6bff,#c77dff)"></div></div>' +
+                (daysSinceCreated !== null ? '<div class="stat-meta">Added ' + daysSinceCreated + ' days ago</div>' : '') +
+                '</div>';
+
+            if (freshness) {
+                rows +=
+                    '<div class="stat-row">' +
+                    '<div class="stat-label-row"><span class="stat-label">🔄 Freshness</span><span class="stat-value" style="color:' + freshnessColor + '">' + freshness + '</span></div>' +
+                    '</div>';
+            }
+
+            var coverageScore = Math.min(100, (papers.length * 20) + (videos.length * 10));
+            var coverageLabel = coverageScore >= 80 ? 'Well covered' : coverageScore >= 40 ? 'Moderate' : 'Needs more sources';
+            var coverageColor = coverageScore >= 80 ? '#10d988' : coverageScore >= 40 ? '#ffb347' : '#ff8c94';
+            rows +=
+                '<div class="stat-row">' +
+                '<div class="stat-label-row"><span class="stat-label">📚 Coverage</span><span class="stat-value" style="color:' + coverageColor + '">' + coverageLabel + '</span></div>' +
+                '<div class="stat-track"><div class="stat-fill" style="width:' + coverageScore + '%;background:' + coverageColor + '"></div></div>' +
+                '<div class="stat-meta">' + papers.length + ' paper' + (papers.length !== 1 ? 's' : '') + ' · ' + videos.length + ' video' + (videos.length !== 1 ? 's' : '') + '</div>' +
+                '</div>';
+
+            return '<div class="myth-stats-card">' +
+                '<h3>📊 Myth Stats</h3>' +
+                rows +
+                '</div>';
+        }
+
         window.addEventListener('scroll', function () {
             var scrollTop = window.scrollY;
             var docHeight = document.documentElement.scrollHeight - window.innerHeight;
             var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
             document.getElementById('readingProgress').style.width = pct + '%';
         });
-
-        var STUDY_TYPES = {
-            'meta-analysis':    { label: 'Meta-Analysis',    cls: 'sqb-meta',       icon: '◆' },
-            'systematic-review':{ label: 'Systematic Review',cls: 'sqb-systematic', icon: '▲' },
-            'systematic review':{ label: 'Systematic Review',cls: 'sqb-systematic', icon: '▲' },
-            'rct':              { label: 'RCT',               cls: 'sqb-rct',        icon: '●' },
-            'randomized controlled trial': { label: 'RCT',   cls: 'sqb-rct',        icon: '●' },
-            'cohort':           { label: 'Cohort Study',      cls: 'sqb-cohort',     icon: '■' },
-            'cohort study':     { label: 'Cohort Study',      cls: 'sqb-cohort',     icon: '■' },
-            'observational':    { label: 'Observational',     cls: 'sqb-obs',        icon: '◇' },
-            'case study':       { label: 'Case Study',        cls: 'sqb-case',       icon: '○' },
-            'case-study':       { label: 'Case Study',        cls: 'sqb-case',       icon: '○' }
-        };
-
-        function getQualityBadgeHTML(paper) {
-            var key = (paper.study_type || '').toLowerCase().trim();
-            var qt = STUDY_TYPES[key];
-            if (!qt) return '';
-            return '<span class="study-quality-badge ' + qt.cls + '">' + qt.icon + ' ' + qt.label + '</span>';
-        }
-
-        function buildEvidenceHierarchyHTML(papers) {
-            var TIERS = [
-                { keys: ['meta-analysis'],                                         label: 'Meta-Analysis',     color: 'rgba(124,107,255,', textColor: '#9b8fff' },
-                { keys: ['systematic-review','systematic review'],                 label: 'Systematic Review', color: 'rgba(90,180,255,',  textColor: '#5ab4ff' },
-                { keys: ['rct','randomized controlled trial'],                     label: 'RCT',               color: 'rgba(16,217,136,',  textColor: '#10d988' },
-                { keys: ['cohort','cohort study'],                                 label: 'Cohort Study',      color: 'rgba(255,179,71,',  textColor: '#ffb347' },
-                { keys: ['observational'],                                         label: 'Observational',     color: 'rgba(255,140,148,', textColor: '#ff8c94' },
-                { keys: ['case-study','case study'],                               label: 'Case Study',        color: 'rgba(180,180,200,', textColor: '#a0a0b8' }
-            ];
-
-            var counts = {};
-            TIERS.forEach(function(t) { counts[t.label] = 0; });
-
-            papers.forEach(function(p) {
-                var key = (p.study_type || '').toLowerCase().trim();
-                TIERS.forEach(function(t) {
-                    if (t.keys.indexOf(key) !== -1) counts[t.label]++;
-                });
-            });
-
-            var total = papers.length || 1;
-            var hasAny = TIERS.some(function(t) { return counts[t.label] > 0; });
-
-            var rows = TIERS.map(function(t, i) {
-                var count = counts[t.label];
-                var pct = hasAny ? Math.round((count / total) * 100) : 0;
-                var isLast = i === TIERS.length - 1;
-                var dimmed = hasAny && count === 0;
-                var barBg = count > 0 ? t.color + '0.5)' : 'rgba(255,255,255,0.05)';
-                var labelStyle = dimmed ? 'opacity:0.35' : '';
-                var countChip = count > 0
-                    ? '<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:6px;background:' + t.color + '0.12);color:' + t.textColor + ';margin-left:auto">' + count + ' paper' + (count !== 1 ? 's' : '') + ' · ' + pct + '%</span>'
-                    : '<span style="font-size:10px;color:rgba(255,255,255,0.2);margin-left:auto">none</span>';
-                return '<div class="eh-row" style="' + (isLast ? 'margin-bottom:0' : '') + (dimmed ? ';opacity:0.4' : '') + '">' +
-                    '<div class="eh-bar" style="width:' + (count > 0 ? pct : 4) + '%;min-width:4px;background:' + barBg + '"></div>' +
-                    '<div class="eh-label" style="' + labelStyle + '">' + t.label + '</div>' +
-                    countChip +
-                    '</div>';
-            }).join('');
-
-            var subtitle = hasAny
-                ? 'Based on ' + total + ' paper' + (total !== 1 ? 's' : '') + ' linked to this myth'
-                : 'No study types recorded yet';
-
-            return '<div class="evidence-hierarchy">' +
-                '<div class="evidence-hierarchy-title">Evidence Breakdown</div>' +
-                '<div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">' + subtitle + '</div>' +
-                rows +
-                '</div>';
-        }
 
         init();
     </script>
