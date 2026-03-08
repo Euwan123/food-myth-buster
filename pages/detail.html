@@ -14,6 +14,19 @@
     <script src="../js/theme.js" data-load-before-render="true"></script>
     <style>
         
+        #readingProgress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #7c6bff, #c77dff, #10d988);
+            z-index: 9999;
+            transition: width 0.08s linear;
+            border-radius: 0 2px 2px 0;
+            box-shadow: 0 0 8px rgba(124, 107, 255, 0.7);
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -435,6 +448,70 @@
             transform: translateY(-1px);
         }
 
+        .study-quality-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 9px;
+            border-radius: 7px;
+            font-size: 10px;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            letter-spacing: 0.2px;
+            flex-shrink: 0;
+        }
+
+        .sqb-meta      { background: rgba(124,107,255,0.12); color: #9b8fff; border: 1px solid rgba(124,107,255,0.25); }
+        .sqb-systematic{ background: rgba(90,180,255,0.12);  color: #5ab4ff; border: 1px solid rgba(90,180,255,0.25); }
+        .sqb-rct       { background: rgba(16,217,136,0.12);  color: #10d988; border: 1px solid rgba(16,217,136,0.25); }
+        .sqb-cohort    { background: rgba(255,179,71,0.12);   color: #ffb347; border: 1px solid rgba(255,179,71,0.25); }
+        .sqb-obs       { background: rgba(255,92,107,0.12);   color: #ff8c94; border: 1px solid rgba(255,92,107,0.25); }
+        .sqb-case      { background: rgba(180,180,200,0.08);  color: #a0a0b8; border: 1px solid rgba(180,180,200,0.18); }
+
+        .evidence-hierarchy {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .evidence-hierarchy-title {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .eh-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .eh-bar {
+            height: 7px;
+            border-radius: 4px;
+        }
+
+        .eh-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .eh-strength {
+            font-size: 10px;
+            font-weight: 700;
+            margin-left: auto;
+            padding: 1px 7px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
         .videos-section {
             background: var(--card);
             border: 1.5px solid var(--border);
@@ -710,23 +787,6 @@
             border-color: var(--primary);
             color: var(--primary);
         }
-        /* dark-theme share hover keeps the text light for legibility */
-        body.dark .share-btn:hover {
-            color: var(--text);
-            border-color: var(--primary);
-        }
-        /* ensure share button text stays high contrast in dark mode */
-        body.dark .share-btn { color: var(--text); }
-        /* text label for category in quick facts/sidebar */
-        .category-label {
-            font-size:12px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        /* dark-mode highlight for any <mark> elements in this page as well */
-        body.dark .card-top h3 mark { background: rgba(255,255,255,0.1); color: var(--text); }
 
         .related-myth {
             display: flex;
@@ -862,6 +922,7 @@
 </head>
 
 <body>
+    <div id="readingProgress"></div>
     <header>
         <div class="container">
             <div class="logo">🍎 Food Myth Buster</div>
@@ -987,7 +1048,7 @@
                 '<section class="detail-hero">' +
                 '<div class="container"><div class="hero-inner">' +
                 '<div class="breadcrumb"><a href="../index.html">Home</a> → <a href="browse.html">Browse</a> → <a href="browse.html?category=' + (myth.categories ? myth.categories.slug : '') + '">' + (myth.categories ? myth.categories.name : 'General') + '</a></div>' +
-                '<div class="category-label">' + (myth.categories ? (myth.categories.icon || '') : '') + ' ' + (myth.categories ? myth.categories.name : '') + '</div>' +
+                '<div style="font-size:12px;opacity:0.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">' + (myth.categories ? (myth.categories.icon || '') : '') + ' ' + (myth.categories ? myth.categories.name : '') + '</div>' +
                 '<h1>' + myth.title + '</h1>' +
                 '<div class="hero-meta">' +
                 '<span class="verdict-badge verdict-' + myth.verdict + '">' + verdictLabel + '</span>' +
@@ -1009,6 +1070,7 @@
                     '<div class="paper-number">' + (i + 1) + '</div>' +
                     '<div class="paper-title">' + p.title + '</div>' +
                     (p.year ? '<div class="paper-year">' + p.year + '</div>' : '') +
+                    getQualityBadgeHTML(p) +
                     '</div>' +
                     '<div class="paper-meta">' +
                     (p.authors ? '<span class="paper-authors">by ' + p.authors + '</span>' : '') +
@@ -1017,7 +1079,7 @@
                     (p.description ? '<p class="paper-description">' + p.description + '</p>' : '') +
                     (p.url ? '<a class="paper-link" href="' + p.url + '" target="_blank" rel="noopener">📄 Read Study →</a>' : '') +
                     '</div>';
-            }).join('');
+            }).join('') + buildEvidenceHierarchyHTML();
         }
 
         function buildVideosHTML(videos) {
@@ -1175,6 +1237,45 @@
             document.getElementById('heroSection').innerHTML = '';
             document.getElementById('mainContent').innerHTML =
                 '<div class="error-state"><div style="font-size:64px;margin-bottom:16px;">😕</div><h2>Oops!</h2><p style="color:var(--text-muted);margin-bottom:24px;">' + msg + '</p><a href="browse.html" style="display:inline-block;padding:12px 24px;background:var(--primary);color:white;border-radius:10px;text-decoration:none;font-weight:600;">Browse All Myths</a></div>';
+        }
+
+        window.addEventListener('scroll', function () {
+            var scrollTop = window.scrollY;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('readingProgress').style.width = pct + '%';
+        });
+
+        var STUDY_TYPES = {
+            'meta-analysis':    { label: 'Meta-Analysis',    cls: 'sqb-meta',       icon: '◆' },
+            'systematic-review':{ label: 'Systematic Review',cls: 'sqb-systematic', icon: '▲' },
+            'systematic review':{ label: 'Systematic Review',cls: 'sqb-systematic', icon: '▲' },
+            'rct':              { label: 'RCT',               cls: 'sqb-rct',        icon: '●' },
+            'randomized controlled trial': { label: 'RCT',   cls: 'sqb-rct',        icon: '●' },
+            'cohort':           { label: 'Cohort Study',      cls: 'sqb-cohort',     icon: '■' },
+            'cohort study':     { label: 'Cohort Study',      cls: 'sqb-cohort',     icon: '■' },
+            'observational':    { label: 'Observational',     cls: 'sqb-obs',        icon: '◇' },
+            'case study':       { label: 'Case Study',        cls: 'sqb-case',       icon: '○' },
+            'case-study':       { label: 'Case Study',        cls: 'sqb-case',       icon: '○' }
+        };
+
+        function getQualityBadgeHTML(paper) {
+            var key = (paper.study_type || '').toLowerCase().trim();
+            var qt = STUDY_TYPES[key];
+            if (!qt) return '';
+            return '<span class="study-quality-badge ' + qt.cls + '">' + qt.icon + ' ' + qt.label + '</span>';
+        }
+
+        function buildEvidenceHierarchyHTML() {
+            return '<div class="evidence-hierarchy">' +
+                '<div class="evidence-hierarchy-title">Evidence Strength Hierarchy</div>' +
+                '<div class="eh-row"><div class="eh-bar" style="width:100%;background:rgba(124,107,255,0.4)"></div><div class="eh-label">Meta-Analysis</div><div class="eh-strength" style="background:rgba(124,107,255,0.12);color:#9b8fff">Highest</div></div>' +
+                '<div class="eh-row"><div class="eh-bar" style="width:83%;background:rgba(90,180,255,0.4)"></div><div class="eh-label">Systematic Review</div><div class="eh-strength" style="background:rgba(90,180,255,0.1);color:#5ab4ff">Very High</div></div>' +
+                '<div class="eh-row"><div class="eh-bar" style="width:66%;background:rgba(16,217,136,0.4)"></div><div class="eh-label">RCT</div><div class="eh-strength" style="background:rgba(16,217,136,0.1);color:#10d988">High</div></div>' +
+                '<div class="eh-row"><div class="eh-bar" style="width:49%;background:rgba(255,179,71,0.4)"></div><div class="eh-label">Cohort Study</div><div class="eh-strength" style="background:rgba(255,179,71,0.1);color:#ffb347">Moderate</div></div>' +
+                '<div class="eh-row"><div class="eh-bar" style="width:32%;background:rgba(255,140,148,0.4)"></div><div class="eh-label">Observational</div><div class="eh-strength" style="background:rgba(255,140,148,0.1);color:#ff8c94">Lower</div></div>' +
+                '<div class="eh-row" style="margin-bottom:0"><div class="eh-bar" style="width:15%;background:rgba(180,180,200,0.2)"></div><div class="eh-label">Case Study</div><div class="eh-strength" style="background:rgba(180,180,200,0.06);color:#a0a0b8">Lowest</div></div>' +
+                '</div>';
         }
 
         init();
