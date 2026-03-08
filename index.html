@@ -378,6 +378,123 @@
             background: var(--primary-dark);
         }
 
+        .search-wrapper {
+            position: relative;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .search-wrapper .search-bar {
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .autocomplete-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: rgba(18, 14, 38, 0.98);
+            border: 1px solid rgba(124, 107, 255, 0.4);
+            border-radius: 14px;
+            overflow: hidden;
+            z-index: 999;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,107,255,0.1);
+            display: none;
+            animation: dropdownIn 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        .autocomplete-dropdown.open {
+            display: block;
+        }
+
+        @keyframes dropdownIn {
+            from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .autocomplete-header {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(155, 143, 255, 0.6);
+            padding: 10px 16px 6px;
+        }
+
+        .autocomplete-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 16px;
+            cursor: pointer;
+            transition: background 0.15s;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .autocomplete-item:first-of-type {
+            border-top: none;
+        }
+
+        .autocomplete-item:hover, .autocomplete-item.focused {
+            background: rgba(124, 107, 255, 0.12);
+        }
+
+        .autocomplete-item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+            background: rgba(124, 107, 255, 0.1);
+        }
+
+        .autocomplete-item-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .autocomplete-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .autocomplete-item-title mark {
+            background: transparent;
+            color: #9b8fff;
+            font-weight: 700;
+        }
+
+        .autocomplete-item-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .autocomplete-item-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .autocomplete-footer {
+            padding: 8px 16px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 12px;
+            color: rgba(155, 143, 255, 0.5);
+            text-align: center;
+        }
+
         .hero-stats {
             display: flex;
             justify-content: center;
@@ -788,6 +905,225 @@
             line-height: 1.5;
         }
 
+        .ai-analyzer-section {
+            padding: 72px 0;
+            background: linear-gradient(180deg, #0f0d1e 0%, #0a0818 100%);
+            border-top: 1px solid var(--border);
+        }
+
+        .ai-analyzer-inner {
+            max-width: 780px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .ai-analyzer-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(124, 107, 255, 0.1);
+            border: 1px solid rgba(124, 107, 255, 0.25);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #9b8fff;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .ai-analyzer-inner h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .ai-analyzer-inner > p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 36px;
+        }
+
+        .ai-input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ai-input-row input {
+            flex: 1;
+            background: rgba(26, 22, 48, 0.8);
+            border: 1.5px solid rgba(124, 107, 255, 0.3);
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-size: 15px;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .ai-input-row input:focus {
+            border-color: rgba(124, 107, 255, 0.7);
+            box-shadow: 0 0 0 3px rgba(124, 107, 255, 0.12);
+        }
+
+        .ai-input-row input::placeholder {
+            color: rgba(200, 195, 220, 0.35);
+        }
+
+        .btn-ai-analyze {
+            background: linear-gradient(135deg, #7c6bff, #c77dff);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-ai-analyze:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(124, 107, 255, 0.45);
+        }
+
+        .btn-ai-analyze:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .ai-result-box {
+            background: rgba(18, 14, 38, 0.9);
+            border: 1px solid rgba(124, 107, 255, 0.2);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: left;
+            display: none;
+            animation: fadeInUp 0.3s ease both;
+        }
+
+        .ai-result-box.visible {
+            display: block;
+        }
+
+        .ai-result-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .ai-verdict-pill {
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+        }
+
+        .ai-verdict-pill.TRUE { background: rgba(16,217,136,0.15); color: #10d988; border: 1px solid rgba(16,217,136,0.3); }
+        .ai-verdict-pill.FALSE { background: rgba(255,92,107,0.15); color: #ff5c6b; border: 1px solid rgba(255,92,107,0.3); }
+        .ai-verdict-pill.PARTIAL { background: rgba(255,179,71,0.15); color: #ffb347; border: 1px solid rgba(255,179,71,0.3); }
+        .ai-verdict-pill.ANALYZING { background: rgba(124,107,255,0.15); color: #9b8fff; border: 1px solid rgba(124,107,255,0.3); }
+
+        .ai-confidence-bar-wrap {
+            flex: 1;
+        }
+
+        .ai-confidence-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .ai-confidence-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .ai-confidence-fill {
+            height: 100%;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #7c6bff, #c77dff);
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            width: 0%;
+        }
+
+        .ai-result-body {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.75;
+            margin-bottom: 18px;
+        }
+
+        .ai-result-body p { margin: 0; }
+
+        .ai-result-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .ai-tag {
+            background: rgba(124,107,255,0.1);
+            border: 1px solid rgba(124,107,255,0.2);
+            color: #9b8fff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .ai-loading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .ai-dots span {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #7c6bff;
+            margin: 0 2px;
+            animation: dotPulse 1.2s ease-in-out infinite;
+        }
+
+        .ai-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .ai-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .ai-disclaimer {
+            font-size: 11px;
+            color: rgba(155,143,255,0.4);
+            margin-top: 14px;
+            text-align: center;
+        }
+
         footer {
             background: #080714;
             border-top: 1px solid var(--border);
@@ -934,9 +1270,16 @@
                 <div class="hero-eyebrow">&#x1F52C; Evidence-Based Myth Busting</div>
                 <h1>Is That Food Myth<br>True or False?</h1>
                 <p>Search any food claim and get science-backed answers instantly</p>
+                <div class="search-wrapper">
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder='Try "Does MSG cause headaches?"'>
+                    <input type="text" id="searchInput" placeholder='Try "Does MSG cause headaches?"' autocomplete="off">
                     <button id="searchBtn">&#x1F50D; Search</button>
+                </div>
+                <div class="autocomplete-dropdown" id="autocompleteDropdown">
+                    <div class="autocomplete-header">Suggestions</div>
+                    <div id="autocompleteList"></div>
+                    <div class="autocomplete-footer">Press Enter to search all results</div>
+                </div>
                 </div>
                 <div class="hero-stats">
                     <div class="hero-stat"><span class="hero-stat-num" id="statMyths">&#x2014;</span><span
@@ -1065,6 +1408,27 @@
                     <h4>Community input</h4>
                     <p>Submit myths, bookmark favourites, and vote.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ai-analyzer-section">
+        <div class="container">
+            <div class="ai-analyzer-inner">
+                <div class="ai-analyzer-eyebrow">✨ AI-Powered</div>
+                <h2>Instant Myth Analyzer</h2>
+                <p>Type any food claim and get an AI-powered verdict with explanation, no searching required.</p>
+                <div class="ai-input-row">
+                    <input type="text" id="aiMythInput" placeholder='e.g. "Eating late at night makes you fat"' autocomplete="off">
+                    <button class="btn-ai-analyze" id="aiAnalyzeBtn" onclick="analyzeMyth()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        Analyze
+                    </button>
+                </div>
+                <div class="ai-result-box" id="aiResultBox">
+                    <div id="aiResultContent"></div>
+                </div>
+                <p class="ai-disclaimer">AI analysis is for educational purposes. Always consult a healthcare professional for medical advice.</p>
             </div>
         </div>
     </section>
@@ -1275,6 +1639,120 @@
 
         loadData();
         loadCategories();
+
+        var acIndex = -1;
+
+        function highlightMatch(text, query) {
+            if (!query) return text;
+            var re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+            return text.replace(re, '<mark>$1</mark>');
+        }
+
+        function renderAutocomplete(myths, query) {
+            var dropdown = document.getElementById('autocompleteDropdown');
+            var list = document.getElementById('autocompleteList');
+            list.innerHTML = '';
+            acIndex = -1;
+            if (!myths.length || !query) { dropdown.classList.remove('open'); return; }
+            myths.forEach(function(myth, i) {
+                var item = document.createElement('div');
+                item.className = 'autocomplete-item';
+                var vl = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
+                var vColor = myth.verdict === 'TRUE' ? '#10d988' : myth.verdict === 'FALSE' ? '#ff5c6b' : '#ffb347';
+                var vBg = myth.verdict === 'TRUE' ? 'rgba(16,217,136,0.12)' : myth.verdict === 'FALSE' ? 'rgba(255,92,107,0.12)' : 'rgba(255,179,71,0.12)';
+                item.innerHTML =
+                    '<div class="autocomplete-item-icon">' + (myth.categories ? myth.categories.icon || '❓' : '❓') + '</div>' +
+                    '<div class="autocomplete-item-text">' +
+                        '<div class="autocomplete-item-title">' + highlightMatch(myth.title, query) + '</div>' +
+                        '<div class="autocomplete-item-meta">' + (myth.categories ? myth.categories.name : 'General') + '</div>' +
+                    '</div>' +
+                    '<div class="autocomplete-item-badge" style="color:' + vColor + ';background:' + vBg + ';border:1px solid ' + vColor + '40">' + vl + '</div>';
+                item.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    window.location.href = 'pages/detail.html?id=' + myth.id;
+                });
+                list.appendChild(item);
+            });
+            dropdown.classList.add('open');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var q = this.value.trim().toLowerCase();
+            if (!q || q.length < 2) { document.getElementById('autocompleteDropdown').classList.remove('open'); return; }
+            var results = allMyths.filter(function(m) { return m.title.toLowerCase().includes(q); }).slice(0, 6);
+            renderAutocomplete(results, q);
+        });
+
+        document.getElementById('searchInput').addEventListener('keydown', function(e) {
+            var items = document.querySelectorAll('.autocomplete-item');
+            if (e.key === 'ArrowDown') { e.preventDefault(); acIndex = Math.min(acIndex + 1, items.length - 1); items.forEach(function(el, i) { el.classList.toggle('focused', i === acIndex); }); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); acIndex = Math.max(acIndex - 1, -1); items.forEach(function(el, i) { el.classList.toggle('focused', i === acIndex); }); }
+            else if (e.key === 'Escape') { document.getElementById('autocompleteDropdown').classList.remove('open'); }
+            else if (e.key === 'Enter' && acIndex >= 0 && items[acIndex]) { items[acIndex].dispatchEvent(new MouseEvent('mousedown')); }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-wrapper')) document.getElementById('autocompleteDropdown').classList.remove('open');
+        });
+
+        document.getElementById('searchInput').addEventListener('focus', function() {
+            var q = this.value.trim().toLowerCase();
+            if (q.length >= 2) { var r = allMyths.filter(function(m) { return m.title.toLowerCase().includes(q); }).slice(0, 6); renderAutocomplete(r, q); }
+        });
+
+        document.getElementById('aiMythInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') analyzeMyth();
+        });
+
+        async function analyzeMyth() {
+            var input = document.getElementById('aiMythInput');
+            var claim = input.value.trim();
+            if (!claim) return;
+            var btn = document.getElementById('aiAnalyzeBtn');
+            var box = document.getElementById('aiResultBox');
+            var content = document.getElementById('aiResultContent');
+            btn.disabled = true;
+            box.classList.add('visible');
+            content.innerHTML = '<div class="ai-loading"><div class="ai-dots"><span></span><span></span><span></span></div> Analyzing your claim with AI...</div>';
+            try {
+                var res = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1000,
+                        system: 'You are a nutrition science expert. Analyze food/nutrition myths and return ONLY a JSON object with no markdown, no backticks, no preamble. Schema: {"verdict":"TRUE"|"FALSE"|"PARTIAL","confidence":0-100,"summary":"2-3 sentence plain English summary","keyPoints":["point1","point2","point3"],"tags":["tag1","tag2","tag3"]}',
+                        messages: [{ role: 'user', content: 'Analyze this food/nutrition claim: ' + claim }]
+                    })
+                });
+                var data = await res.json();
+                var text = data.content.map(function(b) { return b.text || ''; }).join('');
+                var clean = text.replace(/```json|```/g, '').trim();
+                var result = JSON.parse(clean);
+                var vLabel = result.verdict === 'PARTIAL' ? 'Partially True' : result.verdict === 'TRUE' ? 'True' : 'False';
+                content.innerHTML =
+                    '<div class="ai-result-header">' +
+                        '<div class="ai-verdict-pill ' + result.verdict + '">' + vLabel + '</div>' +
+                        '<div class="ai-confidence-bar-wrap">' +
+                            '<div class="ai-confidence-label">Scientific confidence: ' + result.confidence + '%</div>' +
+                            '<div class="ai-confidence-bar"><div class="ai-confidence-fill" id="confFill"></div></div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="ai-result-body"><p>' + result.summary + '</p>' +
+                        '<ul style="margin:12px 0 0 18px;color:var(--text-muted);font-size:14px;line-height:1.8">' +
+                            result.keyPoints.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
+                        '</ul>' +
+                    '</div>' +
+                    '<div class="ai-result-tags">' + result.tags.map(function(t) { return '<span class="ai-tag">#' + t + '</span>'; }).join('') + '</div>';
+                setTimeout(function() {
+                    var fill = document.getElementById('confFill');
+                    if (fill) fill.style.width = result.confidence + '%';
+                }, 50);
+            } catch(e) {
+                content.innerHTML = '<div style="color:#ff5c6b;font-size:14px;">Could not analyze claim. Please try again.</div>';
+            }
+            btn.disabled = false;
+        }
 
         function toggleMobileNav() {
             document.getElementById('mobileNav').classList.toggle('open');
