@@ -27,13 +27,19 @@ async function loadTrendingMyths() {
             const card = document.createElement('div');
             card.className = 'myth-card';
             card.onclick = () => window.location.href = `pages/detail.html?id=${myth.id}`;
-            
-            card.innerHTML = `
-                <h3>${myth.title}</h3>
-                <span class="verdict-badge verdict-${myth.verdict}">${myth.verdict.replace('_', ' ')}</span>
-                <p class="cta">Click to see evidence →</p>
-            `;
-            
+
+            const title = document.createElement('h3');
+            title.textContent = myth.title;
+            const badge = document.createElement('span');
+            badge.className = `verdict-badge verdict-${myth.verdict}`;
+            badge.textContent = myth.verdict.replace('_', ' ');
+            const cta = document.createElement('p');
+            cta.className = 'cta';
+            cta.textContent = 'Click to see evidence →';
+
+            card.appendChild(title);
+            card.appendChild(badge);
+            card.appendChild(cta);
             grid.appendChild(card);
         });
 

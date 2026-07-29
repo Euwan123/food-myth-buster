@@ -26,27 +26,56 @@ async function loadPolls() {
             const percent1 = totalVotes > 0 ? (poll.votes1 / totalVotes * 100).toFixed(1) : 0;
             const percent2 = totalVotes > 0 ? (poll.votes2 / totalVotes * 100).toFixed(1) : 0;
 
-            pollCard.innerHTML = `
-                <h3>${poll.question}</h3>
-                <div class="poll-options">
-                    <div class="poll-option">
-                        <span>${poll.option1}</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${percent1}%"></div>
-                        </div>
-                        <span class="vote-count">${poll.votes1} votes (${percent1}%)</span>
-                    </div>
-                    <div class="poll-option">
-                        <span>${poll.option2}</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${percent2}%"></div>
-                        </div>
-                        <span class="vote-count">${poll.votes2} votes (${percent2}%)</span>
-                    </div>
-                </div>
-                <p class="total-votes">Total votes: ${totalVotes}</p>
-            `;
+            const title = document.createElement('h3');
+            title.textContent = poll.question;
 
+            const options = document.createElement('div');
+            options.className = 'poll-options';
+
+            const optionA = document.createElement('div');
+            optionA.className = 'poll-option';
+            const optionAText = document.createElement('span');
+            optionAText.textContent = poll.option1;
+            const optionAbar = document.createElement('div');
+            optionAbar.className = 'progress-bar';
+            const optionAFill = document.createElement('div');
+            optionAFill.className = 'progress-fill';
+            optionAFill.style.width = percent1 + '%';
+            optionAbar.appendChild(optionAFill);
+            const optionACount = document.createElement('span');
+            optionACount.className = 'vote-count';
+            optionACount.textContent = poll.votes1 + ' votes (' + percent1 + '%)';
+            optionA.appendChild(optionAText);
+            optionA.appendChild(optionAbar);
+            optionA.appendChild(optionACount);
+
+            const optionB = document.createElement('div');
+            optionB.className = 'poll-option';
+            const optionBText = document.createElement('span');
+            optionBText.textContent = poll.option2;
+            const optionBbar = document.createElement('div');
+            optionBbar.className = 'progress-bar';
+            const optionBFill = document.createElement('div');
+            optionBFill.className = 'progress-fill';
+            optionBFill.style.width = percent2 + '%';
+            optionBbar.appendChild(optionBFill);
+            const optionBCount = document.createElement('span');
+            optionBCount.className = 'vote-count';
+            optionBCount.textContent = poll.votes2 + ' votes (' + percent2 + '%)';
+            optionB.appendChild(optionBText);
+            optionB.appendChild(optionBbar);
+            optionB.appendChild(optionBCount);
+
+            options.appendChild(optionA);
+            options.appendChild(optionB);
+
+            const total = document.createElement('p');
+            total.className = 'total-votes';
+            total.textContent = 'Total votes: ' + totalVotes;
+
+            pollCard.appendChild(title);
+            pollCard.appendChild(options);
+            pollCard.appendChild(total);
             container.appendChild(pollCard);
         });
 

@@ -184,7 +184,6 @@
     <script src="../js/auth.js"></script>
     <script src="../js/theme.js"></script>
     <script>
-        const ANTHROPIC_KEY = '<YOUR_API_KEY_HERE>';
         var urlParams = new URLSearchParams(window.location.search);
         var currentQuery = urlParams.get('q') || '';
         var allResults = [];
@@ -205,7 +204,17 @@
             res.data.forEach(function(cat) {
                 var label = document.createElement('label');
                 label.className = 'filter-option';
-                label.innerHTML = '<input type="checkbox" value="' + cat.slug + '" onchange="applyFilters()"><span>' + (cat.icon || '') + ' ' + cat.name + '</span>';
+
+                var input = document.createElement('input');
+                input.type = 'checkbox';
+                input.value = cat.slug;
+                input.onchange = applyFilters;
+
+                var text = document.createElement('span');
+                text.textContent = (cat.icon || '') + ' ' + cat.name;
+
+                label.appendChild(input);
+                label.appendChild(text);
                 container.appendChild(label);
             });
         }
@@ -217,7 +226,7 @@
 
             var q = query ? query.trim() : '';
             document.getElementById('queryDisplay').textContent = q ? '"' + q + '"' : 'All Myths';
-            document.getElementById('resultsLabel').innerHTML = q ? 'Searching for <strong>' + q + '</strong>…' : '';
+                document.getElementById('resultsLabel').innerHTML = q ? 'Searching for <strong>' + escapeHtml(q) + '</strong>…' : '';
 
             var res;
             if (!q) {
@@ -310,9 +319,9 @@
                 '</div>';
 
             try {
-                var response = await fetch('https://api.anthropic.com/v1/messages', {
+                var response = await fetch('/functions/claude', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'x-api-key': ANTHROPIC_KEY },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         model: 'claude-sonnet-4-20250514',
                         max_tokens: 1000,
@@ -362,10 +371,20 @@
             }
         }
 
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
         function highlight(text, q) {
-            if (!q || !q.trim()) return text;
+            var safeText = escapeHtml(text || '');
+            if (!q || !q.trim()) return safeText;
             var escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            return text.replace(new RegExp('(' + escaped + ')', 'gi'), '<mark>$1</mark>');
+            return safeText.replace(new RegExp('(' + escaped + ')', 'gi'), '<mark>$1</mark>');
         }
 
         function searchFor(q) {

@@ -57,12 +57,10 @@ async function checkAuth() {
     var isRoot = !window.location.pathname.includes('/pages/');
 
     if (session) {
-        var isAdmin = session.user.user_metadata && session.user.user_metadata.role === 'admin';
-        if (!isAdmin) {
-            var profRes = await sb.from('user_profiles').select('is_admin, display_name').eq('id', session.user.id).single();
-            if (!profRes.error && profRes.data) {
-                isAdmin = profRes.data.is_admin;
-            }
+        var profRes = await sb.from('user_profiles').select('is_admin, display_name').eq('id', session.user.id).single();
+        var isAdmin = false;
+        if (!profRes.error && profRes.data) {
+            isAdmin = profRes.data.is_admin;
         }
         if (loginBtn) {
             loginBtn.textContent = 'Profile';

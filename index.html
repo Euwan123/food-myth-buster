@@ -1706,6 +1706,15 @@
             if (e.key === 'Enter') analyzeMyth();
         });
 
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
         async function analyzeMyth() {
             var input = document.getElementById('aiMythInput');
             var claim = input.value.trim();
@@ -1717,7 +1726,7 @@
             box.classList.add('visible');
             content.innerHTML = '<div class="ai-loading"><div class="ai-dots"><span></span><span></span><span></span></div> Analyzing your claim with AI...</div>';
             try {
-                var res = await fetch('https://api.anthropic.com/v1/messages', {
+                var res = await fetch('/functions/claude', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1734,21 +1743,21 @@
                 var vLabel = result.verdict === 'PARTIAL' ? 'Partially True' : result.verdict === 'TRUE' ? 'True' : 'False';
                 content.innerHTML =
                     '<div class="ai-result-header">' +
-                        '<div class="ai-verdict-pill ' + result.verdict + '">' + vLabel + '</div>' +
+                        '<div class="ai-verdict-pill ' + escapeHtml(result.verdict) + '">' + escapeHtml(vLabel) + '</div>' +
                         '<div class="ai-confidence-bar-wrap">' +
-                            '<div class="ai-confidence-label">Scientific confidence: ' + result.confidence + '%</div>' +
+                            '<div class="ai-confidence-label">Scientific confidence: ' + escapeHtml(result.confidence) + '%</div>' +
                             '<div class="ai-confidence-bar"><div class="ai-confidence-fill" id="confFill"></div></div>' +
                         '</div>' +
                     '</div>' +
-                    '<div class="ai-result-body"><p>' + result.summary + '</p>' +
+                    '<div class="ai-result-body"><p>' + escapeHtml(result.summary) + '</p>' +
                         '<ul style="margin:12px 0 0 18px;color:var(--text-muted);font-size:14px;line-height:1.8">' +
-                            result.keyPoints.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
+                            result.keyPoints.map(function(p) { return '<li>' + escapeHtml(p) + '</li>'; }).join('') +
                         '</ul>' +
                     '</div>' +
-                    '<div class="ai-result-tags">' + result.tags.map(function(t) { return '<span class="ai-tag">#' + t + '</span>'; }).join('') + '</div>';
+                    '<div class="ai-result-tags">' + result.tags.map(function(t) { return '<span class="ai-tag">#' + escapeHtml(t) + '</span>'; }).join('') + '</div>';
                 setTimeout(function() {
                     var fill = document.getElementById('confFill');
-                    if (fill) fill.style.width = result.confidence + '%';
+                    if (fill) fill.style.width = escapeHtml(result.confidence) + '%';
                 }, 50);
             } catch(e) {
                 content.innerHTML = '<div style="color:#ff5c6b;font-size:14px;">Could not analyze claim. Please try again.</div>';

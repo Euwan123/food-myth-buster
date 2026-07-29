@@ -193,10 +193,36 @@
         var allMythsData = [];
         var categoriesData = [];
 
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
         async function initAdmin() {
             var session = await sb.auth.getSession();
+            var userId = session.data.session?.user?.id;
 
-            if (!session.data.session || session.data.session.user.user_metadata?.role !== 'admin') {
+            if (!userId) {
+                document.body.innerHTML =
+                    '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:DM Sans,sans-serif;color:#4b5563;">' +
+                        '<div style="max-width:320px;text-align:center;padding:24px;border-radius:16px;border:1px solid #e5e7eb;background:var(--card);">' +
+                            '<div style="font-size:40px;margin-bottom:8px;">🔒</div>' +
+                            '<div style="font-weight:700;margin-bottom:4px;">Admin only</div>' +
+                            '<div style="font-size:14px;margin-bottom:16px;">You need an admin account to view this page.</div>' +
+                            '<a href="../index.html" style="display:inline-block;padding:10px 18px;border-radius:10px;background:#6c63ff;color:white;text-decoration:none;font-size:14px;font-weight:600;">Back to home</a>' +
+                        '</div>' +
+                    '</div>';
+                return;
+            }
+
+            var profileRes = await sb.from('user_profiles').select('is_admin').eq('id', userId).single();
+            var isAdmin = profileRes.data?.is_admin;
+
+            if (!isAdmin) {
                 document.body.innerHTML =
                     '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:DM Sans,sans-serif;color:#4b5563;">' +
                         '<div style="max-width:320px;text-align:center;padding:24px;border-radius:16px;border:1px solid #e5e7eb;background:var(--card);">' +
@@ -262,20 +288,44 @@
                 var div = document.createElement('div');
                 div.className = 'submission-row';
                 div.id = 'sub-' + s.id;
-                div.innerHTML =
-                    '<div class="submission-text">' + s.myth_text + '</div>' +
-                    '<div class="submission-meta">' +
-                        'Category ID: ' + (s.category_id || 'None') +
-                        (s.source_link ? ' &nbsp;•&nbsp; <a href="' + s.source_link + '" target="_blank" style="color:var(--primary);">Source</a>' : '') +
-                        (s.suggested_verdict ? ' &nbsp;•&nbsp; Suggested: <span class="submission-verdict sv-' + s.suggested_verdict + '">' + s.suggested_verdict + '</span>' : '') +
-                        ' &nbsp;•&nbsp; ' + new Date(s.created_at || s.submitted_at).toLocaleDateString() +
-                    '</div>' +
-                    '<span class="status-pill status-' + status + '">' + status + '</span>' +
-                    '<div class="actions">' +
-                        '<button class="btn-action btn-approve" onclick="updateStatus(' + s.id + ', \'APPROVED\')">✅ Approve</button>' +
-                        '<button class="btn-action btn-reject" onclick="updateStatus(' + s.id + ', \'REJECTED\')">❌ Reject</button>' +
-                        '<button class="btn-action btn-add-myth" onclick="openAddFromSubmission(' + s.id + ')">➕ Add as Myth</button>' +
-                    '</div>';
+
+                var textEl = document.createElement('div');
+                textEl.className = 'submission-text';
+                textEl.textContent = s.myth_text;
+
+                var metaEl = document.createElement('div');
+                metaEl.className = 'submission-meta';
+                metaEl.innerHTML = 'Category ID: ' + escapeHtml(s.category_id || 'None') +
+                    (s.source_link ? ' &nbsp;•&nbsp; <a href="' + escapeHtml(s.source_link) + '" target="_blank" style="color:var(--primary);">Source</a>' : '') +
+                    (s.suggested_verdict ? ' &nbsp;•&nbsp; Suggested: <span class="submission-verdict sv-' + escapeHtml(s.suggested_verdict) + '">' + escapeHtml(s.suggested_verdict) + '</span>' : '') +
+                    ' &nbsp;•&nbsp; ' + escapeHtml(new Date(s.created_at || s.submitted_at).toLocaleDateString());
+
+                var statusEl = document.createElement('span');
+                statusEl.className = 'status-pill status-' + escapeHtml(status);
+                statusEl.textContent = status;
+
+                var actions = document.createElement('div');
+                actions.className = 'actions';
+                var approveBtn = document.createElement('button');
+                approveBtn.className = 'btn-action btn-approve';
+                approveBtn.textContent = '✅ Approve';
+                approveBtn.onclick = function() { updateStatus(s.id, 'APPROVED'); };
+                var rejectBtn = document.createElement('button');
+                rejectBtn.className = 'btn-action btn-reject';
+                rejectBtn.textContent = '❌ Reject';
+                rejectBtn.onclick = function() { updateStatus(s.id, 'REJECTED'); };
+                var addBtn = document.createElement('button');
+                addBtn.className = 'btn-action btn-add-myth';
+                addBtn.textContent = '➕ Add as Myth';
+                addBtn.onclick = function() { openAddFromSubmission(s.id); };
+                actions.appendChild(approveBtn);
+                actions.appendChild(rejectBtn);
+                actions.appendChild(addBtn);
+
+                div.appendChild(textEl);
+                div.appendChild(metaEl);
+                div.appendChild(statusEl);
+                div.appendChild(actions);
                 list.appendChild(div);
             });
         }
@@ -327,30 +377,66 @@
                 var div = document.createElement('div');
                 div.className = 'myth-row';
                 div.id = 'myth-row-' + myth.id;
-                div.innerHTML =
-                    '<div class="myth-row-top">' +
-                        '<div class="myth-row-title">' + myth.title + '</div>' +
-                        '<div style="display:flex;gap:6px;align-items:center;flex-shrink:0;">' +
-                            '<span class="verdict-badge verdict-' + myth.verdict + '">' + myth.verdict + '</span>' +
-                            '<span style="font-size:12px;color:var(--text-muted);">' + catName + '</span>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div style="display:flex;gap:8px;align-items:center;">' +
-                        '<button class="btn-action" onclick="toggleEditForm(' + myth.id + ')" style="font-size:12px;padding:5px 10px;">✏️ Edit</button>' +
-                        '<button class="btn-action btn-reject" onclick="deleteMyth(' + myth.id + ')" style="font-size:12px;padding:5px 10px;">🗑 Delete</button>' +
-                        '<span style="font-size:12px;color:var(--text-muted);">👁 ' + (myth.views || 0) + '</span>' +
-                        (myth.featured ? '<span style="font-size:12px;background:#fef3c7;color:#78350f;padding:2px 8px;border-radius:20px;border:1px solid #fcd34d;">🔥 Featured</span>' : '') +
-                    '</div>' +
-                    '<div class="myth-edit-form" id="edit-' + myth.id + '">' +
-                        '<div class="form-row"><label>Title</label><input type="text" id="et-' + myth.id + '" value="' + myth.title.replace(/"/g, '&quot;') + '"></div>' +
-                        '<div class="form-row"><label>Verdict</label><select id="ev-' + myth.id + '"><option value="TRUE"' + (myth.verdict==='TRUE'?' selected':'') + '>✅ True</option><option value="FALSE"' + (myth.verdict==='FALSE'?' selected':'') + '>❌ False</option><option value="PARTIAL"' + (myth.verdict==='PARTIAL'?' selected':'') + '>⚠️ Partial</option></select></div>' +
-                        '<div class="form-row"><label>Summary</label><textarea id="es-' + myth.id + '">' + (myth.summary || '') + '</textarea></div>' +
-                        '<div class="form-row"><label>Verdict Explanation</label><textarea id="eve-' + myth.id + '">' + (myth.verdict_explanation || '') + '</textarea></div>' +
-                        '<div class="form-row"><label>Featured</label><select id="ef-' + myth.id + '"><option value="false"' + (!myth.featured?' selected':'') + '>No</option><option value="true"' + (myth.featured?' selected':'') + '>Yes</option></select></div>' +
-                        '<button class="save-btn" onclick="saveMyth(' + myth.id + ')">Save</button>' +
-                        '<button class="cancel-btn" onclick="toggleEditForm(' + myth.id + ')">Cancel</button>' +
-                        '<span id="myth-msg-' + myth.id + '" style="font-size:12px;margin-left:10px;"></span>' +
-                    '</div>';
+
+                var top = document.createElement('div');
+                top.className = 'myth-row-top';
+                var title = document.createElement('div');
+                title.className = 'myth-row-title';
+                title.textContent = myth.title;
+                var metaGroup = document.createElement('div');
+                metaGroup.style.cssText = 'display:flex;gap:6px;align-items:center;flex-shrink:0;';
+                var verdictBadge = document.createElement('span');
+                verdictBadge.className = 'verdict-badge verdict-' + myth.verdict;
+                verdictBadge.textContent = myth.verdict;
+                var catSpan = document.createElement('span');
+                catSpan.style.cssText = 'font-size:12px;color:var(--text-muted);';
+                catSpan.textContent = catName;
+                metaGroup.appendChild(verdictBadge);
+                metaGroup.appendChild(catSpan);
+                top.appendChild(title);
+                top.appendChild(metaGroup);
+
+                var actionRow = document.createElement('div');
+                actionRow.style.cssText = 'display:flex;gap:8px;align-items:center;';
+                var editBtn = document.createElement('button');
+                editBtn.className = 'btn-action';
+                editBtn.style.cssText = 'font-size:12px;padding:5px 10px;';
+                editBtn.textContent = '✏️ Edit';
+                editBtn.onclick = function() { toggleEditForm(myth.id); };
+                var deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn-action btn-reject';
+                deleteBtn.style.cssText = 'font-size:12px;padding:5px 10px;';
+                deleteBtn.textContent = '🗑 Delete';
+                deleteBtn.onclick = function() { deleteMyth(myth.id); };
+                var viewsSpan = document.createElement('span');
+                viewsSpan.style.cssText = 'font-size:12px;color:var(--text-muted);';
+                viewsSpan.textContent = '👁 ' + (myth.views || 0);
+                actionRow.appendChild(editBtn);
+                actionRow.appendChild(deleteBtn);
+                actionRow.appendChild(viewsSpan);
+                if (myth.featured) {
+                    var featuredBadge = document.createElement('span');
+                    featuredBadge.style.cssText = 'font-size:12px;background:#fef3c7;color:#78350f;padding:2px 8px;border-radius:20px;border:1px solid #fcd34d;';
+                    featuredBadge.textContent = '🔥 Featured';
+                    actionRow.appendChild(featuredBadge);
+                }
+
+                var editForm = document.createElement('div');
+                editForm.className = 'myth-edit-form';
+                editForm.id = 'edit-' + myth.id;
+                editForm.innerHTML =
+                    '<div class="form-row"><label>Title</label><input type="text" id="et-' + myth.id + '" value="' + escapeHtml(myth.title).replace(/"/g, '&quot;') + '"></div>' +
+                    '<div class="form-row"><label>Verdict</label><select id="ev-' + myth.id + '"><option value="TRUE"' + (myth.verdict==='TRUE'?' selected':'') + '>✅ True</option><option value="FALSE"' + (myth.verdict==='FALSE'?' selected':'') + '>❌ False</option><option value="PARTIAL"' + (myth.verdict==='PARTIAL'?' selected':'') + '>⚠️ Partial</option></select></div>' +
+                    '<div class="form-row"><label>Summary</label><textarea id="es-' + myth.id + '">' + escapeHtml(myth.summary || '') + '</textarea></div>' +
+                    '<div class="form-row"><label>Verdict Explanation</label><textarea id="eve-' + myth.id + '">' + escapeHtml(myth.verdict_explanation || '') + '</textarea></div>' +
+                    '<div class="form-row"><label>Featured</label><select id="ef-' + myth.id + '"><option value="false"' + (!myth.featured?' selected':'') + '>No</option><option value="true"' + (myth.featured?' selected':'') + '>Yes</option></select></div>' +
+                    '<button class="save-btn" onclick="saveMyth(' + myth.id + ')">Save</button>' +
+                    '<button class="cancel-btn" onclick="toggleEditForm(' + myth.id + ')">Cancel</button>' +
+                    '<span id="myth-msg-' + myth.id + '" style="font-size:12px;margin-left:10px;"></span>';
+
+                div.appendChild(top);
+                div.appendChild(actionRow);
+                div.appendChild(editForm);
                 list.appendChild(div);
             });
         }
