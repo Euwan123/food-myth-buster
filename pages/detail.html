@@ -16,6 +16,19 @@
          crossorigin="anonymous"></script>
     <style>
         
+        #readingProgress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #7c6bff, #c77dff, #10d988);
+            z-index: 9999;
+            transition: width 0.08s linear;
+            border-radius: 0 2px 2px 0;
+            box-shadow: 0 0 8px rgba(124, 107, 255, 0.7);
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -437,6 +450,100 @@
             transform: translateY(-1px);
         }
 
+        .myth-stats-card {
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .myth-stats-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .stat-row {
+            margin-bottom: 14px;
+        }
+
+        .stat-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .stat-track {
+            height: 7px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .stat-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .stat-numbers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-number-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            text-align: center;
+        }
+
+        .stat-number-val {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+            display: block;
+        }
+
+        .stat-number-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
         .videos-section {
             background: var(--card);
             border: 1.5px solid var(--border);
@@ -847,6 +954,7 @@
 </head>
 
 <body>
+    <div id="readingProgress"></div>
     <header>
         <div class="container">
             <div class="logo">🍎 Food Myth Buster</div>
@@ -1095,14 +1203,7 @@
                 '</div>' +
                 '</div>' +
                 '<div>' +
-                '<div class="sidebar-card">' +
-                '<h3>📌 Quick Facts</h3>' +
-                '<div class="quick-fact"><div><div class="label">Verdict</div><div class="value">' + verdictLabel + '</div></div></div>' +
-                '<div class="quick-fact"><div><div class="label">Category</div><div class="value">' + (myth.categories ? myth.categories.name : 'General') + '</div></div></div>' +
-                '<div class="quick-fact"><div><div class="label">Views</div><div class="value">' + (myth.views || 0) + '</div></div></div>' +
-                '<div class="quick-fact"><div><div class="label">Studies</div><div class="value">' + papers.length + ' research paper' + (papers.length !== 1 ? 's' : '') + '</div></div></div>' +
-                '<div class="quick-fact"><div><div class="label">Videos</div><div class="value">' + videos.length + ' video' + (videos.length !== 1 ? 's' : '') + '</div></div></div>' +
-                '</div>' +
+                buildMythStatsHTML(myth, papers, videos, upVotes, downVotes) +
                 '<div class="sidebar-card">' +
                 '<h3>🔗 Share</h3>' +
                 '<button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href);this.textContent=\'✅ Copied!\'">📋 Copy Link</button>' +
@@ -1161,6 +1262,81 @@
             document.getElementById('mainContent').innerHTML =
                 '<div class="error-state"><div style="font-size:64px;margin-bottom:16px;">😕</div><h2>Oops!</h2><p style="color:var(--text-muted);margin-bottom:24px;">' + msg + '</p><a href="browse.html" style="display:inline-block;padding:12px 24px;background:var(--primary);color:white;border-radius:10px;text-decoration:none;font-weight:600;">Browse All Myths</a></div>';
         }
+
+        function buildMythStatsHTML(myth, papers, videos, upVotes, downVotes) {
+            var totalVotes = upVotes + downVotes;
+            var helpfulPct = totalVotes > 0 ? Math.round(upVotes / totalVotes * 100) : null;
+
+            var createdAt = myth.created_at ? new Date(myth.created_at) : null;
+            var updatedAt = myth.updated_at ? new Date(myth.updated_at) : null;
+            var now = new Date();
+            var daysSinceUpdate = updatedAt ? Math.floor((now - updatedAt) / (1000 * 60 * 60 * 24)) : null;
+            var daysSinceCreated = createdAt ? Math.floor((now - createdAt) / (1000 * 60 * 60 * 24)) : null;
+
+            var freshness = null;
+            var freshnessColor = '#10d988';
+            if (daysSinceUpdate !== null) {
+                if (daysSinceUpdate <= 30)        { freshness = 'Recently updated';  freshnessColor = '#10d988'; }
+                else if (daysSinceUpdate <= 180)  { freshness = 'Updated ' + Math.floor(daysSinceUpdate / 30) + ' months ago'; freshnessColor = '#ffb347'; }
+                else                              { freshness = 'Updated ' + Math.floor(daysSinceUpdate / 365) + 'y+ ago'; freshnessColor = '#ff8c94'; }
+            }
+
+            var viewsBar = Math.min(100, Math.round((myth.views || 0) / 500 * 100));
+
+            var rows = '';
+
+            if (helpfulPct !== null) {
+                var helpColor = helpfulPct >= 70 ? '#10d988' : helpfulPct >= 40 ? '#ffb347' : '#ff5c6b';
+                rows +=
+                    '<div class="stat-row">' +
+                    '<div class="stat-label-row"><span class="stat-label">👍 Helpfulness</span><span class="stat-value" style="color:' + helpColor + '">' + helpfulPct + '%</span></div>' +
+                    '<div class="stat-track"><div class="stat-fill" style="width:' + helpfulPct + '%;background:' + helpColor + '"></div></div>' +
+                    '<div class="stat-meta">' + upVotes + ' found helpful · ' + downVotes + ' did not</div>' +
+                    '</div>';
+            } else {
+                rows +=
+                    '<div class="stat-row">' +
+                    '<div class="stat-label-row"><span class="stat-label">👍 Helpfulness</span><span class="stat-value" style="color:var(--text-muted)">No votes yet</span></div>' +
+                    '<div class="stat-track"><div class="stat-fill" style="width:0%"></div></div>' +
+                    '</div>';
+            }
+
+            rows +=
+                '<div class="stat-row">' +
+                '<div class="stat-label-row"><span class="stat-label">👁 Popularity</span><span class="stat-value">' + (myth.views || 0).toLocaleString() + ' views</span></div>' +
+                '<div class="stat-track"><div class="stat-fill" style="width:' + viewsBar + '%;background:linear-gradient(90deg,#7c6bff,#c77dff)"></div></div>' +
+                (daysSinceCreated !== null ? '<div class="stat-meta">Added ' + daysSinceCreated + ' days ago</div>' : '') +
+                '</div>';
+
+            if (freshness) {
+                rows +=
+                    '<div class="stat-row">' +
+                    '<div class="stat-label-row"><span class="stat-label">🔄 Freshness</span><span class="stat-value" style="color:' + freshnessColor + '">' + freshness + '</span></div>' +
+                    '</div>';
+            }
+
+            var coverageScore = Math.min(100, (papers.length * 20) + (videos.length * 10));
+            var coverageLabel = coverageScore >= 80 ? 'Well covered' : coverageScore >= 40 ? 'Moderate' : 'Needs more sources';
+            var coverageColor = coverageScore >= 80 ? '#10d988' : coverageScore >= 40 ? '#ffb347' : '#ff8c94';
+            rows +=
+                '<div class="stat-row">' +
+                '<div class="stat-label-row"><span class="stat-label">📚 Coverage</span><span class="stat-value" style="color:' + coverageColor + '">' + coverageLabel + '</span></div>' +
+                '<div class="stat-track"><div class="stat-fill" style="width:' + coverageScore + '%;background:' + coverageColor + '"></div></div>' +
+                '<div class="stat-meta">' + papers.length + ' paper' + (papers.length !== 1 ? 's' : '') + ' · ' + videos.length + ' video' + (videos.length !== 1 ? 's' : '') + '</div>' +
+                '</div>';
+
+            return '<div class="myth-stats-card">' +
+                '<h3>📊 Myth Stats</h3>' +
+                rows +
+                '</div>';
+        }
+
+        window.addEventListener('scroll', function () {
+            var scrollTop = window.scrollY;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('readingProgress').style.width = pct + '%';
+        });
 
         init();
     </script>

@@ -64,11 +64,29 @@
             font-size: 14px;
             font-weight: 500;
             transition: all 0.2s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+            transform: translateX(-50%);
+            transition: width 0.2s ease;
         }
 
         nav a:hover {
             background: rgba(124, 107, 255, 0.15);
             color: var(--text);
+        }
+
+        nav a:hover::after {
+            width: 60%;
         }
 
         .btn-login {
@@ -139,8 +157,56 @@
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(80, 60, 200, 0.55) 0%, rgba(100, 50, 140, 0.60) 100%);
+            background: linear-gradient(160deg, rgba(60, 45, 180, 0.68) 0%, rgba(90, 40, 130, 0.72) 50%, rgba(30, 15, 80, 0.55) 100%);
             z-index: 1;
+        }
+
+        .hero-orbs {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.18;
+            animation: orbFloat 8s ease-in-out infinite;
+        }
+
+        .orb1 {
+            width: 320px;
+            height: 320px;
+            background: #7c6bff;
+            top: -80px;
+            left: -60px;
+            animation-delay: 0s;
+        }
+
+        .orb2 {
+            width: 240px;
+            height: 240px;
+            background: #c77dff;
+            top: 30px;
+            right: 60px;
+            animation-delay: 2.5s;
+        }
+
+        .orb3 {
+            width: 180px;
+            height: 180px;
+            background: #6c63ff;
+            bottom: 0;
+            left: 40%;
+            animation-delay: 5s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-28px) scale(1.07); }
         }
 
         .hero-inner h1 {
@@ -250,13 +316,14 @@
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
             border: 2px solid rgba(124, 107, 255, 0.3);
-            transition: all 0.35s;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             backdrop-filter: blur(8px);
         }
 
         .search-bar:focus-within {
-            border-color: rgba(124, 107, 255, 0.8);
-            box-shadow: 0 20px 60px rgba(108, 99, 255, 0.35);
+            border-color: rgba(124, 107, 255, 0.9);
+            box-shadow: 0 0 0 4px rgba(124, 107, 255, 0.18), 0 20px 60px rgba(108, 99, 255, 0.4);
+            transform: scale(1.012);
         }
 
         .search-bar input {
@@ -285,10 +352,149 @@
             font-family: 'Sora', sans-serif;
             transition: background 0.2s;
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-bar button::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            width: 0;
+            height: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .search-bar button:active::after {
+            width: 200px;
+            height: 200px;
+            opacity: 0;
         }
 
         .search-bar button:hover {
             background: var(--primary-dark);
+        }
+
+        .search-wrapper {
+            position: relative;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .search-wrapper .search-bar {
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .autocomplete-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: rgba(18, 14, 38, 0.98);
+            border: 1px solid rgba(124, 107, 255, 0.4);
+            border-radius: 14px;
+            overflow: hidden;
+            z-index: 999;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,107,255,0.1);
+            display: none;
+            animation: dropdownIn 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        .autocomplete-dropdown.open {
+            display: block;
+        }
+
+        @keyframes dropdownIn {
+            from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .autocomplete-header {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(155, 143, 255, 0.6);
+            padding: 10px 16px 6px;
+        }
+
+        .autocomplete-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 16px;
+            cursor: pointer;
+            transition: background 0.15s;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .autocomplete-item:first-of-type {
+            border-top: none;
+        }
+
+        .autocomplete-item:hover, .autocomplete-item.focused {
+            background: rgba(124, 107, 255, 0.12);
+        }
+
+        .autocomplete-item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+            background: rgba(124, 107, 255, 0.1);
+        }
+
+        .autocomplete-item-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .autocomplete-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .autocomplete-item-title mark {
+            background: transparent;
+            color: #9b8fff;
+            font-weight: 700;
+        }
+
+        .autocomplete-item-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .autocomplete-item-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .autocomplete-footer {
+            padding: 8px 16px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 12px;
+            color: rgba(155, 143, 255, 0.5);
+            text-align: center;
         }
 
         .hero-stats {
@@ -298,6 +504,14 @@
             margin-top: 40px;
             flex-wrap: wrap;
         }
+
+        .hero-stat {
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        .hero-stat:nth-child(1) { animation-delay: 0.2s; }
+        .hero-stat:nth-child(2) { animation-delay: 0.35s; }
+        .hero-stat:nth-child(3) { animation-delay: 0.5s; }
 
         .hero-stat-num {
             font-family: 'Sora', sans-serif;
@@ -360,7 +574,7 @@
             border-radius: 16px;
             padding: 22px;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
         }
@@ -387,9 +601,22 @@
         }
 
         .myth-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .myth-card.v-TRUE:hover {
+            box-shadow: 0 16px 40px rgba(16, 217, 136, 0.22), 0 0 0 1px rgba(16, 217, 136, 0.3);
+            border-color: rgba(16, 217, 136, 0.5);
+        }
+
+        .myth-card.v-FALSE:hover {
+            box-shadow: 0 16px 40px rgba(255, 92, 107, 0.22), 0 0 0 1px rgba(255, 92, 107, 0.3);
+            border-color: rgba(255, 92, 107, 0.5);
+        }
+
+        .myth-card.v-PARTIAL:hover {
+            box-shadow: 0 16px 40px rgba(255, 179, 71, 0.22), 0 0 0 1px rgba(255, 179, 71, 0.3);
+            border-color: rgba(255, 179, 71, 0.5);
         }
 
         .myth-card .cat-tag {
@@ -420,10 +647,10 @@
 
         .verdict-badge {
             display: inline-block;
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: 20px;
             font-weight: 700;
-            font-size: 11px;
+            font-size: 12px;
             font-family: 'Sora', sans-serif;
         }
 
@@ -532,13 +759,8 @@
         }
 
         @keyframes spinIcon {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .skeleton {
@@ -549,13 +771,8 @@
         }
 
         @keyframes shimmer {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         .skeleton-card {
@@ -565,52 +782,19 @@
             padding: 22px;
         }
 
-        .sk-tag {
-            height: 12px;
-            width: 60px;
-            margin-bottom: 12px;
-        }
-
-        .sk-title {
-            height: 16px;
-            width: 100%;
-            margin-bottom: 6px;
-        }
-
-        .sk-title2 {
-            height: 16px;
-            width: 65%;
-            margin-bottom: 14px;
-        }
-
-        .sk-badge {
-            height: 24px;
-            width: 70px;
-            border-radius: 20px;
-        }
+        .sk-tag { height: 12px; width: 60px; margin-bottom: 12px; }
+        .sk-title { height: 16px; width: 100%; margin-bottom: 6px; }
+        .sk-title2 { height: 16px; width: 65%; margin-bottom: 14px; }
+        .sk-badge { height: 24px; width: 70px; border-radius: 20px; }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(14px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeOutUp {
-            from {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            to {
-                opacity: 0;
-                transform: translateY(-8px);
-            }
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-8px); }
         }
 
         .fade-out .myth-card {
@@ -635,14 +819,14 @@
             border-radius: 16px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.25s;
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 1.5px solid;
             background: var(--card);
         }
 
         .category-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
         }
 
         .category-card .icon {
@@ -723,6 +907,225 @@
             line-height: 1.5;
         }
 
+        .ai-analyzer-section {
+            padding: 72px 0;
+            background: linear-gradient(180deg, #0f0d1e 0%, #0a0818 100%);
+            border-top: 1px solid var(--border);
+        }
+
+        .ai-analyzer-inner {
+            max-width: 780px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .ai-analyzer-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(124, 107, 255, 0.1);
+            border: 1px solid rgba(124, 107, 255, 0.25);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #9b8fff;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .ai-analyzer-inner h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .ai-analyzer-inner > p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 36px;
+        }
+
+        .ai-input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ai-input-row input {
+            flex: 1;
+            background: rgba(26, 22, 48, 0.8);
+            border: 1.5px solid rgba(124, 107, 255, 0.3);
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-size: 15px;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .ai-input-row input:focus {
+            border-color: rgba(124, 107, 255, 0.7);
+            box-shadow: 0 0 0 3px rgba(124, 107, 255, 0.12);
+        }
+
+        .ai-input-row input::placeholder {
+            color: rgba(200, 195, 220, 0.35);
+        }
+
+        .btn-ai-analyze {
+            background: linear-gradient(135deg, #7c6bff, #c77dff);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-ai-analyze:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(124, 107, 255, 0.45);
+        }
+
+        .btn-ai-analyze:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .ai-result-box {
+            background: rgba(18, 14, 38, 0.9);
+            border: 1px solid rgba(124, 107, 255, 0.2);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: left;
+            display: none;
+            animation: fadeInUp 0.3s ease both;
+        }
+
+        .ai-result-box.visible {
+            display: block;
+        }
+
+        .ai-result-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .ai-verdict-pill {
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+        }
+
+        .ai-verdict-pill.TRUE { background: rgba(16,217,136,0.15); color: #10d988; border: 1px solid rgba(16,217,136,0.3); }
+        .ai-verdict-pill.FALSE { background: rgba(255,92,107,0.15); color: #ff5c6b; border: 1px solid rgba(255,92,107,0.3); }
+        .ai-verdict-pill.PARTIAL { background: rgba(255,179,71,0.15); color: #ffb347; border: 1px solid rgba(255,179,71,0.3); }
+        .ai-verdict-pill.ANALYZING { background: rgba(124,107,255,0.15); color: #9b8fff; border: 1px solid rgba(124,107,255,0.3); }
+
+        .ai-confidence-bar-wrap {
+            flex: 1;
+        }
+
+        .ai-confidence-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .ai-confidence-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .ai-confidence-fill {
+            height: 100%;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #7c6bff, #c77dff);
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            width: 0%;
+        }
+
+        .ai-result-body {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.75;
+            margin-bottom: 18px;
+        }
+
+        .ai-result-body p { margin: 0; }
+
+        .ai-result-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .ai-tag {
+            background: rgba(124,107,255,0.1);
+            border: 1px solid rgba(124,107,255,0.2);
+            color: #9b8fff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .ai-loading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .ai-dots span {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #7c6bff;
+            margin: 0 2px;
+            animation: dotPulse 1.2s ease-in-out infinite;
+        }
+
+        .ai-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .ai-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .ai-disclaimer {
+            font-size: 11px;
+            color: rgba(155,143,255,0.4);
+            margin-top: 14px;
+            text-align: center;
+        }
+
         footer {
             background: #080714;
             border-top: 1px solid var(--border);
@@ -744,18 +1147,76 @@
             margin-bottom: 8px;
         }
 
+        .hamburger {
+            display: none;
+            background: none;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 10px;
+            cursor: pointer;
+            color: var(--text);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            inset: 0;
+            top: 57px;
+            background: rgba(13, 11, 30, 0.98);
+            backdrop-filter: blur(16px);
+            z-index: 999;
+            flex-direction: column;
+            padding: 20px 24px;
+            gap: 4px;
+            border-top: 1px solid var(--border);
+        }
+
+        .mobile-nav.open { display: flex; }
+
+        .mobile-nav a, .mobile-nav button {
+            display: block;
+            padding: 13px 16px;
+            border-radius: 10px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .mobile-nav a:hover { background: rgba(124, 107, 255, 0.12); }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: #9b8fff; }
+
         @media (max-width: 768px) {
-            .hero {
-                height: 480px;
-            }
-
-            .hero h1 {
-                font-size: 34px;
-            }
-
-            .hero-stats {
-                gap: 24px;
-            }
+            .hero { height: 480px; }
+            .hero h1 { font-size: 34px; }
+            .hero-stats { gap: 24px; }
+            nav { display: none; }
+            .hamburger { display: block; }
         }
     </style>
 </head>
@@ -774,14 +1235,29 @@
                 <button id="loginBtn" class="btn-login" style="visibility:hidden;">Login</button>
                 <button id="themeToggle" class="btn-secondary" title="Toggle theme">&#x2600;&#xFE0F;</button>
             </nav>
+            <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">&#x2630;</button>
         </div>
     </header>
+
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">&#x1F3E0; Home</a>
+        <a href="pages/browse.html">&#x1F4DA; Browse Myths</a>
+        <a href="pages/community.html">&#x1F465; Community</a>
+        <a href="pages/resources.html">&#x1F4DA; Resources</a>
+        <a href="pages/contact-and-info.html">&#x1F4EC; Contact &amp; Info</a>
+        <button id="mobileLoginBtn" class="btn-login" style="margin-top:8px;width:100%;text-align:center;" onclick="openAuthOverlay()">Login</button>
+    </div>
 
     <section class="hero">
         <video id="heroBg" class="hero-video"
             src="https://gyrqdwypsqdeeqzmkdze.supabase.co/storage/v1/object/public/assets/Anime-Vid1.mp4" autoplay loop
             muted playsinline preload="auto"></video>
         <div class="hero-overlay"></div>
+        <div class="hero-orbs">
+            <div class="orb orb1"></div>
+            <div class="orb orb2"></div>
+            <div class="orb orb3"></div>
+        </div>
         <button class="volume-btn" id="muteBtn" onclick="toggleMute()">
             <svg id="volIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -796,9 +1272,16 @@
                 <div class="hero-eyebrow">&#x1F52C; Evidence-Based Myth Busting</div>
                 <h1>Is That Food Myth<br>True or False?</h1>
                 <p>Search any food claim and get science-backed answers instantly</p>
+                <div class="search-wrapper">
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder='Try "Does MSG cause headaches?"'>
+                    <input type="text" id="searchInput" placeholder='Try "Does MSG cause headaches?"' autocomplete="off">
                     <button id="searchBtn">&#x1F50D; Search</button>
+                </div>
+                <div class="autocomplete-dropdown" id="autocompleteDropdown">
+                    <div class="autocomplete-header">Suggestions</div>
+                    <div id="autocompleteList"></div>
+                    <div class="autocomplete-footer">Press Enter to search all results</div>
+                </div>
                 </div>
                 <div class="hero-stats">
                     <div class="hero-stat"><span class="hero-stat-num" id="statMyths">&#x2014;</span><span
@@ -931,10 +1414,40 @@
         </div>
     </section>
 
+    <section class="ai-analyzer-section">
+        <div class="container">
+            <div class="ai-analyzer-inner">
+                <div class="ai-analyzer-eyebrow">✨ AI-Powered</div>
+                <h2>Instant Myth Analyzer</h2>
+                <p>Type any food claim and get an AI-powered verdict with explanation, no searching required.</p>
+                <div class="ai-input-row">
+                    <input type="text" id="aiMythInput" placeholder='e.g. "Eating late at night makes you fat"' autocomplete="off">
+                    <button class="btn-ai-analyze" id="aiAnalyzeBtn" onclick="analyzeMyth()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        Analyze
+                    </button>
+                </div>
+                <div class="ai-result-box" id="aiResultBox">
+                    <div id="aiResultContent"></div>
+                </div>
+                <p class="ai-disclaimer">AI analysis is for educational purposes. Always consult a healthcare professional for medical advice.</p>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <p class="logo-footer">&#x1F34E; Food Myth Buster</p>
             <p>&#xA9; 2026 Mapua Malayan Colleges Mindanao. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="pages/browse.html">Browse Myths</a>
+                <a href="pages/community.html">Community</a>
+                <a href="pages/resources.html">Resources</a>
+                <a href="pages/tos.html">Terms of Service</a>
+                <a href="pages/privacy.html">Privacy Policy</a>
+                <a href="https://github.com/Euwan123" target="_blank">&#x1F4BB; GitHub</a>
+                <a href="https://discord.com/channels/1265864190883532872/1459706565308190865" target="_blank">&#x1F4AC; Discord</a>
+            </div>
         </div>
     </footer>
 
@@ -1128,6 +1641,131 @@
 
         loadData();
         loadCategories();
+
+        var acIndex = -1;
+
+        function highlightMatch(text, query) {
+            if (!query) return text;
+            var re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+            return text.replace(re, '<mark>$1</mark>');
+        }
+
+        function renderAutocomplete(myths, query) {
+            var dropdown = document.getElementById('autocompleteDropdown');
+            var list = document.getElementById('autocompleteList');
+            list.innerHTML = '';
+            acIndex = -1;
+            if (!myths.length || !query) { dropdown.classList.remove('open'); return; }
+            myths.forEach(function(myth, i) {
+                var item = document.createElement('div');
+                item.className = 'autocomplete-item';
+                var vl = myth.verdict === 'PARTIAL' ? 'Partial' : myth.verdict;
+                var vColor = myth.verdict === 'TRUE' ? '#10d988' : myth.verdict === 'FALSE' ? '#ff5c6b' : '#ffb347';
+                var vBg = myth.verdict === 'TRUE' ? 'rgba(16,217,136,0.12)' : myth.verdict === 'FALSE' ? 'rgba(255,92,107,0.12)' : 'rgba(255,179,71,0.12)';
+                item.innerHTML =
+                    '<div class="autocomplete-item-icon">' + (myth.categories ? myth.categories.icon || '❓' : '❓') + '</div>' +
+                    '<div class="autocomplete-item-text">' +
+                        '<div class="autocomplete-item-title">' + highlightMatch(myth.title, query) + '</div>' +
+                        '<div class="autocomplete-item-meta">' + (myth.categories ? myth.categories.name : 'General') + '</div>' +
+                    '</div>' +
+                    '<div class="autocomplete-item-badge" style="color:' + vColor + ';background:' + vBg + ';border:1px solid ' + vColor + '40">' + vl + '</div>';
+                item.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    window.location.href = 'pages/detail.html?id=' + myth.id;
+                });
+                list.appendChild(item);
+            });
+            dropdown.classList.add('open');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var q = this.value.trim().toLowerCase();
+            if (!q || q.length < 2) { document.getElementById('autocompleteDropdown').classList.remove('open'); return; }
+            var results = allMyths.filter(function(m) { return m.title.toLowerCase().includes(q); }).slice(0, 6);
+            renderAutocomplete(results, q);
+        });
+
+        document.getElementById('searchInput').addEventListener('keydown', function(e) {
+            var items = document.querySelectorAll('.autocomplete-item');
+            if (e.key === 'ArrowDown') { e.preventDefault(); acIndex = Math.min(acIndex + 1, items.length - 1); items.forEach(function(el, i) { el.classList.toggle('focused', i === acIndex); }); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); acIndex = Math.max(acIndex - 1, -1); items.forEach(function(el, i) { el.classList.toggle('focused', i === acIndex); }); }
+            else if (e.key === 'Escape') { document.getElementById('autocompleteDropdown').classList.remove('open'); }
+            else if (e.key === 'Enter' && acIndex >= 0 && items[acIndex]) { items[acIndex].dispatchEvent(new MouseEvent('mousedown')); }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-wrapper')) document.getElementById('autocompleteDropdown').classList.remove('open');
+        });
+
+        document.getElementById('searchInput').addEventListener('focus', function() {
+            var q = this.value.trim().toLowerCase();
+            if (q.length >= 2) { var r = allMyths.filter(function(m) { return m.title.toLowerCase().includes(q); }).slice(0, 6); renderAutocomplete(r, q); }
+        });
+
+        document.getElementById('aiMythInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') analyzeMyth();
+        });
+
+        async function analyzeMyth() {
+            var input = document.getElementById('aiMythInput');
+            var claim = input.value.trim();
+            if (!claim) return;
+            var btn = document.getElementById('aiAnalyzeBtn');
+            var box = document.getElementById('aiResultBox');
+            var content = document.getElementById('aiResultContent');
+            btn.disabled = true;
+            box.classList.add('visible');
+            content.innerHTML = '<div class="ai-loading"><div class="ai-dots"><span></span><span></span><span></span></div> Analyzing your claim with AI...</div>';
+            try {
+                var res = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1000,
+                        system: 'You are a nutrition science expert. Analyze food/nutrition myths and return ONLY a JSON object with no markdown, no backticks, no preamble. Schema: {"verdict":"TRUE"|"FALSE"|"PARTIAL","confidence":0-100,"summary":"2-3 sentence plain English summary","keyPoints":["point1","point2","point3"],"tags":["tag1","tag2","tag3"]}',
+                        messages: [{ role: 'user', content: 'Analyze this food/nutrition claim: ' + claim }]
+                    })
+                });
+                var data = await res.json();
+                var text = data.content.map(function(b) { return b.text || ''; }).join('');
+                var clean = text.replace(/```json|```/g, '').trim();
+                var result = JSON.parse(clean);
+                var vLabel = result.verdict === 'PARTIAL' ? 'Partially True' : result.verdict === 'TRUE' ? 'True' : 'False';
+                content.innerHTML =
+                    '<div class="ai-result-header">' +
+                        '<div class="ai-verdict-pill ' + result.verdict + '">' + vLabel + '</div>' +
+                        '<div class="ai-confidence-bar-wrap">' +
+                            '<div class="ai-confidence-label">Scientific confidence: ' + result.confidence + '%</div>' +
+                            '<div class="ai-confidence-bar"><div class="ai-confidence-fill" id="confFill"></div></div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="ai-result-body"><p>' + result.summary + '</p>' +
+                        '<ul style="margin:12px 0 0 18px;color:var(--text-muted);font-size:14px;line-height:1.8">' +
+                            result.keyPoints.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
+                        '</ul>' +
+                    '</div>' +
+                    '<div class="ai-result-tags">' + result.tags.map(function(t) { return '<span class="ai-tag">#' + t + '</span>'; }).join('') + '</div>';
+                setTimeout(function() {
+                    var fill = document.getElementById('confFill');
+                    if (fill) fill.style.width = result.confidence + '%';
+                }, 50);
+            } catch(e) {
+                content.innerHTML = '<div style="color:#ff5c6b;font-size:14px;">Could not analyze claim. Please try again.</div>';
+            }
+            btn.disabled = false;
+        }
+
+        function toggleMobileNav() {
+            document.getElementById('mobileNav').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            var nav = document.getElementById('mobileNav');
+            var btn = document.getElementById('hamburgerBtn');
+            if (nav && nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) {
+                nav.classList.remove('open');
+            }
+        });
     </script>
 </body>
 

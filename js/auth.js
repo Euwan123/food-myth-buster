@@ -23,6 +23,7 @@ function showLoader() {
     var el = document.getElementById('pageLoader');
     if (el) el.classList.add('show');
 }
+
 function hideLoader() {
     var el = document.getElementById('pageLoader');
     if (el) el.classList.remove('show');
@@ -75,6 +76,11 @@ async function checkAuth() {
             } else {
                 adminBtn.style.display = 'none';
             }
+        }
+        var mobileLoginBtn = document.getElementById('mobileLoginBtn');
+        if (mobileLoginBtn) {
+            mobileLoginBtn.textContent = 'My Profile';
+            mobileLoginBtn.onclick = function() { showLoader(); window.location.href = (isRoot ? 'pages/' : '') + 'profile.html'; };
         }
     } else {
         if (loginBtn) {
