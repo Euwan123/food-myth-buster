@@ -3,7 +3,8 @@ var themePreferenceKey = 'fmb-theme';
 (function() {
     var stored = localStorage.getItem(themePreferenceKey) || 'system';
     var isDark = stored === 'dark' || (stored === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    if (isDark) document.body.classList.add('dark');
+    var target = document.body || document.documentElement;
+    if (isDark && target) target.classList.add('dark');
 })();
 
 function getSystemPrefersDark() {
@@ -12,7 +13,8 @@ function getSystemPrefersDark() {
 
 function applyTheme(mode) {
     var finalMode = mode === 'system' ? (getSystemPrefersDark() ? 'dark' : 'light') : mode;
-    document.body.classList.toggle('dark', finalMode === 'dark');
+    var target = document.body || document.documentElement;
+    if (target) target.classList.toggle('dark', finalMode === 'dark');
     var toggle = document.getElementById('themeToggle');
     if (toggle) {
         toggle.classList.toggle('active', finalMode === 'dark');

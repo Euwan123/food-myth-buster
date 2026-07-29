@@ -115,6 +115,7 @@
       background: radial-gradient(ellipse at 30% 50%, rgba(124, 107, 255, 0.12), transparent 60%);
     }
 
+    .hero-row,
     .hero-content {
       position: relative;
       display: flex;
@@ -123,6 +124,7 @@
       flex-wrap: wrap;
     }
 
+    .av-wrap,
     .avatar-wrap {
       position: relative;
       width: 96px;
@@ -130,6 +132,7 @@
       flex-shrink: 0;
     }
 
+    .av-ring,
     .avatar-ring {
       width: 96px;
       height: 96px;
@@ -153,6 +156,7 @@
       border-radius: 50%;
     }
 
+    .av-edit,
     .avatar-edit-btn {
       position: absolute;
       bottom: 2px;
@@ -171,9 +175,30 @@
       transition: all 0.2s;
     }
 
+    .av-edit:hover,
     .avatar-edit-btn:hover {
       background: #6254e8;
       transform: scale(1.1);
+    }
+
+    .cover-edit-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.16);
+      background: rgba(0,0,0,0.28);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .cover-edit-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(0,0,0,0.38);
     }
 
     #avatarInput {
@@ -189,6 +214,7 @@
       letter-spacing: -0.5px;
     }
 
+    .hemail,
     .hero-text .email {
       color: rgba(255, 255, 255, 0.5);
       font-size: 13px;
@@ -386,7 +412,8 @@
       }
     }
 
-    .myth-bcard-top {
+    .myth-bcard-top,
+    .bcard-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -394,7 +421,8 @@
       margin-bottom: 6px;
     }
 
-    .myth-bcard-title {
+    .myth-bcard-title,
+    .bcard-title {
       font-family: 'Sora', sans-serif;
       font-size: 14px;
       font-weight: 700;
@@ -402,7 +430,8 @@
       line-height: 1.4;
     }
 
-    .myth-bcard-meta {
+    .myth-bcard-meta,
+    .bcard-meta {
       display: flex;
       gap: 6px;
       align-items: center;
@@ -410,7 +439,8 @@
       color: var(--text-muted);
     }
 
-    .remove-bm {
+    .remove-bm,
+    .rm-bm {
       background: none;
       border: none;
       font-size: 15px;
@@ -422,11 +452,13 @@
       opacity: 0;
     }
 
-    .myth-bcard:hover .remove-bm {
+    .myth-bcard:hover .remove-bm,
+    .myth-bcard:hover .rm-bm {
       opacity: 1;
     }
 
-    .remove-bm:hover {
+    .remove-bm:hover,
+    .rm-bm:hover {
       background: rgba(255, 92, 107, 0.15);
       color: var(--false);
     }
@@ -501,7 +533,8 @@
       border: 1px dashed var(--border);
     }
 
-    .empty-state .emoji {
+    .empty-state .emoji,
+    .empty-state .ei {
       font-size: 44px;
       margin-bottom: 10px;
     }
@@ -575,6 +608,7 @@
       word-break: break-all;
     }
 
+    .sidebar-card.edit-form,
     .edit-section {
       background: var(--card);
       border: 1px solid var(--border);
@@ -583,6 +617,7 @@
       margin-bottom: 16px;
     }
 
+    .sidebar-card.edit-form h3,
     .edit-section h3 {
       font-family: 'Sora', sans-serif;
       font-size: 15px;
@@ -746,13 +781,28 @@
         border-right: none;
       }
 
+      .hero-row,
       .hero-content {
         flex-direction: column;
         align-items: flex-start;
       }
 
+      .avatar-wrap,
+      .av-wrap {
+        margin-bottom: 18px;
+      }
+
+      .hero-text {
+        width: 100%;
+      }
+
       .logout-btn {
         margin-left: 0;
+        width: 100%;
+      }
+
+      .sidebar-card {
+        width: 100%;
       }
     }
   </style>
@@ -839,7 +889,7 @@ function render() {
     var letter = dn.charAt(0).toUpperCase();
     var avatarHTML = (profile && profile.avatar_url) ? '<img src="' + profile.avatar_url + '" alt="avatar">' : letter;
     var coverUrl = (profile && profile.cover_photo) ? profile.cover_photo : '';
-    var isAdmin = (u.user_metadata && u.user_metadata.role === 'admin') || (profile && profile.is_admin);
+    var isAdmin = (profile && profile.is_admin);
     var joinDate = new Date(u.created_at).toLocaleDateString('en-US', {year:'numeric',month:'long'});
     var approved = submissions.filter(function(s){return s.status === 'APPROVED';}).length;
     var flag = (profile && profile.country_flag) || '';
@@ -868,13 +918,13 @@ function render() {
             '</div>' +
         '</div>' +
         '<div class="stats-strip"><div class="container">' +
-            '<div class="stat-item"><span class="stat-n">' + bookmarks.length + '</span><span class="stat-l">Bookmarks</span></div>' +
-            '<div class="stat-item"><span class="stat-n">' + submissions.length + '</span><span class="stat-l">Submitted</span></div>' +
-            '<div class="stat-item"><span class="stat-n">' + approved + '</span><span class="stat-l">Approved</span></div>' +
-            '<div class="stat-item"><span class="stat-n">' + votes.length + '</span><span class="stat-l">Votes Cast</span></div>' +
+            '<div class="stat-item"><span class="stat-num">' + bookmarks.length + '</span><span class="stat-label">Bookmarks</span></div>' +
+            '<div class="stat-item"><span class="stat-num">' + submissions.length + '</span><span class="stat-label">Submitted</span></div>' +
+            '<div class="stat-item"><span class="stat-num">' + approved + '</span><span class="stat-label">Approved</span></div>' +
+            '<div class="stat-item"><span class="stat-num">' + votes.length + '</span><span class="stat-label">Votes Cast</span></div>' +
         '</div></div>' +
         '<div style="background:#0f0d1e;border-top:1px solid var(--border);">' +
-            '<div class="container"><div class="profile-body">' +
+            '<div class="container"><div class="profile-layout">' +
                 '<div>' +
                     '<div class="tabs">' +
                         '<button class="tab-btn active" onclick="switchTab(\'bookmarks\',this)">&#x1F516; Bookmarks <span class="tab-count">' + bookmarks.length + '</span></button>' +
@@ -889,13 +939,13 @@ function render() {
                     '<div class="sidebar-card edit-form">' +
                         '<h3>&#x270F;&#xFE0F; Edit Profile</h3>' +
                         '<div id="editAlert"></div>' +
-                        '<div class="fg"><label>Display Name</label><input type="text" id="editName" value="' + dn + '" maxlength="32"><small>Cannot use "Admin" as name</small></div>' +
-                        '<div class="fg"><label>Bio</label><textarea id="editBio" placeholder="Tell us about yourself...">' + ((profile && profile.bio) || '') + '</textarea></div>' +
-                        '<div class="fg"><label>Birthday</label><input type="date" id="editBirthday" value="' + ((profile && profile.birthday) || '') + '"></div>' +
-                        '<div class="fg"><label>Gender</label><select id="editGender"><option value="">Prefer not to say</option>' +
+                        '<div class="form-group"><label>Display Name</label><input type="text" id="editName" value="' + dn + '" maxlength="32"><small>Cannot use "Admin" as name</small></div>' +
+                        '<div class="form-group"><label>Bio</label><textarea id="editBio" placeholder="Tell us about yourself...">' + ((profile && profile.bio) || '') + '</textarea></div>' +
+                        '<div class="form-group"><label>Birthday</label><input type="date" id="editBirthday" value="' + ((profile && profile.birthday) || '') + '"></div>' +
+                        '<div class="form-group"><label>Gender</label><select id="editGender"><option value="">Prefer not to say</option>' +
                             ['Male','Female','Non-binary','Genderfluid','Agender','Transgender','Other'].map(function(g){ return '<option' + (profile && profile.gender === g ? ' selected' : '') + '>' + g + '</option>'; }).join('') +
                         '</select></div>' +
-                        '<div class="fg"><label>Country</label><select id="editCountry"><option value="">Select country</option>' + countryOpts + '</select></div>' +
+                        '<div class="form-group"><label>Country</label><select id="editCountry"><option value="">Select country</option>' + countryOpts + '</select></div>' +
                         '<button class="save-btn" id="saveBtn" onclick="saveProfile()">Save Changes</button>' +
                     '</div>' +
                     '<div class="sidebar-card">' +
@@ -934,7 +984,7 @@ function renderSubmissions() {
         return '<div class="sub-card" style="animation-delay:' + (i*0.04) + 's">' +
             '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;">' +
                 '<div style="font-family:Sora,sans-serif;font-size:14px;font-weight:700;flex:1;line-height:1.4;">' + s.myth_text + '</div>' +
-                '<span class="status-pill s-' + st + '">' + st + '</span>' +
+                '<span class="status-pill status-' + st + '">' + st + '</span>' +
             '</div>' +
             '<div style="font-size:11px;color:var(--text-muted);">' + ((s.categories && s.categories.icon + ' ' + s.categories.name) || 'General') + (s.suggested_verdict ? ' &bull; ' + s.suggested_verdict : '') + '</div>' +
             '<div style="margin-top:6px;font-size:12px;color:var(--text-muted);">' + (msg[st] || '') + '</div>' +
@@ -946,8 +996,8 @@ function renderVotes() {
     if (!votes.length) return '<div class="empty-state"><div class="ei">&#x1F44D;</div><h3>No votes yet</h3><p>Vote on myths to record your opinion.</p><a href="browse.html">Browse Myths</a></div>';
     return votes.map(function(v, i) {
         return '<div class="myth-bcard" style="animation-delay:' + (i*0.04) + 's;cursor:default;">' +
-            '<div class="bcard-top">' +
-                '<div class="bcard-title" style="cursor:pointer;" onclick="go(\'detail.html?id=' + v.myth_id + '\')">' + (v.myths ? v.myths.title : 'Unknown myth') + '</div>' +
+            '<div class="myth-bcard-top">' +
+                '<div class="myth-bcard-title" style="cursor:pointer;" onclick="go(\'detail.html?id=' + v.myth_id + '\')">' + (v.myths ? v.myths.title : 'Unknown myth') + '</div>' +
                 '<span style="font-size:18px;">' + (v.vote === 'up' ? '&#x1F44D;' : '&#x1F44E;') + '</span>' +
             '</div>' +
         '</div>';
@@ -981,7 +1031,7 @@ async function uploadAvatar(input) {
     await sb.from('user_profiles').upsert({id: currentUser.id, avatar_url: url}, {onConflict: 'id'});
     if (!profile) profile = {};
     profile.avatar_url = url;
-    var ring = document.querySelector('.av-ring');
+    var ring = document.querySelector('.av-ring, .avatar-ring');
     if (ring) ring.innerHTML = '<img src="' + url + '" alt="avatar">';
 }
 
@@ -1004,6 +1054,7 @@ async function uploadCover(input) {
 }
 
     async function saveProfile() {
+    var nameVal = document.getElementById('editName').value.trim();
     var bioVal = document.getElementById('editBio').value.trim();
     var bdayVal = document.getElementById('editBirthday').value;
     var genderVal = document.getElementById('editGender').value;
@@ -1011,9 +1062,11 @@ async function uploadCover(input) {
     var countryVal = countryEl.value;
     var flagVal = countryVal ? (countryEl.options[countryEl.selectedIndex].getAttribute('data-flag') || '') : '';
     var alertEl = document.getElementById('editAlert');
+    var btn = document.getElementById('saveBtn');
 
-    if (nameVal.toLowerCase() === 'admin') { alertEl.innerHTML = '<div class="alert a-err">Display name cannot be "Admin".</div>'; return; }
-    if (nameVal.length < 2) { alertEl.innerHTML = '<div class="alert a-err">Name must be at least 2 characters.</div>'; return; }
+    alertEl.innerHTML = '';
+    if (nameVal.toLowerCase() === 'admin') { alertEl.innerHTML = '<div class="alert alert-error">Display name cannot be "Admin".</div>'; return; }
+    if (nameVal.length < 2) { alertEl.innerHTML = '<div class="alert alert-error">Name must be at least 2 characters.</div>'; return; }
 
     btn.disabled = true; btn.textContent = 'Saving...';
     var res = await sb.from('user_profiles').upsert({
@@ -1028,9 +1081,9 @@ async function uploadCover(input) {
     }, {onConflict: 'id'});
     btn.disabled = false; btn.textContent = 'Save Changes';
     if (res.error) {
-        alertEl.innerHTML = '<div class="alert a-err">Error: ' + res.error.message + '</div>';
+        alertEl.innerHTML = '<div class="alert alert-error">Error: ' + res.error.message + '</div>';
     } else {
-        alertEl.innerHTML = '<div class="alert a-ok">&#x2713; Saved!</div>';
+        alertEl.innerHTML = '<div class="alert alert-success">&#x2713; Saved!</div>';
         if (!profile) profile = {};
         Object.assign(profile, {display_name: nameVal, bio: bioVal, birthday: bdayVal, gender: genderVal, country: countryVal, country_flag: flagVal});
         setTimeout(function(){alertEl.innerHTML='';}, 2500);
@@ -1043,7 +1096,7 @@ async function handleLogout() {
 }
 
 function showNotLoggedIn() {
-    document.getElementById('appRoot').innerHTML = '<div class="not-in"><div style="font-size:56px;margin-bottom:12px;">&#x1F512;</div><h2>Sign in to view your profile</h2><p>Your bookmarks, submissions, and activity are saved here.</p><button onclick="openAuthOverlay()">Sign In / Register</button></div>';
+    document.getElementById('appRoot').innerHTML = '<div class="not-logged-in"><div style="font-size:56px;margin-bottom:12px;">&#x1F512;</div><h2>Sign in to view your profile</h2><p>Your bookmarks, submissions, and activity are saved here.</p><button onclick="openAuthOverlay()">Sign In / Register</button></div>';
 }
 
 function toggleMobileNav() {
